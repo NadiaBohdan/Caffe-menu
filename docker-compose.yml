@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    container_name: 'cafe_app'
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    restart: unless-stopped
+  mysql:
+    image: mysql:8.0
+    container_name: 'mysql_db'
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes: 
+  mysql_data:
+  node_modules:
+  
