@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS cafe_bd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE cafe_bd;
+USE cafe_db;
 
 CREATE TABLE IF NOT EXISTS `user` (
     id INT AUTO_INCREMENT PRIMARY KEY,

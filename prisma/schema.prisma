@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  user
+  admin
+  employee
+}
+
+enum Status {
+  pending
+  processing
+  completed
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  fullName String @map("full_name")
+  password String @db.VarChar(60)
+  phoneNumber String @db.VarChar(20) @unique @map("phone_number")
+  role Role @default(user)
+
+  favourites Favourite[]
+  carts Cart[]
+  orders Order[]
+
+  @@map("user")
+}
+
+model CafeTable {
+  id Int @id @default(autoincrement())
+  tableNumber Int  @unique @map("table_number")
+  isAvailable Boolean @default(true) @map("is_available")
+
+  orders Order[]
+
+  @@map("cafe_table")
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  title String
+  products Product[]
+
+  @@map("category") 
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  title String
+  description String @db.Text
+  price Decimal @db.Decimal(10, 2)
+  imgPath String? @map("img_path")
+  percentDiscount Decimal? @db.Decimal(5, 2) @map("percent_discount")
+  isAvailable Boolean @default(true) @map("is_available")
+
+  categoryId Int @map("category_id")
+  category Category @relation(fields: [categoryId], references: [id], map: "fk_product_category")
+
+  favourites Favourite[] 
+  carts Cart[]
+  orderItems OrderItems[]
+
+  @@map("product")
+}
+
+model Favourite {
+  id Int @id @default(autoincrement())
+  productId Int @map("product_id")
+  userId Int @map("user_id")
+
+  product Product @relation(fields: [productId], references: [id], map: "fk_favourite_product")
+  user User @relation(fields: [userId], references: [id], map: "fk_favourite_user")
+
+  @@unique([userId, productId])
+  @@map("favourite")
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+  quantity Int @default(1)
+  productId Int @map("product_id")
+  userId Int @map("user_id")
+
+  product Product @relation(fields: [productId], references: [id], map: "fk_cart_product")
+  user User @relation(fields: [userId], references: [id], map: "fk_cart_user")
+
+  @@unique([userId, productId])
+  @@map("cart")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  pickupTime DateTime @map("pickup_time")
+  isInCafe Boolean @map("is_in_cafe")
+  status Status @default(pending)
+  userId Int @map("user_id")
+  tableId Int? @map("table_id")
+
+  user User @relation(fields: [userId], references: [id], map: "fk_order_user")
+  table CafeTable? @relation(fields: [tableId], references: [id], map: "fk_order_table")
+
+  orderItems OrderItems[]
+
+  @@map("order")
+}
+
+model OrderItems {
+  id Int @id @default(autoincrement())
+  quantity Int @default(1)
+  priceAtPurchase Decimal @db.Decimal(10, 2) @map("price_at_purchase")
+  orderId Int @map("order_id")
+  productId Int @map("product_id")
+
+  order Order @relation(fields: [orderId], references: [id], map: "fk_orderItems_order")
+  product Product @relation(fields: [productId], references: [id], map: "fk_orderItems_product")
+  
+  @@map("order_items")
+}
