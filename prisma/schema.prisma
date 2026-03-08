@@ -56,7 +56,7 @@ model Product {
   description String @db.Text
   price Decimal @db.Decimal(10, 2)
   imgPath String? @map("img_path")
-  percentDiscount Decimal? @db.Decimal(5, 2) @map("percent_discount")
+  percentDiscount Int? @map("percent_discount")
   isAvailable Boolean @default(true) @map("is_available")
 
   categoryId Int @map("category_id")
@@ -66,6 +66,7 @@ model Product {
   carts Cart[]
   orderItems OrderItems[]
 
+  @@index([categoryId])
   @@map("product")
 }
 
@@ -108,6 +109,9 @@ model Order {
 
   orderItems OrderItems[]
 
+  @@index([createdAt])
+  @@index([status])
+  @@index([userId])
   @@map("order")
 }
 
@@ -121,5 +125,6 @@ model OrderItems {
   order Order @relation(fields: [orderId], references: [id], map: "fk_orderItems_order")
   product Product @relation(fields: [productId], references: [id], map: "fk_orderItems_product")
   
+  @@unique([orderId, productId])
   @@map("order_items")
 }
