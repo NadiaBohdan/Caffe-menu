@@ -1,9 +1,15 @@
 import { z } from 'zod'
 
 export const createUserSchema = z.object({
-    fullName: z.string()
-        .min(4, 'Enter your real name')
+    firstName: z.string()
+        .trim()
+        .min(1, 'Enter your real name')
         .max(100, 'Enter your real name'),
+
+    lastName: z.string()
+        .trim()
+        .min(1, 'Enter your real lastname')
+        .max(100, 'Enter your real lastname'),
 
     password: z.string()
         .min(6, "Too short password")
@@ -11,9 +17,13 @@ export const createUserSchema = z.object({
         .regex(/[A-Z]/, "Password must contain at least one big letter")
         .regex(/[a-z]/, "Password must contain at least one small letter"),
     
+    email: z.string()
+        .trim()
+        .email("Invalid email"),    
+
     phoneNumber: z.string()
         .regex(/^\+380\d{9}$/),
-    
+
     role: z.enum(['user', 'admin', 'employee'])
 })
 
