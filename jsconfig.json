@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ESNext",
+    "checkJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "#config/*": ["./src/configs/*"],
+      "#middlewares/*": ["./src/middlewares/*"],
+      "#user/*": ["./src/modules/user/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
