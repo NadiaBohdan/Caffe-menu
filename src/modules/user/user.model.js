@@ -17,18 +17,20 @@ export const createUserSchema = z.object({
         .regex(/[A-Z]/, "Password must contain at least one big letter")
         .regex(/[a-z]/, "Password must contain at least one small letter"),
     
-    email: z.string()
-        .trim()
-        .email("Invalid email"),    
+    email: z.email("Invalid email"),   
 
     phoneNumber: z.string()
         .regex(/^\+380\d{9}$/),
 
     role: z.enum(['user', 'admin', 'employee'])
-})
+});
+
+export const emailSingleSchema = createUserSchema.pick({ email: true });
+
+export const phoneNumberSingleSchema = createUserSchema.pick({ phoneNumber: true });
 
 export const updateUserSchema = createUserSchema.partial();
 
 export const userIdSchema = z.object({
     id: z.string().regex(/^\d+$/).transform(Number)
-})
+});

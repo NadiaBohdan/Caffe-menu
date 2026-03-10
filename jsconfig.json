@@ -5,7 +5,7 @@
     "checkJs": true,
     "baseUrl": ".",
     "paths": {
-      "#config/*": ["./src/configs/*"],
+      "#configs/*": ["./src/configs/*"],
       "#middlewares/*": ["./src/middlewares/*"],
       "#user/*": ["./src/modules/user/*"]
     }
