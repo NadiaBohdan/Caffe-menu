@@ -14,27 +14,34 @@ export const userRepository = {
     },
 
     /**
-     * @param {string} email 
+     * 
+     * @param {string} identifier 
      * @returns {Promise<Object|null>}
      */
 
-    async findByEmail(email) {
-        return await prisma.user.findUnique({
-            where: { email }
+    async findByIdentifier(identifier) {
+        return await prisma.user.findFirst({
+            where: {
+                OR: [
+                    { email: identifier },
+                    { phoneNumber: identifier }
+                ]
+            }
         })
     },
 
-    /** 
-     * @param {string} phoneNumber 
-     * @returns {Promise<Object|null>}
+    /**
+     * @param {string} field 
+     * @param {string} value 
+     * @returns 
      */
 
-    async findByPhoneNumber(phoneNumber) {
-        return await prisma.user.findUnique({
-            where: { phoneNumber }
+    async findByField(field, value) {
+        return await prisma.user.findFirst({
+            where: { [field]: value }
         })
     },
-
+    
     /**
      * @param {Object} userData
      * @param {string} userData.firstName 
@@ -53,19 +60,33 @@ export const userRepository = {
 
     /**
      * @param {Object} userData
-     * @param {string} userData.firstName 
-     * @param {string} userData.lastName 
-     * @param {string} userData.password 
-     * @param {string} userData.email 
-     * @param {string} userData.phoneNumber 
+     * @param {Partial<{
+     *  firstName: string,
+     *  lastName: string,
+     *  email: string,
+     *  phoneNumber: string,
+     *  password: string
+     * }>} userData
      * @param {number} id
-     * @returns {Promise<Object>}
+     * @returns {Promise<Object|null>}
      */
 
     async update(userData, id) {
         return await prisma.user.update({
             where: { id: id, },
             data: userData
+        })
+    },
+
+    /**
+     * 
+     * @param {number} id 
+     * @returns {Promise<Object|null>} 
+     */
+
+    async delete(id) {
+        return await prisma.user.delete({
+            where: { id }
         })
     }
 }

@@ -1,5 +1,10 @@
-import { createUserSchema, updateUserSchema, emailSingleSchema, phoneNumberSingleSchema, userIdSchema } from "./user.model.js"
+import { userCore, userIdDto, updateUserDto, identifierDto} from "./user.dto.js"
 import { userRepository } from "./user.repository.js" 
+
+const sanitizeUser = (userData) => {
+    const {password, ...userWithoutPassword} = userData;
+    return userWithoutPassword;
+}
 
 export const userService = {
     
@@ -8,50 +13,32 @@ export const userService = {
      */
 
     async createUser(rawUserData) {
-        const userData = createUserSchema.parse(rawUserData);
+        const userData = userCore.parse(rawUserData);
 
-        const isExistEmail = await userRepository.findByEmail(userData.email);
+        const isExistEmail = await userRepository.findByField('email', userData.email);
         if(isExistEmail) throw new Error("User with same email already exists");
 
-        const isExistPhoneNumber = await userRepository.findByPhoneNumber(userData.phoneNumber);
+        const isExistPhoneNumber = await userRepository.findByField('phoneNumber', userData.phoneNumber);
         if(isExistPhoneNumber) throw new Error("user with same phone number already exists");
 
         const newUser = await userRepository.create(userData);
         if(!newUser) throw new Error("Create error");
 
-        const {password, ...userWithoutPassword} = newUser;
-
-        return userWithoutPassword;
+        return sanitizeUser(newUser);
     },
 
     /**
-     * @param {string} email
+     * Get user data by email or phone number
+     * @param {string} identifier 
      */
 
-    async getUserByEmail(email) {
-        emailSingleSchema.parse(email);
-        
-        const user = await userRepository.findByEmail(email);
-        if(!user) return null;
+    async getUserByIdentifier(identifier) {
+        identifierDto.parse(identifier);
 
-        const {password, ...userWihoutPassword} = user;
+        const user = await userRepository.findByIdentifier(identifier);
+        if(!user) throw new Error("User not found");
 
-        return userWihoutPassword;
-    },
-
-    /**
-     * @param {string} phoneNumber 
-     */
-
-    async getUserByPhoneNumber(phoneNumber) {
-        phoneNumberSingleSchema.parse(phoneNumber);
-
-        const user = await userRepository.findByPhoneNumber(phoneNumber);
-        if(!user) return null;
-
-        const {password, ...userWihoutPassword} = user;
-
-        return userWihoutPassword;
+        return user;
     },
 
     /**
@@ -59,19 +46,41 @@ export const userService = {
      */
 
     async getUserById(userId) {
-        const { id } = userIdSchema.parse(userId);
+        const { id } = userIdDto.parse({ id: userId });
 
         const user = await userRepository.findById(id);
         if(!user) return null;
 
-        const {password, ...userWithoutPassword} = user;
-
-        return userWithoutPassword;
+        return sanitizeUser(user);
     },
 
-    async updateUser(rawUserData) {
-        const userData = updateUserSchema.parse(rawUserData);
+    /**
+     * @param {Partial<{
+     *  firstName: string,
+     *  lastName: string,
+     *  email: string,
+     *  phoneNumber: string,
+     *  password: string
+     * }>} rawUserData
+     * @param {number} userId
+     */
 
+    async updateUser(rawUserData, userId) {
+        const { id } = userIdDto.parse({ id: userId })
+        const userData = updateUserDto.parse(rawUserData);
         
+        const updatedUser = await userRepository.update(userData, id);
+        if(!updatedUser) throw new Error("User not found");
+
+        return sanitizeUser(updatedUser);
+    },
+
+    async deleteUser(userId) {
+        const { id } = userIdDto.parse({ id: userId });
+
+        const deletedUser = await userRepository.delete(id);
+        if(!deletedUser) throw new Error("User not found");
+
+        return sanitizeUser(deletedUser);
     }
 }
