@@ -75,6 +75,11 @@ export const userService = {
         return sanitizeUser(updatedUser);
     },
 
+    /**
+     * @param {string} userId 
+     * @returns 
+     */
+
     async deleteUser(userId) {
         const { id } = userIdDto.parse({ id: userId });
 
