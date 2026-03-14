@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import path from "path"
 import cookieParser from "cookie-parser"
 import { fileURLToPath } from "url"
+import apiRouter from "./routes/index.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +16,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser())
 
-app.get('/', (req, res) => {
+app.use('/', apiRouter);
+
+app.get('/ad', (req, res) => {
   res.json({message: "Some message"});
 })
 

@@ -1,17 +1,17 @@
 FROM node:20-alpine
 
-RUN apk add --no-cache openssl
+RUN apk add --no-cache openssl libc6-compat
 
 WORKDIR /app
 
 COPY package*.json ./
-COPY prisma ./prisma/
-
 RUN npm install
 
+COPY prisma ./prisma/
 COPY . .
+
+RUN npx prisma generate
 
 EXPOSE 3000
 
-RUN npx prisma generate
 CMD ["npm", "run", "dev"]

@@ -1,13 +1,15 @@
-version: '3.9'
 services:
   app:
     build: .
     container_name: 'cafe_app'
+    environment:
+      PRISMA_CLIENT_ENGINE_TYPE: "library"
+      PRISMA_QUERY_ENGINE_TYPE: "library"
+      DATABASE_URL: "mysql://cafe_user:${MYSQL_PASSWORD}@mysql:3306/cafe_db"
     ports:
       - 3000:3000
     volumes:
       - .:/app
-      - node_modules:/app/node_modules
     env_file:
       - .env
     depends_on:
@@ -28,5 +30,4 @@ services:
       - mysql_data:/var/lib/mysql
 volumes: 
   mysql_data:
-  node_modules:
   
