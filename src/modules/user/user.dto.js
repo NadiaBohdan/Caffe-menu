@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const userCore = {
+export const userCore = {
     firstName: z.string().trim().min(1, 'Enter your real name').max(100),
     lastName: z.string().trim().min(1, 'Enter your real lastname').max(100),
     email: z.email("Invalid email"),
