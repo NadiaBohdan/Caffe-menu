@@ -51,7 +51,7 @@ model CafeTable {
 model Category {
   id        Int       @id @default(autoincrement())
   title     String
-  sortOrder Int @map("sort_order")
+  sortOrder Int       @map("sort_order")
   products  Product[]
 
   @@map("category")
@@ -63,7 +63,7 @@ model Product {
   description     String  @db.Text
   price           Decimal @db.Decimal(10, 2)
   imgPath         String? @map("img_path")
-  percentDiscount Int?    @map("percent_discount")
+  percentDiscount Int?    @map("percent_discount") @default(0)
   isAvailable     Boolean @default(true) @map("is_available")
 
   categoryId Int      @map("category_id")
