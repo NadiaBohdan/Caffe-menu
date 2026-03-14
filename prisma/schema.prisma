@@ -49,9 +49,10 @@ model CafeTable {
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  title    String
-  products Product[]
+  id        Int       @id @default(autoincrement())
+  title     String
+  sortOrder Int @map("sort_order")
+  products  Product[]
 
   @@map("category")
 }
