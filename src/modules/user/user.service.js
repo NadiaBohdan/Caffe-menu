@@ -1,4 +1,4 @@
-import { userCore, userIdDto, updateUserDto, identifierDto} from "./user.dto.js"
+import { createUser, userIdDto, updateUserDto, identifierDto} from "./user.dto.js"
 import { userRepository } from "./user.repository.js" 
 
 const sanitizeUser = (userData) => {
@@ -13,7 +13,7 @@ export const userService = {
      */
 
     async createUser(rawUserData) {
-        const userData = userCore.parse(rawUserData);
+        const userData = createUser.parse(rawUserData);
 
         const isExistEmail = await userRepository.findByField('email', userData.email);
         if(isExistEmail) throw new Error("User with same email already exists");
