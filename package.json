@@ -29,6 +29,7 @@
     "#configs/*": "./src/configs/*.js",
     "#middlwares/*": "./src/middlwares/*.js",
     "#user/*": "./src/modules/user/*.js",
+    "#auth/*.js": "./src/modules/auth/*.js",
     "#utils/*": "./src/utils/*.js"
   }
 }
