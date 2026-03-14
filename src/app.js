@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser())
 
-app.use('/', apiRouter);
+app.use('/api', apiRouter);
 
 app.get('/ad', (req, res) => {
   res.json({message: "Some message"});
