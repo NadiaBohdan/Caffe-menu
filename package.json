@@ -16,17 +16,18 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.18.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/node": "^25.3.5",
     "nodemon": "^3.1.14",
     "prisma": "^7.4.2"
   },
   "imports": {
     "#configs/*": "./src/configs/*.js",
     "#middlwares/*": "./src/middlwares/*.js",
-    "#user/*": "./src/modules/user/*.js"
+    "#user/*": "./src/modules/user/*.js",
+    "#utils/*": "./src/utils/*.js"
   }
 }
