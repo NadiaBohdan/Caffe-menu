@@ -3,13 +3,18 @@ import prisma from "#configs/prisma";
 export const categoryRepository = {
 
     /**
-     * @param {string} title 
+     * @param {object} data 
+     * @param {string} data.title 
+     * @param {number} data.sortOrder
      * @returns {Promise<Object|null>}
      */
 
-    async create(title) {
+    async create(data) {
         return await prisma.category.create({
-            data: { title }
+            data: { 
+                title: data.title,
+                sortOrder: data.sortOrder
+            }
         })
     },
 
@@ -33,15 +38,20 @@ export const categoryRepository = {
     },
 
     /**
-     * @param {string} title 
-     * @param {number} id 
-     * @returns 
+     * @param {object} data 
+     * @param {string} data.title 
+     * @param {number} data.sortOrder
+     * @param {number} id
+     * @returns {Promise<Object|null>}
      */
 
-    async update(title, id) {
+    async update(data, id) {
         return await prisma.category.update({
             where: { id },
-            data: { title }
+            data: {
+                title: data.title,
+                sortOrder: data.sortOrder
+            }
         })
     }
 }
