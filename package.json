@@ -30,7 +30,7 @@
     "#middlwares/*": "./src/middlwares/*.js",
     "#user/*": "./src/modules/user/*.js",
     "#auth/*": "./src/modules/auth/*.js",
-    "#table/*": "./src/modules/table/*.s",
+    "#table/*": "./src/modules/table/*.js",
     "#utils/*": "./src/utils/*.js"
   }
 }
