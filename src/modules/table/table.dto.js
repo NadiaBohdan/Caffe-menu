@@ -5,7 +5,7 @@ const tableCore = {
     isAvailable: z.boolean()
 }
 
-export const createTableDto = z.object(tableCore);
+export const createTableDto = z.object(tableCore).pick({ tableNumber: true });
 
 export const updateTableDto = z.object(tableCore).partial();
 
