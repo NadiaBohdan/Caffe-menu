@@ -1,4 +1,4 @@
-import prisma from "#configs/prisma.js"
+import prisma from "#configs/prisma"
 
 export const tableRepository = {
     /**

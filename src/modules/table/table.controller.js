@@ -3,7 +3,7 @@ import { tableService } from "./table.service.js";
 export const tableController = {
     async addTable(req, res, next) {
         try {
-            const { tableNumber } = req.body;
+            const { tableNumber } = req.body.data;
 
             const table = await tableService.addTable({ tableNumber });
 
@@ -15,7 +15,8 @@ export const tableController = {
 
     async updateTable(req, res, next) {
         try {
-            const { id, tableNumber, isAvailable } = req.body;
+            const { id } = req.params;
+            const { tableNumber, isAvailable } = req.body.data;
 
             const table = await tableService.updateTable({ id, tableNumber, isAvailable });
 
@@ -27,7 +28,7 @@ export const tableController = {
 
     async deleteTable(req, res, next) {
         try {
-            const { id } = req.body;
+            const { id } = req.params;
 
             await tableService.deleteTable(id);
 
