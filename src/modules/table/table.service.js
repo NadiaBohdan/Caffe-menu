@@ -29,8 +29,9 @@ export const tabelService = {
      */
 
     async updateTable(data) {
-        const parsed = updateStatusDto.parse(data)
+        const parsed = updateTableDto.parse(data)
 
+        //@ts-ignore
         const table = await tableRepository.update(parsed);
         if(!table) throw new Error("Create error");
 
@@ -38,13 +39,13 @@ export const tabelService = {
     },
 
     /**
-     * @param {number} id 
+     * @param {number} rawId 
      */
 
-    async deleteTable(id) {
-        const parsedId = tableIdDto.parse(id);
+    async deleteTable(rawId) {
+        const { id } = tableIdDto.parse(rawId);
 
-        const table = await tableRepository.delete(parsedId);
+        const table = await tableRepository.delete(id);
         if(!table) throw new Error("Delete error");
 
         return table;
@@ -59,6 +60,7 @@ export const tabelService = {
     async changeStatus(data) {
         const parsed = updateStatusDto.parse(data);
 
+        //@ts-ignore
         const table = await tableRepository.setStatus(parsed);
         if(!table) throw new Error("Booking table error");
 
