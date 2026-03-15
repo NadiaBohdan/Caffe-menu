@@ -25,12 +25,12 @@ export const tableService = {
      * @param {object} data
      * @param {string} data.id
      * @param {number} data.tableNumber
-     * @param {boolean} data.boolean 
+     * @param {boolean} data.isAvailable 
      */
 
     async updateTable(data) {
         const parsed = updateTableDto.parse(data);
-        
+
         //@ts-ignore
         const table = await tableRepository.update(parsed);
         if(!table) throw new Error("Create error");
