@@ -1,7 +1,7 @@
 import { createTableDto, updateTableDto, updateStatusDto, tableIdDto } from "./table.dto.js";
 import { tableRepository } from "./table.repository.js";
 
-export const tabelService = {
+export const tableService = {
 
     /**
      * @param {Object} data 
@@ -29,8 +29,8 @@ export const tabelService = {
      */
 
     async updateTable(data) {
-        const parsed = updateTableDto.parse(data)
-
+        const parsed = updateTableDto.parse(data);
+        
         //@ts-ignore
         const table = await tableRepository.update(parsed);
         if(!table) throw new Error("Create error");
@@ -43,7 +43,7 @@ export const tabelService = {
      */
 
     async deleteTable(rawId) {
-        const { id } = tableIdDto.parse(rawId);
+        const { id } = tableIdDto.parse({ id: rawId });
 
         const table = await tableRepository.delete(id);
         if(!table) throw new Error("Delete error");
@@ -54,7 +54,7 @@ export const tabelService = {
     /**
      * @param {object} data
      * @param {string} data.id
-     * @param {boolean} data.isAvailable
+     * @param {boolean} data.status
      */
 
     async changeStatus(data) {
