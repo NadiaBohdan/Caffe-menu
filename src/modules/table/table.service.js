@@ -12,6 +12,9 @@ export const tableService = {
     async addTable(data) {
         const parsed = createTableDto.parse(data);
 
+        const isExist = await tableRepository.getByTableNumber(data);
+        if(isExist) throw new ApiError(409, `Table with number: ${data.tableNumber} already exists`);
+
         const table = await tableRepository.create(parsed);
         if(!table) throw new ApiError(500, "Create error");
 
