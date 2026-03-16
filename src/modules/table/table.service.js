@@ -1,5 +1,6 @@
 import { createTableDto, updateTableDto, updateStatusDto, tableIdDto } from "./table.dto.js";
 import { tableRepository } from "./table.repository.js";
+import { ApiError } from "#utils/error.util";
 
 export const tableService = {
 
@@ -12,7 +13,7 @@ export const tableService = {
         const parsed = createTableDto.parse(data);
 
         const table = await tableRepository.create(parsed);
-        if(!table) throw new Error("Create error");
+        if(!table) throw new ApiError(500, "Create error");
 
         return table;
     },
@@ -33,7 +34,7 @@ export const tableService = {
 
         //@ts-ignore
         const table = await tableRepository.update(parsed);
-        if(!table) throw new Error("Create error");
+        if(!table) throw new ApiError(404, "Table with that id not found");
 
         return table;
     },
@@ -46,7 +47,7 @@ export const tableService = {
         const { id } = tableIdDto.parse({ id: rawId });
 
         const table = await tableRepository.delete(id);
-        if(!table) throw new Error("Delete error");
+        if(!table) throw new ApiError(404, "Table with that id not found");
 
         return table;
     },
@@ -56,13 +57,15 @@ export const tableService = {
      * @param {string} data.id
      * @param {boolean} data.status
      */
+    
+// TO-DO race-condition check
 
     async changeStatus(data) {
         const parsed = updateStatusDto.parse(data);
 
         //@ts-ignore
         const table = await tableRepository.setStatus(parsed);
-        if(!table) throw new Error("Booking table error");
+        if(!table) throw new ApiError(500, "Booking table error");
 
         return table;
     }
