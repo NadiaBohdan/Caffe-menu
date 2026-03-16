@@ -16,6 +16,12 @@ export const tableRepository = {
         return await prisma.cafeTable.findMany()
     },
 
+    async getByTableNumber({ tableNumber }) {
+        return await prisma.cafeTable.findFirst({
+            where: { tableNumber }
+        })
+    },
+
     /**
      * @param {Object}  data
      * @param {number}  data.tableNumber
