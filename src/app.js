@@ -3,7 +3,9 @@ import dotenv from "dotenv"
 import path from "path"
 import cookieParser from "cookie-parser"
 import { fileURLToPath } from "url"
+
 import apiRouter from "./routes/api/index.js"
+import { errorHandler } from "#middlwares/error.middlware"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,10 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser())
 
 app.use('/api', apiRouter);
-
-app.get('/a', (req, res) => {
-  res.json({message: "Кохаю тебе"});
-})
+app.use(errorHandler);
 
 const PORT = Number(process.env.PORT) || 3000;
 
