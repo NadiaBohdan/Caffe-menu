@@ -1,15 +1,16 @@
 import express from "express"
 import { tableController } from "./table.controller.js";
+import { asyncCatch } from "#utils/asyncCatch.util";
 
 const router = express.Router();
 
-router.get('/', tableController.getAllTables);
+router.get('/', asyncCatch(tableController.getAllTables));
 
-router.post('/', tableController.addTable);
+router.post('/', asyncCatch(tableController.addTable));
 
-router.put('/:id', tableController.updateTable);
+router.put('/:id', asyncCatch(tableController.updateTable));
 
-router.delete('/:id', tableController.deleteTable);
+router.delete('/:id', asyncCatch(tableController.deleteTable));
 
 export default router
 

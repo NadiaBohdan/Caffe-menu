@@ -18,8 +18,8 @@ app.use(cookieParser())
 
 app.use('/api', apiRouter);
 
-app.get('/ad', (req, res) => {
-  res.json({message: "Some message"});
+app.get('/a', (req, res) => {
+  res.json({message: "Кохаю тебе"});
 })
 
 const PORT = Number(process.env.PORT) || 3000;
