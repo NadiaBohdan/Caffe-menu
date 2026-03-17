@@ -13,7 +13,7 @@ export const authController = {
             maxAge: 1000 * 60 * 60 * 24
         })
 
-        res.sendStatus(201);
+        res.status(201).json({ success: true });
     },
 
     async login(req, res) {
@@ -28,6 +28,6 @@ export const authController = {
             maxAge: 1000 * 60 * 60 * 24
         })
 
-        res.sendStatus(200);
+        res.status(200).json({ success: true });
     }
 }

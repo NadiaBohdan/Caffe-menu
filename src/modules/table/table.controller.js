@@ -6,7 +6,7 @@ export const tableController = {
 
         const table = await tableService.addTable({ tableNumber });
 
-        res.status(201).json({ message: "Table was successfully added", table });
+        res.status(201).json({ success: true, message: "Table was successfully added", table });
     },
 
     async updateTable(req, res) {
@@ -15,7 +15,7 @@ export const tableController = {
 
         const table = await tableService.updateTable({ id, tableNumber, isAvailable });
 
-        res.status(200).json({ message: "Table was successfully updated", table });
+        res.status(200).json({ success: true, message: "Table was successfully updated", table });
     },
 
     async deleteTable(req, res) {
@@ -28,6 +28,6 @@ export const tableController = {
 
     async getAllTables(req, res) {
         const tables = await tableService.getAll()
-        res.status(200).json({ tables });
+        res.status(200).json({ success: true, tables });
     }
 }
