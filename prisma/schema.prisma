@@ -10,15 +10,27 @@ datasource db {
 }
 
 enum Role {
-  user
   admin
+  courier
   employee
 }
 
-enum Status {
+enum OrderStatus {
   pending
   processing
   completed
+  cancelled
+}
+
+enum TransactionStatus {
+  pending
+  confirm
+  declined
+}
+
+enum PayType {
+  cash
+  card
 }
 
 model User {
@@ -29,13 +41,27 @@ model User {
   email       String   @unique
   phoneNumber String   @unique @map("phone_number") @db.VarChar(20)
   createdAt   DateTime @default(now()) @map("created_at")
-  role        Role     @default(user)
 
-  favourites Favourite[]
-  carts      Cart[]
-  orders     Order[]
+  favourites   Favourite[]
+  carts        Cart[]
+  orders       Order[]
+  transactions Transaction[]
 
   @@map("user")
+}
+
+model Staff {
+  id        Int      @id @default(autoincrement())
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  login     String   @unique
+  password  String   @db.VarChar(60)
+  role      Role
+  createdAt DateTime @default(now()) @map("created_at")
+
+  orders Order[]
+
+  @@map("staff")
 }
 
 model CafeTable {
@@ -63,64 +89,98 @@ model Product {
   description     String  @db.Text
   price           Decimal @db.Decimal(10, 2)
   imgPath         String? @map("img_path")
-  percentDiscount Int?    @map("percent_discount") @default(0)
+  percentDiscount Int?    @default(0) @map("percent_discount")
   isAvailable     Boolean @default(true) @map("is_available")
 
   categoryId Int      @map("category_id")
   category   Category @relation(fields: [categoryId], references: [id], map: "fk_product_category")
 
-  favourites Favourite[]
-  carts      Cart[]
-  orderItems OrderItems[]
+  favourites     Favourite[]
+  carts          Cart[]
+  orderItems     OrderItems[]
+  favouriteItems FavouriteItems[]
+  cartItems      CartItems[]
 
   @@index([categoryId])
   @@map("product")
 }
 
 model Favourite {
-  id        Int      @id @default(autoincrement())
-  productId Int      @map("product_id")
-  userId    Int      @map("user_id")
-  addedAt   DateTime @default(now()) @map("added_at")
+  id     Int @id @default(autoincrement())
+  userId Int
 
-  product Product @relation(fields: [productId], references: [id], map: "fk_favourite_product")
-  user    User    @relation(fields: [userId], references: [id], map: "fk_favourite_user")
+  user User @relation(fields: [userId], references: [id], map: "fk_favorite_user")
 
-  @@unique([userId, productId])
+  favouriteItems FavouriteItems[]
+  product        Product?         @relation(fields: [productId], references: [id])
+  productId      Int?
+
+  @@unique([userId])
   @@map("favourite")
 }
 
+model FavouriteItems {
+  id          Int      @id @default(autoincrement())
+  productId   Int      @map("product_id")
+  favouriteId Int      @map("favourite_id")
+  addedAt     DateTime @default(now()) @map("added_at")
+
+  product   Product   @relation(fields: [productId], references: [id], map: "fk_favouriteItems_product", onDelete: Cascade)
+  favourite Favourite @relation(fields: [favouriteId], references: [id], map: "fk_favouriteItems_favourite", onDelete: Cascade)
+
+  @@unique([favouriteId, productId])
+  @@map("favourite_items")
+}
+
 model Cart {
-  id        Int      @id @default(autoincrement())
-  quantity  Int      @default(1)
-  productId Int      @map("product_id")
-  userId    Int      @map("user_id")
-  addedAt   DateTime @default(now()) @map("added_at")
+  id     Int @id @default(autoincrement())
+  userId Int
 
-  product Product @relation(fields: [productId], references: [id], map: "fk_cart_product")
-  user    User    @relation(fields: [userId], references: [id], map: "fk_cart_user")
+  user User @relation(fields: [userId], references: [id], map: "fk_cart_user")
 
-  @@unique([userId, productId])
+  cartItems CartItems[]
+  product   Product?    @relation(fields: [productId], references: [id])
+  productId Int?
+
+  @@unique([userId])
   @@map("cart")
 }
 
+model CartItems {
+  id        Int      @id @default(autoincrement())
+  quantity  Int      @default(1)
+  productId Int      @map("product_id")
+  cartId    Int      @map("cart_id")
+  addedAt   DateTime @default(now()) @map("added_at")
+
+  product Product @relation(fields: [productId], references: [id], map: "fk_cartItems_product", onDelete: Cascade)
+  cart    Cart    @relation(fields: [cartId], references: [id], map: "fk_cartItems_cart", onDelete: Cascade)
+
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
+
 model Order {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now()) @map("created_at")
-  pickupTime DateTime @map("pickup_time")
-  isInCafe   Boolean  @map("is_in_cafe")
-  status     Status   @default(pending)
-  userId     Int      @map("user_id")
-  tableId    Int?     @map("table_id")
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now()) @map("created_at")
+  pickupTime DateTime    @map("pickup_time")
+  isInCafe   Boolean     @map("is_in_cafe")
+  status     OrderStatus @default(pending)
+  userId     Int         @map("user_id")
+  tableId    Int?        @map("table_id")
+  staffId    Int?        @map("staff_id")
 
   user  User       @relation(fields: [userId], references: [id], map: "fk_order_user")
   table CafeTable? @relation(fields: [tableId], references: [id], map: "fk_order_table")
+  staff Staff?     @relation(fields: [staffId], references: [id], map: "fk_order_staff")
 
-  orderItems OrderItems[]
+  orderItems   OrderItems[]
+  transactions Transaction[]
 
   @@index([createdAt])
   @@index([status])
   @@index([userId])
+  @@index([staffId])
   @@map("order")
 }
 
@@ -136,4 +196,22 @@ model OrderItems {
 
   @@unique([orderId, productId])
   @@map("order_items")
+}
+
+model Transaction {
+  id        Int               @id @default(autoincrement())
+  status    TransactionStatus @default(pending)
+  payType   PayType           @map("pay_type")
+  cost      Decimal           @db.Decimal(10, 2)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+  orderId   Int               @map("order_id")
+  userId    Int               @map("user_id")
+
+  order Order @relation(fields: [orderId], references: [id], map: "fk_transactions_order")
+  user  User  @relation(fields: [userId], references: [id], map: "fk_transactions_user")
+
+  @@index([userId])
+  @@index([orderId])
+  @@map("transactions")
 }
