@@ -3,27 +3,38 @@ import prisma from "#configs/prisma";
 export const categoryRepository = {
 
     /**
-     * @param {object} data 
-     * @param {string} data.title 
-     * @param {number} data.sortOrder
-     * @returns {Promise<Object|null>}
+     * @param {object} data
+     * @param {string} data.title
      */
 
-    async create(data) {
-        return await prisma.category.create({
-            data: { 
-                title: data.title,
-                sortOrder: data.sortOrder
-            }
+    async create({ title }) {
+        return await prisma.$transaction( async (tx) => {
+            const lastCategory = await tx.category.findFirst({
+                orderBy: { sortOrder: "desc" },
+                select: { sortOrder: true }
+            })
+
+            const nextOrder = lastCategory ? lastCategory.sortOrder + 1 : 0
+
+            await tx.category.create({
+                data: { 
+                    title: title,
+                    sortOrder: nextOrder
+                }     
+            })
+
+            const newCategoriesArray = await tx.category.findMany({
+                orderBy: { sortOrder: "asc" }
+            })
+
+            return newCategoriesArray;
         })
     },
 
-    /**
-     * @returns {Promise<Object|null>}
-     */
-
     async getAll() {
-        return await prisma.category.findMany();
+        return await prisma.category.findMany({
+            orderBy: { sortOrder: "asc" }
+        });
     },
 
     /**
@@ -38,7 +49,6 @@ export const categoryRepository = {
 
     /**
      * @param {number} id 
-     * @returns 
      */
 
     async getById(id) {
@@ -49,12 +59,19 @@ export const categoryRepository = {
 
     /**
      * @param {number} id 
-     * @returns {Promise<Object|null>}
      */
 
     async delete(id) {
-        return await prisma.category.delete({
-            where: { id }
+        return await prisma.$transaction( async (tx) => {
+            await tx.category.delete({
+                where: { id }
+            })
+
+            const newCategoriesArray = await tx.category.findMany({
+                orderBy: { sortOrder: "asc" }
+            })
+
+            return newCategoriesArray;
         })
     },
 
@@ -63,13 +80,19 @@ export const categoryRepository = {
      */
 
     async update(categoryArray) {
-        return await prisma.$transaction(
-            categoryArray.map(({ id, ...data }) => 
-                prisma.category.update({
+        return await prisma.$transaction( async (tx) => {
+            for(const { id, ...data } of categoryArray) {
+                await tx.category.update({
                     where: { id },
                     data
                 })
-            )
-        );
+            }
+
+            const newCategoriesArray = await tx.category.findMany({
+                orderBy: { sortOrder: "asc" }
+            })
+
+            return newCategoriesArray;
+        })
     }
 }

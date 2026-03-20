@@ -40,14 +40,13 @@ export const categoryService = {
      * @param {Array} categoryList
      */
 
-    async updateCategory(categoryList) {
+    async updateCategoreis(categoryList) {
         const parsedData = categoryList.map(category => updateCategoryDto.parse(category));
         
         //@ts-ignore
-        const updatedCategorys = await categoryRepository.update(parsedData);
-        if(!updatedCategorys) throw new ApiError(500, `Update error`);
+        const categoriesList = await categoryRepository.update(parsedData);
 
-        return updatedCategorys;
+        return categoriesList;
     },
 
     /**
@@ -59,7 +58,6 @@ export const categoryService = {
 
         //@ts-ignore
         const category = await categoryRepository.delete(parsedId);
-        if(!category) throw new ApiError(404, `Category with id: ${id} do not exists`);
 
         return category
     }

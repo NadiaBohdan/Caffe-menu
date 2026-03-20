@@ -9,7 +9,7 @@ export const categoryIdDto = z.object({
     id: z.string().regex(/^\d+$/).transform(Number)
 });
 
-export const createCategoryDto = z.object(categoryCore);
+export const createCategoryDto = z.object(categoryCore).pick({ title: true });
 
 export const updateCategoryDto = categoryIdDto.extend(categoryCore);
 
