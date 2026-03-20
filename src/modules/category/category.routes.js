@@ -6,7 +6,7 @@ const router = exress.Router();
 
 router.post('/', asyncCatch(categoryController.addCategory));
 
-router.put('/', asyncCatch(categoryController.updateCategory));
+router.put('/', asyncCatch(categoryController.updateCategories));
 
 router.delete('/:id', asyncCatch(categoryController.deleteCategory));
 

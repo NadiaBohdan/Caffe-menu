@@ -2,7 +2,7 @@ import { categoryService } from "./categoty.service.js";
 
 export const categoryController = {
     async addCategory(req, res) {
-        const { categoryData } = req.body;
+        const categoryData = req.body;
 
         const category = await categoryService.addCategory(categoryData);
 
@@ -13,10 +13,10 @@ export const categoryController = {
         })
     },
 
-    async updateCategory(req, res) {
-        const { categoriesData } = req.body;
+    async updateCategories(req, res) {
+        const categoriesData = req.body;
 
-        const categories = await categoryService.updateCategory(categoriesData);
+        const categories = await categoryService.updateCategories(categoriesData);
 
         res.status(200).json({
             message: "Categoryes was updated",
