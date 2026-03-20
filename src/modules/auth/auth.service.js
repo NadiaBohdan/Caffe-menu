@@ -25,7 +25,7 @@ export const authService = {
         const user = await userService.createUser(parsedData);
         if(!user) throw new ApiError(500, "Create user error");
 
-        const token = await generateToken({ id: user.id, role: user.role });
+        const token = await generateToken({ id: user.id });
 
         return token
     },
@@ -45,7 +45,7 @@ export const authService = {
         const isSamePassword = await bcrypt.compare(parsedData.password, user.password);
         if(!isSamePassword) throw new ApiError(400, "Wrong login or password");
 
-        const token = await generateToken({ id: user.id, role: user.role });
+        const token = await generateToken({ id: user.id });
 
         return token;
     }
