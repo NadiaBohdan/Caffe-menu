@@ -38,6 +38,17 @@ export const categoryRepository = {
 
     /**
      * @param {number} id 
+     * @returns 
+     */
+
+    async getById(id) {
+        return await prisma.category.findUnique({
+            where: { id }
+        })
+    },
+
+    /**
+     * @param {number} id 
      * @returns {Promise<Object|null>}
      */
 
@@ -48,20 +59,17 @@ export const categoryRepository = {
     },
 
     /**
-     * @param {object} data 
-     * @param {string} data.title 
-     * @param {number} data.sortOrder
-     * @param {number} id
-     * @returns {Promise<Object|null>}
+     * @param {Array} categoryArray 
      */
 
-    async update(data, id) {
-        return await prisma.category.update({
-            where: { id },
-            data: {
-                title: data.title,
-                sortOrder: data.sortOrder
-            }
-        })
+    async update(categoryArray) {
+        return await prisma.$transaction(
+            categoryArray.map(({ id, ...data }) => 
+                prisma.category.update({
+                    where: { id },
+                    data
+                })
+            )
+        );
     }
 }

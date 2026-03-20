@@ -5,10 +5,11 @@ const categoryCore = {
     sortOrder: z.number().int().nonnegative()
 }
 
-export const createCategoryDto = z.object(categoryCore);
-
-export const updateCategoryDto = z.object(categoryCore).partial();
-
 export const categoryIdDto = z.object({
     id: z.string().regex(/^\d+$/).transform(Number)
 });
+
+export const createCategoryDto = z.object(categoryCore);
+
+export const updateCategoryDto = categoryIdDto.extend(categoryCore);
+

@@ -13,9 +13,54 @@ export const categoryService = {
     async addCategory(data) {
         createCategoryDto.parse(data);
 
+        const isExists = await categoryRepository.getByTitle(data.title);
+        if(isExists) throw new ApiError(409, "Category with same title already exists");
+
         const category = await categoryRepository.create(data);
         if(!category) throw new ApiError(500, "Create error");
 
         return category;
+    },
+
+    async getAll() {
+        return await categoryRepository.getAll();
+    },
+
+    async getById(id) {
+        const parsedId = categoryIdDto.parse(id);
+
+        //@ts-ignore
+        const category = await categoryRepository.getById(parsedId);
+        if(!category) throw new ApiError(404, `Category with id: ${id} do not exists`)
+
+        return category;
+    },
+
+    /**
+     * @param {Array} categoryList
+     */
+
+    async updateCategory(categoryList) {
+        const parsedData = categoryList.map(category => updateCategoryDto.parse(category));
+        
+        //@ts-ignore
+        const updatedCategorys = await categoryRepository.update(parsedData);
+        if(!updatedCategorys) throw new ApiError(500, `Update error`);
+
+        return updatedCategorys;
+    },
+
+    /**
+     * @param {string} id 
+     */
+
+    async deleteCategoty(id) {
+        const parsedId = categoryIdDto.parse(id);
+
+        //@ts-ignore
+        const category = await categoryRepository.delete(parsedId);
+        if(!category) throw new ApiError(404, `Category with id: ${id} do not exists`);
+
+        return category
     }
 }
