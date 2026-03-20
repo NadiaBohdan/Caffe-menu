@@ -27,6 +27,16 @@ export const categoryRepository = {
     },
 
     /**
+     * @param {string} title 
+     */
+
+    async getByTitle(title) {
+        return await prisma.category.findUnique({
+            where: { title }
+        })
+    },
+
+    /**
      * @param {number} id 
      * @returns {Promise<Object|null>}
      */
