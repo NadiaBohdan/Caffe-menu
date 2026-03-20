@@ -5,12 +5,13 @@
     "checkJs": true,
     "baseUrl": ".",
     "paths": {
+      "#utils/*": ["./src/utils/*"],
       "#configs/*": ["./src/configs/*"],
       "#middlewares/*": ["./src/middlewares/*"],
       "#user/*": ["./src/modules/user/*"],
       "#auth/*": ["./src/modules/auth/*"],
       "#table/*": ["./src/modules/table/*"],
-      "#utils/*": ["./src/utils/*"]
+      "#category/*": ["./src/modules/category/*"]
     }
   },
   "exclude": ["node_modules"]

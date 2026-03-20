@@ -26,11 +26,12 @@
     "prisma": "^5.22.0"
   },
   "imports": {
+    "#utils/*": "./src/utils/*.js",
     "#configs/*": "./src/configs/*.js",
     "#middlwares/*": "./src/middlwares/*.js",
     "#user/*": "./src/modules/user/*.js",
     "#auth/*": "./src/modules/auth/*.js",
     "#table/*": "./src/modules/table/*.js",
-    "#utils/*": "./src/utils/*.js"
+    "#category/*": "./src/modules/category/*.js"
   }
 }
