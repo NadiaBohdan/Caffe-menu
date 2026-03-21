@@ -74,7 +74,7 @@ model Staff {
 
 model CafeTable {
   id          Int      @id @default(autoincrement())
-  tableNumber Int      @unique @map("table_number")
+  tableNumber Int      @map("table_number")
   isAvailable Boolean  @default(true) @map("is_available")
   updatedAt   DateTime @updatedAt @map("updated_at")
 

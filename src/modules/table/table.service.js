@@ -12,13 +12,13 @@ export const tableService = {
     async addTable(data) {
         const parsed = createTableDto.parse(data);
 
-        const isExist = await tableRepository.getByTableNumber(data);
+        const isExist = await tableRepository.getByTableNumber(parsed);
         if(isExist) throw new ApiError(409, `Table with number: ${data.tableNumber} already exists`);
 
-        const table = await tableRepository.create(parsed);
-        if(!table) throw new ApiError(500, "Create error");
+        const tablesArray = await tableRepository.create(parsed);
+        if(!tablesArray) throw new ApiError(500, "Create error");
 
-        return table;
+        return tablesArray;
     },
 
     async getAll() {
@@ -36,10 +36,9 @@ export const tableService = {
         const parsed = updateTableDto.parse(data);
 
         //@ts-ignore
-        const table = await tableRepository.update(parsed);
-        if(!table) throw new ApiError(404, "Table with that id not found");
+        const tablesArray = await tableRepository.update(parsed);
 
-        return table;
+        return tablesArray;
     },
 
     /**
@@ -49,10 +48,9 @@ export const tableService = {
     async deleteTable(rawId) {
         const { id } = tableIdDto.parse({ id: rawId });
 
-        const table = await tableRepository.delete(id);
-        if(!table) throw new ApiError(404, "Table with that id not found");
+        const tablesArray = await tableRepository.delete(id);
 
-        return table;
+        return tablesArray;
     },
 
     /**
