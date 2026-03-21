@@ -4,30 +4,42 @@ export const tableController = {
     async addTable(req, res) {
         const { tableNumber } = req.body.data;
 
-        const table = await tableService.addTable({ tableNumber });
+        const tablesArray = await tableService.addTable({ tableNumber });
 
-        res.status(201).json({ success: true, message: "Table was successfully added", table });
+        res.status(201).json({
+            message: "Table was successfully added",
+            tablesArray,
+            success: true
+        });
     },
 
     async updateTable(req, res) {
         const { id } = req.params;
         const { tableNumber, isAvailable } = req.body.data;
 
-        const table = await tableService.updateTable({ id, tableNumber, isAvailable });
+        const tablesArray = await tableService.updateTable({ id, tableNumber, isAvailable });
 
-        res.status(200).json({ success: true, message: "Table was successfully updated", table });
+        res.status(200).json({ 
+            message: "Table was successfully updated", 
+            tablesArray,
+            success: true 
+        });
     },
 
     async deleteTable(req, res) {
         const { id } = req.params;
 
-        await tableService.deleteTable(id);
+        const tablesArray = await tableService.deleteTable(id);
 
-        res.sendStatus(204);
+        res.status(200).json({
+            message: "Table was successfully deleted",
+            tablesArray,
+            success: true
+        });
     },
 
     async getAllTables(req, res) {
-        const tables = await tableService.getAll()
-        res.status(200).json({ success: true, tables });
+        const tablesArray = await tableService.getAll()
+        res.status(200).json({ success: true, tablesArray });
     }
 }

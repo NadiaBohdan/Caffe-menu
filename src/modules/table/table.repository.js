@@ -7,13 +7,23 @@ export const tableRepository = {
      */
 
     async create({ tableNumber }) {
-        return await prisma.cafeTable.create({
-            data: { tableNumber }
+        return await prisma.$transaction( async (tx) => {
+            await tx.cafeTable.create({
+                data: { tableNumber }
+            })
+
+            const newTablesArray = await tx.cafeTable.findMany({
+                orderBy: { tableNumber: "asc" }
+            })
+
+            return newTablesArray;
         })
     },
 
     async getAll() {
-        return await prisma.cafeTable.findMany()
+        return await prisma.cafeTable.findMany({
+            orderBy: { tableNumber: "asc" }
+        })
     },
 
     async getByTableNumber({ tableNumber }) {
@@ -30,9 +40,17 @@ export const tableRepository = {
      */
 
     async update({id, ...data}) {
-        return await prisma.cafeTable.update({
-            where: { id },
-            data: data
+        return await prisma.$transaction( async (tx) => {
+            await tx.cafeTable.update({
+                where: { id },
+                data: data
+            })
+
+            const newTablesArray = await tx.cafeTable.findMany({
+                orderBy: { tableNumber: "asc" }
+            })
+
+            return newTablesArray;
         })
     },
 
@@ -54,8 +72,16 @@ export const tableRepository = {
      */
 
     async delete(id) {
-        return await prisma.cafeTable.delete({
-            where: { id }
+        return await prisma.$transaction( async (tx) => {
+            await tx.cafeTable.delete({
+                where: { id }
+            })
+
+            const newTablesArray = await tx.cafeTable.findMany({
+                orderBy: { tableNumber: "asc" }
+            })
+
+            return newTablesArray;
         })
     }
 }
