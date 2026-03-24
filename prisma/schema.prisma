@@ -39,6 +39,13 @@ enum OrderType {
   Delivery
 }
 
+enum ContactType {
+  phoneNumber
+  email
+  instagram
+  facebook
+}
+
 model User {
   id          Int      @id @default(autoincrement())
   firstName   String   @map("first_name")
@@ -224,4 +231,12 @@ model Transaction {
   @@index([userId])
   @@index([orderId])
   @@map("transactions")
+}
+
+model Contact {
+  id  Int @id @default(autoincrement())
+  name ContactType
+  link String
+
+  @@map("contact")
 }
