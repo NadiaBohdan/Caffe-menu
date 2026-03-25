@@ -6,7 +6,7 @@ const categoryCore = {
 }
 
 export const categoryIdDto = z.object({
-    id: z.string().regex(/^\d+$/).transform(Number)
+    id: z.coerce.number().int().positive()
 });
 
 export const createCategoryDto = z.object(categoryCore).pick({ title: true });

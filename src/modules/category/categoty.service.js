@@ -7,7 +7,6 @@ export const categoryService = {
     /**
      * @param {Object} data
      * @param {string} data.title
-     * @param {Number} data.sortOrder 
      */
 
     async addCategory(data) {
@@ -33,7 +32,6 @@ export const categoryService = {
     async getById(rawId) {
         const { id } = categoryIdDto.parse({ id: rawId });
 
-        //@ts-ignore
         const category = await categoryRepository.getById(id);
         if(!category) throw new ApiError(404, `Category with id: ${id} do not exists`)
 
@@ -47,7 +45,6 @@ export const categoryService = {
     async updateCategories(categoryList) {
         const parsedData = categoryList.map(category => updateCategoryDto.parse(category));
         
-        //@ts-ignore
         const categoriesList = await categoryRepository.update(parsedData);
 
         return categoriesList;
@@ -60,7 +57,6 @@ export const categoryService = {
     async deleteCategoty(rawId) {
         const { id } = categoryIdDto.parse({ id: rawId });
 
-        //@ts-ignore
         const category = await categoryRepository.delete(id);
 
         return category

@@ -2,9 +2,9 @@ import { categoryService } from "./categoty.service.js";
 
 export const categoryController = {
     async addCategory(req, res) {
-        const categoryData = req.body;
+        const { title } = req.body;
 
-        const category = await categoryService.addCategory(categoryData);
+        const category = await categoryService.addCategory({ title });
 
         res.status(201).json({
             message: "Category was created",
@@ -14,9 +14,9 @@ export const categoryController = {
     },
 
     async updateCategories(req, res) {
-        const categoriesData = req.body;
+        const { categoriesArray } = req.body;
 
-        const categories = await categoryService.updateCategories(categoriesData);
+        const categories = await categoryService.updateCategories(categoriesArray);
 
         res.status(200).json({
             message: "Categoryes was updated",

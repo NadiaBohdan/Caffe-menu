@@ -1,5 +1,15 @@
 import prisma from "#configs/prisma";
 
+/**
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx]
+ */
+
+const findAll = async (tx = prisma) => {
+    return await tx.category.findMany({
+        orderBy: { sortOrder: 'asc' }
+    })
+}
+
 export const categoryRepository = {
 
     /**
@@ -23,18 +33,12 @@ export const categoryRepository = {
                 }     
             })
 
-            const newCategoriesArray = await tx.category.findMany({
-                orderBy: { sortOrder: "asc" }
-            })
-
-            return newCategoriesArray;
+            return await findAll(tx)
         })
     },
 
     async getAll() {
-        return await prisma.category.findMany({
-            orderBy: { sortOrder: "asc" }
-        });
+        return await findAll()
     },
 
     /**
@@ -67,11 +71,7 @@ export const categoryRepository = {
                 where: { id }
             })
 
-            const newCategoriesArray = await tx.category.findMany({
-                orderBy: { sortOrder: "asc" }
-            })
-
-            return newCategoriesArray;
+            return await findAll();
         })
     },
 
@@ -88,11 +88,7 @@ export const categoryRepository = {
                 })
             }
 
-            const newCategoriesArray = await tx.category.findMany({
-                orderBy: { sortOrder: "asc" }
-            })
-
-            return newCategoriesArray;
+            return await findAll(tx)
         })
     }
 }
