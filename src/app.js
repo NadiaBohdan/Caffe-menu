@@ -2,9 +2,11 @@ import express from "express"
 import dotenv from "dotenv"
 import path from "path"
 import cookieParser from "cookie-parser"
+import nunjacks from "nunjucks"
 import { fileURLToPath } from "url"
 
 import apiRouter from "./routes/api/index.js"
+import ssrRoutes from "./routes/ssr/index.js"
 import { errorHandler } from "#middlwares/error.middlware"
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,9 +18,19 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cookieParser())
+app.use(cookieParser());
+
+nunjacks.configure(path.join(__dirname, 'views'), {
+  autoescape: true,
+  express: app,
+  watch: true,
+  noCache: true
+})
+
+app.set("view engine", 'njk');
 
 app.use('/api', apiRouter);
+app.use('/', ssrRoutes);
 app.use(errorHandler);
 
 const PORT = Number(process.env.PORT) || 3000;

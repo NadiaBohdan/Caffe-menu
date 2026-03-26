@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -L src/app.js"
+    "dev": "nodemon -L -e js,json,njk src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +33,7 @@
     "#user/*": "./src/modules/user/*.js",
     "#auth/*": "./src/modules/auth/*.js",
     "#table/*": "./src/modules/table/*.js",
-    "#category/*": "./src/modules/category/*.js"
+    "#category/*": "./src/modules/category/*.js",
+    "#SSR/*": "./src/modules/SSR/*.js"
   }
 }

@@ -11,7 +11,8 @@
       "#user/*": ["./src/modules/user/*"],
       "#auth/*": ["./src/modules/auth/*"],
       "#table/*": ["./src/modules/table/*"],
-      "#category/*": ["./src/modules/category/*"]
+      "#category/*": ["./src/modules/category/*"],
+      "#SSR/*": ["./src/modules/SSR/*"]
     }
   },
   "exclude": ["node_modules"]
