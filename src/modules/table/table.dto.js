@@ -6,7 +6,7 @@ const tableCore = {
 }
 
 export const tableIdDto = z.object({
-    id: z.string().regex(/^\d+$/).transform(Number)
+    id: z.coerce.number().int().positive()
 }).required()
 
 export const createTableDto = z.object(tableCore).pick({ tableNumber: true });

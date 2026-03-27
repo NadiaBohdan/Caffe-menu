@@ -43,6 +43,19 @@ export const userService = {
     },
 
     /**
+     * Find user data by email or phone number
+     * @param {string} identifier 
+     */
+
+    async findUserByIdentifier(identifier) {
+        identifierDto.parse(identifier);
+
+        const user = await userRepository.findByIdentifier(identifier);
+
+        return user;
+    },
+
+    /**
      * @param {string} userId
      */
 

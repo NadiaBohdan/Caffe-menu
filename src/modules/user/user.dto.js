@@ -18,5 +18,5 @@ export const identifierDto = z.union([
 ])
  
 export const userIdDto = z.object({
-    id: z.string().regex(/^\d+$/).transform(Number)
+    id: z.coerce.number().int().positive()
 });

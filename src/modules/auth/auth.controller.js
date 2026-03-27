@@ -1,32 +1,25 @@
 import { authService } from "./auth.service.js"
 
+const COOKIE_OPTIONS = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict',
+    maxAge: 1000 * 60 * 60 * 24
+}
+
 export const authController = {
     async register(req, res) {
-        const { registerData } = req.body;
+        const token = await authService.registerUser(req.body);
 
-        const token = await authService.registerUser(registerData);
-
-        res.cookie('accessToken', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
-            maxAge: 1000 * 60 * 60 * 24
-        })
+        res.cookie('accessToken', token, COOKIE_OPTIONS)
 
         res.status(201).json({ success: true });
     },
 
     async login(req, res) {
-        const { loginData } = req.body;
+        const token = await authService.loginUser(req.body);
 
-        const token = await authService.loginUser(loginData);
-
-        res.cookie('accessToken', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
-            maxAge: 1000 * 60 * 60 * 24
-        })
+        res.cookie('accessToken', token, COOKIE_OPTIONS)
 
         res.status(200).json({ success: true });
     }

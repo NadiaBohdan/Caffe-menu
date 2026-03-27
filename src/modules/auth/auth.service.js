@@ -1,5 +1,4 @@
 import { userService } from "#user/user.service";
-import { registerDto, loginDto } from "./auth.dto.js";
 import { generateToken } from "#utils/jwt.util";
 import { ApiError } from "#utils/error.util";
 import bcrypt from "bcrypt"
@@ -16,13 +15,17 @@ export const authService = {
      * @param {string} userData.email
      */
 
-    async registerUser(userData) {
-        const parsedData = registerDto.parse(userData);
+    async registerUser({password, ...userData}) {
+        const isEmailExists = await userService.findUserByIdentifier(userData.email);
+        if(isEmailExists) throw new ApiError(409, "User with same email already exists");
+
+        const isPhoneNumberExists = await userService.findUserByIdentifier(userData.phoneNumber);
+        if(isPhoneNumberExists) throw new ApiError(409, "User with same phone number already exists");
 
         const salt = await bcrypt.genSalt(SALT_ROUNDS);
-        parsedData.password = await bcrypt.hash(parsedData.password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        const user = await userService.createUser(parsedData);
+        const user = await userService.createUser({ password: hashedPassword, ...userData});
         if(!user) throw new ApiError(500, "Create user error");
 
         const token = await generateToken({ id: user.id });
@@ -37,12 +40,10 @@ export const authService = {
      */
 
     async loginUser(userData) {
-        const parsedData = loginDto.parse(userData);
-
-        const user = await userService.getUserByIdentifier(parsedData.identifier);
+        const user = await userService.getUserByIdentifier(userData.identifier);
         if(!user) throw new ApiError(400, "Wrong login or password");
 
-        const isSamePassword = await bcrypt.compare(parsedData.password, user.password);
+        const isSamePassword = await bcrypt.compare(userData.password, user.password);
         if(!isSamePassword) throw new ApiError(400, "Wrong login or password");
 
         const token = await generateToken({ id: user.id });
