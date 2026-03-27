@@ -7,7 +7,7 @@ import { fileURLToPath } from "url"
 
 import apiRouter from "./routes/api/index.js"
 import ssrRoutes from "./routes/ssr/index.js"
-import { errorHandler } from "#middlwares/error.middlware"
+import { errorHandler } from "#middlewares/error.middleware.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

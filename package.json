@@ -27,13 +27,13 @@
     "prisma": "^5.22.0"
   },
   "imports": {
-    "#utils/*": "./src/utils/*.js",
-    "#configs/*": "./src/configs/*.js",
-    "#middlwares/*": "./src/middlwares/*.js",
-    "#user/*": "./src/modules/user/*.js",
-    "#auth/*": "./src/modules/auth/*.js",
-    "#table/*": "./src/modules/table/*.js",
-    "#category/*": "./src/modules/category/*.js",
-    "#SSR/*": "./src/modules/SSR/*.js"
+    "#utils/*": "./src/utils/*",
+    "#configs/*": "./src/configs/*",
+    "#middlewares/*": "./src/middlewares/*",
+    "#user/*": "./src/modules/user/*",
+    "#auth/*": "./src/modules/auth/*",
+    "#table/*": "./src/modules/table/*",
+    "#category/*": "./src/modules/category/*",
+    "#SSR/*": "./src/modules/SSR/*"
   }
 }

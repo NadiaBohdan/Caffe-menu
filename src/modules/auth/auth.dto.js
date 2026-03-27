@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { userCore, identifierDto } from "#user/user.dto"
+import { userCore, identifierDto } from "#user/user.dto.js"
 
 const strongPassword = z.string()
     .min(8, "Password too small")

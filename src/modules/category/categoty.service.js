@@ -1,6 +1,6 @@
 import { categoryRepository } from "./category.repository.js";
 import { categoryIdDto, createCategoryDto, updateCategoryDto } from "./categoty.dto.js";
-import { ApiError } from "#utils/error.util";
+import { ApiError } from "#utils/error.util.js";
 
 export const categoryService = {
 

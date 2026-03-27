@@ -1,6 +1,6 @@
 import { createUser, userIdDto, updateUserDto, identifierDto} from "./user.dto.js"
 import { userRepository } from "./user.repository.js"
-import { ApiError } from "#utils/error.util"; 
+import { ApiError } from "#utils/error.util.js"; 
 
 const sanitizeUser = (userData) => {
     const {password, ...userWithoutPassword} = userData;

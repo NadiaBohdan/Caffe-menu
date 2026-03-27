@@ -1,13 +1,15 @@
-import exress from "express";
+import express from "express";
 import { categoryController } from "./category.controller.js";
-import { asyncCatch } from "#utils/asyncCatch.util";
+import { asyncCatch } from "#utils/asyncCatch.util.js";
+import { validateBody, validateParams } from "#middlewares/validate.middleware.js";
+import { createCategoryDto, updateCategoryDto, categoryIdDto } from "./categoty.dto.js";
 
-const router = exress.Router();
+const router = express.Router();
 
-router.post('/', asyncCatch(categoryController.addCategory));
+router.post('/', validateBody(createCategoryDto), asyncCatch(categoryController.addCategory));
 
-router.put('/', asyncCatch(categoryController.updateCategories));
+router.put('/', validateBody(updateCategoryDto), asyncCatch(categoryController.updateCategories));
 
-router.delete('/:id', asyncCatch(categoryController.deleteCategory));
+router.delete('/:id', validateParams(categoryIdDto), asyncCatch(categoryController.deleteCategory));
 
 export default router;

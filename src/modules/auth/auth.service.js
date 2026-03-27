@@ -1,6 +1,6 @@
-import { userService } from "#user/user.service";
-import { generateToken } from "#utils/jwt.util";
-import { ApiError } from "#utils/error.util";
+import { userService } from "#user/user.service.js";
+import { generateToken } from "#utils/jwt.util.js";
+import { ApiError } from "#utils/error.util.js";
 import bcrypt from "bcrypt"
 
 const SALT_ROUNDS = 10

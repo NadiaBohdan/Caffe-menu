@@ -1,6 +1,6 @@
 import { createTableDto, updateTableDto, updateStatusDto, tableIdDto } from "./table.dto.js";
 import { tableRepository } from "./table.repository.js";
-import { ApiError } from "#utils/error.util";
+import { ApiError } from "#utils/error.util.js";
 
 export const tableService = {
 

@@ -1,4 +1,4 @@
-import { ApiError } from "#utils/error.util";
+import { ApiError } from "#utils/error.util.js";
 import { ZodError } from "zod";
 import { Prisma } from "@prisma/client";
 
