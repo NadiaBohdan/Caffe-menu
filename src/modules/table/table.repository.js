@@ -68,10 +68,11 @@ export const tableRepository = {
     },
 
     /**
-     * @param {number} id 
+     * @param {object} data
+     * @param {number} data.id 
      */
 
-    async delete(id) {
+    async delete({ id }) {
         return await prisma.$transaction( async (tx) => {
             await tx.cafeTable.delete({
                 where: { id }

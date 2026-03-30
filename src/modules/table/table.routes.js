@@ -1,16 +1,18 @@
 import express from "express"
 import { tableController } from "./table.controller.js";
 import { asyncCatch } from "#utils/asyncCatch.util.js";
+import { validateBody, validateParams } from "#middlewares/validate.middleware.js";
+import { createTableDto, updateTableDto, tableIdDto } from "./table.dto.js";
 
 const router = express.Router();
 
 router.get('/', asyncCatch(tableController.getAllTables));
 
-router.post('/', asyncCatch(tableController.addTable));
+router.post('/', validateBody(createTableDto), asyncCatch(tableController.addTable));
 
-router.put('/:id', asyncCatch(tableController.updateTable));
+router.put('/:id', validateBody(updateTableDto), validateParams(tableIdDto), asyncCatch(tableController.updateTable));
 
-router.delete('/:id', asyncCatch(tableController.deleteTable));
+router.delete('/:id', validateParams(tableIdDto), asyncCatch(tableController.deleteTable));
 
 export default router
 
