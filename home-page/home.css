@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+body{
+    background: linear-gradient(#fff ,#fbf8fd, #F9F4FF, #C194D9, #c08ddb);
+    height: auto;
+    flex-direction: column;
+    margin: 0px;
+}
+
+/* Початковий стан: елемент прозорий та трохи зміщений вниз */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease-out;
+}
+
+/* Стан після появи */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+::selection {
+    background-color: #8E4EA0; 
+    color: #ffffff;           
+}
+
+#section-main-information{
+    position: relative;
+}
+
+#main-information{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 64px 0px;
+    gap: 64px 0px;
+}
+
+.title{
+    font-family: "Rubik Maps", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #AB6CBD;
+    text-align: center;
+    font-size: 64px;
+    text-decoration: none;
+    margin: 0px;
+
+}
+
+.main-text{
+    font-family: "Source Serif 4", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: italic;
+    color: #AB6CBD;
+    -webkit-text-stroke: 1px #8E4EA0;
+    text-align: center;  
+    max-width: 1000px;
+    margin: 0 auto; 
+    overflow-wrap: break-word;
+}
+
+#introduction{
+    font-size: 32px;
+}
+
+#introduction-amethyst{
+    color: #8E4EA0;
+    font-size: 32px;
+
+}
+
+#about-us{
+    font-size: 24px;
+}
+
+.about-us{
+    gap: 24px;
+}
+
+#button-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+    width: 506px;
+    padding: 16px;
+    background-color: #E5D0FF;
+    border: solid #FFEAA1 8px;
+    border-radius: 90px;
+    box-shadow: 0px 12px 4px 0px rgba(142, 78, 160, 0.5);
+}
+
+#button-menu:active{
+    transform: translateY(6px);
+    box-shadow: 0px 6px 4px 0px rgba(142, 78, 160, 0.5);
+}
+
+#restaurant-photo{
+    background-image: url("img/restaurantphoto.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 748px;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    height: 88px;
+    background-color: #E5D0FF;
+    z-index: 1;
+}
+
+footer{
+    box-shadow: 0px -1px 32px -8px rgba(0, 0, 0, 0.14);
+    background-color: #C194D9;
+    width: 100%;
+    height: 396px;
+}
+
+#hundred-wines{
+    font-size: 160px;
+}
+
+#varieties-of-wines{
+    font-size: 48px;
+    max-width: 756px;
+    margin: 0 auto; 
+}
+
+#wine-text{
+    font-size: 36px;
+}
+
+#about-wines{
+    display: flex;
+    justify-content:center;
+    gap: 8px;
+    padding: 128px 0px ;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.64);
+    margin-left: 5%; 
+    max-width: 750px; 
+    max-height: 756px;
+    text-align: center;
+    border-radius: 40px; 
+}
+#photoWine{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 642px;
+    object-fit: cover; 
+    z-index: -1;
+    margin: 42px  0px;
+}
+#wine-section {
+    align-items:center;
+    justify-content:end;
+    position: relative;
+    width: 100%;
+    min-height: 758px;
+
+}
+
+
+#photo-wine-left-up{
+    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#photo-wine-right-down{
+    float: right;
+    rotate: 180deg;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: -44px;
+}
+
