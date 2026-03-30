@@ -1,6 +1,8 @@
 export const validateBody = (schema) => (req, res, next) => {
     try {
+        console.log("[INFO] Try validate: ", req.body)
         req.body = schema.parse(req.body);
+        console.log("[INFO] Validate output: ", req.body)
         next()
     } catch(err) {
         next(err);
