@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+body{
+    background: linear-gradient(#fff ,#fbf8fd, #F9F4FF, #C194D9, #c08ddb);
+    height: auto;
+    flex-direction: column;
+    margin: 0px;
+}
+
+.main-text{
+    font-family: "Source Serif 4", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: #000000;
+}
+
+.title{
+    font-family: "Rubik Maps", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #AB6CBD;
+    text-align: center;
+    font-size: 64px;
+    text-decoration: none;
+    margin: 0px;
+
+}

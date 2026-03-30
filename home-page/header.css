@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap');
+
+header{
+    position: fixed;
+    width: 100%;
+    height: 88px;
+    background-color: #E5D0FF;
+    z-index: 1000;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    
+}
+
+
+#logo {
+  height: 88px;
+  width: auto;
+}
+
+#nav-ul{
+    display: flex;
+    list-style: none;
+    
+}
+
+#nav-ul li{
+    margin: 0 80px;
+}
+
+#nav-ul li a{
+    color: #8E4EA0;
+    font-family: "Source Serif 4", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    font-size: 32px;
+    text-decoration: none;
+}
+
+#nav-menu{
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between; /* Лого слева, меню в центре, кнопка справа */
+    align-items: center;
+}
+
+/* Посилання 
+.nav a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  transition: 0.3s;
+}
+
+ Hover ефект 
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: white;
+  transition: 0.3s;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+.nav a:hover {
+  opacity: 0.8;
+}

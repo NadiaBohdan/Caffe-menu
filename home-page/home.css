@@ -1,12 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 
-body{
-    background: linear-gradient(#fff ,#fbf8fd, #F9F4FF, #C194D9, #c08ddb);
-    height: auto;
-    flex-direction: column;
-    margin: 0px;
-}
 
 /* Початковий стан: елемент прозорий та трохи зміщений вниз */
 .reveal {
@@ -38,21 +30,9 @@ body{
     gap: 64px 0px;
 }
 
-.title{
-    font-family: "Rubik Maps", system-ui;
-    font-weight: 400;
-    font-style: normal;
-    color: #AB6CBD;
-    text-align: center;
-    font-size: 64px;
-    text-decoration: none;
-    margin: 0px;
 
-}
 
 .main-text{
-    font-family: "Source Serif 4", serif;
-    font-optical-sizing: auto;
     font-weight: 600;
     font-style: italic;
     color: #AB6CBD;
@@ -108,20 +88,7 @@ body{
     height: 748px;
 }
 
-header{
-    position: fixed;
-    width: 100%;
-    height: 88px;
-    background-color: #E5D0FF;
-    z-index: 1;
-}
 
-footer{
-    box-shadow: 0px -1px 32px -8px rgba(0, 0, 0, 0.14);
-    background-color: #C194D9;
-    width: 100%;
-    height: 396px;
-}
 
 #hundred-wines{
     font-size: 160px;
