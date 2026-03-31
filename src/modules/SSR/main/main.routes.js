@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get('/', asyncCatch(mainSSRController.renderMainpage));
 
-router.get('/menu', asyncCatch());
+router.get('/menu', asyncCatch(mainSSRController.renderMenu));
 
-router.get('/menu/:id', asyncCatch());
+router.get('/menu/:id', asyncCatch(mainSSRController.renderViewProduct));
 
 router.get('favourite', asyncCatch());
 
