@@ -104,6 +104,7 @@ model Product {
   id              Int      @id @default(autoincrement())
   title           String
   description     String   @db.Text
+  sortOrder       Int      @map("sort_order")
   price           Decimal  @db.Decimal(10, 2)
   imgPath         String?  @map("img_path")
   percentDiscount Int      @default(0) @map("percent_discount")
@@ -234,7 +235,7 @@ model Transaction {
 }
 
 model Contact {
-  id  Int @id @default(autoincrement())
+  id   Int         @id @default(autoincrement())
   name ContactType
   link String
 

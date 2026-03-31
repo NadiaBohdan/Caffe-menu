@@ -13,12 +13,6 @@ export const productRepository = {
             await tx.product.create({
                 data: { ...data, sortOrder}
             })
-
-            const newProductArray = await tx.product.findMany( {
-                orderBy: { sortOrder: "asc" }
-            })
-
-            return newProductArray;
         })
     },
 
