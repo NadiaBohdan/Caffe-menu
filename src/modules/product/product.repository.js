@@ -16,9 +16,26 @@ export const productRepository = {
         })
     },
 
-    async getAll() {
+    async getByPagination({ lastCursor, limit, lastId }) {
+        if(!lastId) {
+            return await prisma.product.findMany({
+                take: limit,
+                orderBy: { sortOrder: "asc" }
+            })
+        }
+
         return await prisma.product.findMany({
-            orderBy: { sortOrder: "asc" }
+            take: limit,
+            skip: 1,
+            cursor: {
+                sortOrder_id: {
+                    sortOrder: lastCursor,
+                    id: lastId
+                }
+            },
+            orderBy: {
+                sortOrder: "asc"
+            }
         })
     },
 

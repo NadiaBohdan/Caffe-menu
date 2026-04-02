@@ -118,6 +118,7 @@ model Product {
   favouriteItems FavouriteItems[]
   cartItems      CartItems[]
 
+  @@unique([sortOrder, id])
   @@index([categoryId])
   @@map("product")
 }
