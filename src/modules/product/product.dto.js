@@ -18,3 +18,9 @@ export const productIdDto = z.object({
 export const createProductDto = productCore.omit({ isAvailable: true });
 
 export const updateProductDto = productCore.partial();
+
+export const cursorPaginationDto = z.object({
+    lastSortOrder: z.coerce.number().int().nonnegative().optional(),
+    lastId: z.coerce.number().int().positive().optional(),
+    limit: z.coerce.number().int().positive().max(100).default(10)
+})

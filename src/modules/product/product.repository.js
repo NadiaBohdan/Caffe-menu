@@ -30,9 +30,14 @@ export const productRepository = {
 
     async update(productArray) {
         return await prisma.$transaction( async (tx) => {
-            productArray.map(product => {
-                
-            })
+            return await Promise.all(
+                productArray.map(( {id, ...product }) => {
+                    return tx.product.update({
+                        where: { id },
+                        data: product
+                    })
+                })
+            )
         })
     }
 }
