@@ -113,7 +113,7 @@ model Product {
   categoryId Int      @map("category_id")
   fileId     Int?     @unique @map("file_id")
   category   Category @relation(fields: [categoryId], references: [id], map: "fk_product_category")
-  file       File     @relation(fields: [fileId], references: [id], map: "fk_product_file")
+  file       File?     @relation(fields: [fileId], references: [id], map: "fk_product_file")
 
   orderItems     OrderItems[]
   favouriteItems FavouriteItems[]
