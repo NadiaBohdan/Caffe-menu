@@ -12,7 +12,8 @@
       "#auth/*": ["./src/modules/auth/*"],
       "#table/*": ["./src/modules/table/*"],
       "#category/*": ["./src/modules/category/*"],
-      "#SSR/*": ["./src/modules/SSR/*"]
+      "#SSR/*": ["./src/modules/SSR/*"],
+      "#product/*": ["./src/modules/product/*"],
     }
   },
   "exclude": ["node_modules"]
