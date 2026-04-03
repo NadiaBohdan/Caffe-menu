@@ -24,3 +24,12 @@ export const cursorPaginationDto = z.object({
     lastId: z.coerce.number().int().positive().optional(),
     limit: z.coerce.number().int().positive().max(100).default(10)
 })
+
+export const fileDto = z.object({
+    fieldname: z.string(),
+    originalname: z.string(),
+    encoding: z.string(),
+    mimetype: z.string().refine((type) => type.startsWith('image/'), "File must be a photo"),
+    size: z.number().max(5 * 1024 * 1024, "File too large"),
+    buffer: z.any().refine((buf) => buf instanceof Buffer, "Invalid buffer")
+})
