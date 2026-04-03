@@ -59,7 +59,8 @@ export const productRepository = {
 
     async getById(id) {
         return await prisma.product.findUnique({
-            where: { id }
+            where: { id },
+            include: { file: true }
         })
     },
 
