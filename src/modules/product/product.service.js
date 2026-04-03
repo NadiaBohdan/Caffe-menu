@@ -18,7 +18,7 @@ export const productService = {
         
             const { buffer, ...cleanData } = data;
 
-            const dbData = { 
+            const payload = { 
                 ...cleanData, 
                 ...(uploadData && {
                     fileURL: uploadData.secure_url,
@@ -26,7 +26,7 @@ export const productService = {
                 }) 
             };
 
-            const product = await productRepository.create(dbData);
+            const product = await productRepository.create(payload);
             return product;
         } catch(err) {
             if(uploadData?.public_id) {
@@ -37,6 +37,7 @@ export const productService = {
             throw new ApiError(500, err.message || "Internal Server Error");
         }
     },
+
 
     async getPaginated(cursorData) {
         const productList = await productRepository.getByPagination(cursorData);

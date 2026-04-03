@@ -1,6 +1,21 @@
 import prisma from "#configs/prisma.js";
 
+/**
+ * @typedef {import('@prisma/client').Product} Product
+ * @typedef {import('@prisma/client').File} File
+ */
+
 export const productRepository = {
+    /**
+     * @param {Object} data
+     * @param {string} data.title
+     * @param {string} data.description
+     * @param {number|import('@prisma/client').Prisma.Decimal} data.price
+     * @param {number} data.categoryId
+     * @param {string} data.fileURL
+     * @param {string} data.publicId
+     */
+
     async create(data) {
         const { fileURL, publicId, ...productData } = data;
 
@@ -21,6 +36,13 @@ export const productRepository = {
             })
         })
     },
+
+    /**
+     * @param {Object} cursorData
+     * @param {number} [cursorData.lastCursor]
+     * @param {number} [cursorData.lastId]
+     * @param {number} cursorData.limit
+     */
 
     async getByPagination({ lastCursor, limit, lastId }) {
         if(!lastId) {
@@ -69,29 +91,40 @@ export const productRepository = {
         })
     },
 
+    /**
+     * @param {Array<Partial<Product> & { fileURL?: string, publicId?: string, fileId?: number }>} productArray
+     */
+
     async update(productArray) {
-        return await prisma.$transaction( async (tx) => {
-            return await Promise.all(
-                productArray.map( async ( {id, ...product }) => {
-                    const { fileURL, publicId, fileId, ...productData } = product;
+    return await prisma.$transaction(async (tx) => {
+        return await Promise.all(
+            productArray.map(async ({ id, ...product }) => {
+                const { fileURL, publicId, fileId, ...productData } = product;
 
-                    if(fileURL && publicId && fileId) {
-                        const fileData = await tx.file.update({
-                            where: { id: fileId },
-                            data: { fileURL, publicId }
-                        })
+                if (fileURL && publicId && fileId) {
+                    await tx.file.update({
+                        where: { id: fileId },
+                        data: { fileURL, publicId }
+                    });
+                }
+                
+                return tx.product.update({
+                    where: { id },
+                    data: {
+                        ...productData,
+                        ...(fileURL && { fileId })
+                    },
+                    include: { file: true }
+                });
+            })
+        );
+    });
+},
 
-                        productData.fileId = fileData.id
-                    }
-                    
-                    return tx.product.update({
-                        where: { id },
-                        data: productData
-                    })
-                })
-            )
-        })
-    },
+    /**
+     * @param {number} id
+     * @returns {Promise<Product>}
+     */
 
     async delete(id) {
         return await prisma.product.delete({
