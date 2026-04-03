@@ -18,3 +18,13 @@ export const uploadToCloudinary = (fileBuffer, folder) => {
         streamifier.createReadStream(fileBuffer).pipe(uploadStream);
     })
 }
+
+export const deleteFromCloudinary = async (publicId) => {
+    try {
+        if(!publicId) return null;
+        const result = await cloudinary.uploader.destroy(publicId);
+        return result;
+    } catch(err) {
+        console.log(`[ ERROR ] Failed to delete: ${publicId}, ${err.message}`);
+    }
+}
