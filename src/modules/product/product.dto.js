@@ -17,6 +17,13 @@ export const productIdDto = z.object({
 
 export const createProductDto = productCore.omit({ isAvailable: true, sortOrder: true });
 
+export const updateProductSortDto = z.array(
+    z.object({
+        id: z.coerce.number().int().positive(),
+        sortOrder: z.coerce.number().int().nonnegative()
+    })
+);
+
 export const updateProductDto = productCore.partial();
 
 export const cursorPaginationDto = z.object({

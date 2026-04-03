@@ -24,7 +24,7 @@ export const validateParams = (schema) => (req, res, next) => {
     }
 }
 
-export const validateFile = (schema, isRequired) => (req, res, next) => {
+export const validateFile = (schema, isRequired = false) => (req, res, next) => {
     try {
         if(!req.file) {
             if(isRequired) throw new ApiError(400, "Invalid data");
