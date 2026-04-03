@@ -26,7 +26,8 @@ export const productRepository = {
         if(!lastId) {
             return await prisma.product.findMany({
                 take: limit,
-                orderBy: { sortOrder: "asc" }
+                orderBy: { sortOrder: "asc" },
+                include: { file: true }
             })
         }
 
@@ -41,6 +42,9 @@ export const productRepository = {
             },
             orderBy: {
                 sortOrder: "asc"
+            },
+            include: {
+                file: true
             }
         })
     },
@@ -53,7 +57,8 @@ export const productRepository = {
 
     async getByCategory(categoryId) {
         return await prisma.product.findMany({
-            where: { categoryId }
+            where: { categoryId },
+            include: { file: true }
         })
     },
 
