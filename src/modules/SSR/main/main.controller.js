@@ -1,26 +1,61 @@
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        res.render("home")
+        const linkName = 'home';
+
+        res.render(linkName, {
+            link: linkName
+        })
     },
 
     async renderMenu(req, res) {
-        res.render("menu")
+        const linkName = 'menu';
+
+        res.render(linkName, {
+            link: linkName
+        })
     },
 
     async renderViewProduct(req, res) {
-        res.redner("view-menu", {
+        const linkName = 'view-menu';
+
+        res.render(linkName, {
             title: "Cesar",
-            description: "lorem ya ne pomnu yak robiti avtomatichnu generaciu textu dlia opisu tak sho bude otaka ot baida i! sadasd asdas dasdas dasdadwa dasdadwad asdawda sdawda dasdawdawfaf asfafwafasfas fafw asd asda sdasd asdas ddasaasdasdasdasdasdasdasdasda sda sd asdasdwadasd asdwa",
+            description: "Класичний салат Цезар з куркою гриль, свіжим листям салату та фірмовим соусом.",
             price: 190,
-            mass: 200
+            mass: 200,
+            link: linkName
         })
     },
 
     async renderLogin(req, res) {
-        res.render("login")
+        const linkName = 'login';
+        
+        res.render(linkName, {
+            link: linkName
+        })
     },
 
     async renderRegister(req, res) {
-        res.render('register')
+        const linkName = 'sign-up';
+
+        res.render(linkName, {
+            link: linkName
+        })
+    },
+
+    async renderAccount(req, res) {
+        const linkName = 'account';
+        
+        res.render(linkName, {
+            link: linkName
+        })
+    },
+
+    async renderContact(req, res) {
+        const linkName = 'contact';
+
+        res.render(linkName, {
+            link: linkName
+        })
     }
 }

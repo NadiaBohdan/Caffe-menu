@@ -14,7 +14,7 @@ router.get('favourite', asyncCatch());
 
 router.get('/cart', asyncCatch());
 
-router.get('/contact', asyncCatch());
+router.get('/contact', asyncCatch(mainSSRController.renderContact));
 
 router.get('/orders', asyncCatch());
 
@@ -22,12 +22,10 @@ router.get('/orders/:id', asyncCatch());
 
 router.get('/checkout-order', asyncCatch());
 
-router.get('/login', asyncCatch());
+router.get('/login', asyncCatch(mainSSRController.renderLogin));
 
-router.get('/login', asyncCatch());
+router.get('/sign-up', asyncCatch(mainSSRController.renderRegister));
 
-router.get('/register', asyncCatch());
-
-router.get('/account', asyncCatch());
+router.get('/account', asyncCatch(mainSSRController.renderAccount));
 
 export default router;
