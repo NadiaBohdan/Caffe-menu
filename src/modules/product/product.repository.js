@@ -45,6 +45,12 @@ export const productRepository = {
         })
     },
 
+    async getByCategory(categoryId) {
+        return await prisma.product.findMany({
+            where: { categoryId }
+        })
+    },
+
     async getById(id) {
         return await prisma.product.findUnique({
             where: { id }
