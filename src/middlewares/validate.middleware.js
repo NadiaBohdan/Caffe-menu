@@ -17,3 +17,14 @@ export const validateParams = (schema) => (req, res, next) => {
         next(err);
     }
 }
+
+export const validateFile = (schema) => (req, res, next) => {
+    try {
+        if(!req.file) return next();
+
+        req.file = schema.parse(req.file);
+        next()
+    } catch(err) {
+        next(err)
+    }
+}
