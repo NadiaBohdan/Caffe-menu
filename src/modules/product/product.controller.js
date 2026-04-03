@@ -2,7 +2,7 @@ import { productService } from "./product.service.js";
 
 export const productController = {
     async addProduct(req, res) {
-        await productService.addProduct(req.body);
+        await productService.addProduct({ ...req.body, buffer: req.file.buffer });
         res.redirect("/admin/menu");
     },
 
@@ -11,8 +11,13 @@ export const productController = {
         res.redirect('/admin/menu');
     },
 
-    async updateProduct(req, res) {
-        await productService.updateProduct(req.body);
+    async updateOneProduct(req, res) {
+        await productService.updateOne({ ...req.body, buffer: req.file.buffer });
+        res.redirect('/admin/menu');
+    },
+
+    async updateManyProducts(req, res) {
+        await productService.updateMany(req.body);
         res.redirect('/admin/menu');
     }
 }
