@@ -6,4 +6,26 @@ const router = express.Router();
 
 router.get('/', asyncCatch(mainSSRController.renderMainpage));
 
+router.get('/menu', asyncCatch(mainSSRController.renderMenu));
+
+router.get('/menu/:id', asyncCatch(mainSSRController.renderViewProduct));
+
+router.get('favourite', asyncCatch());
+
+router.get('/cart', asyncCatch());
+
+router.get('/contact', asyncCatch(mainSSRController.renderContact));
+
+router.get('/orders', asyncCatch());
+
+router.get('/orders/:id', asyncCatch());
+
+router.get('/checkout-order', asyncCatch());
+
+router.get('/login', asyncCatch(mainSSRController.renderLogin));
+
+router.get('/sign-up', asyncCatch(mainSSRController.renderRegister));
+
+router.get('/account', asyncCatch(mainSSRController.renderAccount));
+
 export default router;
