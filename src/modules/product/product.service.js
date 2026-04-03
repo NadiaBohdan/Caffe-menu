@@ -19,7 +19,7 @@ export const productService = {
             const dbData = { 
                 ...cleanData, 
                 ...(uploadData && {
-                    imgPath: uploadData.secure_url,
+                    fileURL: uploadData.secure_url,
                     publicId: uploadData.public_id
                 }) 
             };

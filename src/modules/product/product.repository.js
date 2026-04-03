@@ -2,7 +2,13 @@ import prisma from "#configs/prisma.js";
 
 export const productRepository = {
     async create(data) {
+        const { fileURL, publicId, ...productData } = data;
+
         return await prisma.$transaction( async (tx) => {
+            const { id } = await tx.file.create({
+                data: { fileURL, publicId }
+            })
+
             const lastProduct = await tx.product.findFirst({
                 orderBy: { sortOrder: "desc" },
                 select: { sortOrder: true }
@@ -10,8 +16,8 @@ export const productRepository = {
 
             const sortOrder = lastProduct ? lastProduct.sortOrder + 1 : 0;
 
-            await tx.product.create({
-                data: { ...data, sortOrder}
+            return await tx.product.create({
+                data: { ...productData, sortOrder, fileId: id}
             })
         })
     },
@@ -60,10 +66,21 @@ export const productRepository = {
     async update(productArray) {
         return await prisma.$transaction( async (tx) => {
             return await Promise.all(
-                productArray.map(( {id, ...product }) => {
+                productArray.map( async ( {id, ...product }) => {
+                    const { fileURL, publicId, fileId, ...productData } = product;
+
+                    if(fileURL && publicId && fileId) {
+                        const fileData = await tx.file.update({
+                            where: { id: fileId },
+                            data: { fileURL, publicId }
+                        })
+
+                        productData.fileId = fileData.id
+                    }
+                    
                     return tx.product.update({
                         where: { id },
-                        data: product
+                        data: productData
                     })
                 })
             )
