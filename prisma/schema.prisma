@@ -106,13 +106,14 @@ model Product {
   description     String   @db.Text
   sortOrder       Int      @map("sort_order")
   price           Decimal  @db.Decimal(10, 2)
-  imgPath         String?  @map("img_path")
   percentDiscount Int      @default(0) @map("percent_discount")
   isAvailable     Boolean  @default(true) @map("is_available")
   updatedAt       DateTime @updatedAt @map("updated_at")
 
   categoryId Int      @map("category_id")
+  fileId     Int?     @unique @map("file_id")
   category   Category @relation(fields: [categoryId], references: [id], map: "fk_product_category")
+  file       File     @relation(fields: [fileId], references: [id], map: "fk_product_file")
 
   orderItems     OrderItems[]
   favouriteItems FavouriteItems[]
@@ -241,4 +242,14 @@ model Contact {
   link String
 
   @@map("contact")
+}
+
+model File {
+  id       Int    @id @default(autoincrement())
+  fileURL  String @map("file_url")
+  publicId String @map("public_id")
+
+  product Product?
+
+  @@map("file")
 }
