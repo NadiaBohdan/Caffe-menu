@@ -102,7 +102,7 @@ model Category {
 
 model Product {
   id              Int      @id @default(autoincrement())
-  title           String
+  title           String   @unique
   description     String   @db.Text
   sortOrder       Int      @map("sort_order")
   price           Decimal  @db.Decimal(10, 2)

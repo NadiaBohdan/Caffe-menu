@@ -39,6 +39,12 @@ export const productRepository = {
         })
     },
 
+    async getByTitle(title) {
+        return await prisma.product.findUnique({
+            where: { title }
+        })
+    },
+
     async getById(id) {
         return await prisma.product.findUnique({
             where: { id }
@@ -55,6 +61,12 @@ export const productRepository = {
                     })
                 })
             )
+        })
+    },
+
+    async delete(id) {
+        return await prisma.product.delete({
+            where: { id }
         })
     }
 }
