@@ -1,19 +1,11 @@
 import prisma from "#configs/prisma.js";
 
-const getFavouriteId = async (userId, tx = prisma) => {
-    return await tx.favourite.findUnique({
-        where: { userId }
-    })
-}
-
 const favouriteRepository = {
-    async toggle({userId, productId}) {
+    async toggle({favouriteId, productId}) {
         return await prisma.$transaction( async (tx) => {
-            const { id } = await getFavouriteId(userId, tx);
-
             const existingItems = await tx.favouriteItems.findUnique({
                 where: {
-                    favouriteId_productId: { favouriteId: id, productId }
+                    favouriteId_productId: { favouriteId, productId }
                 }
             })
 
@@ -24,28 +16,30 @@ const favouriteRepository = {
             }
 
             return await tx.favouriteItems.create({
-                data: {productId, favouriteId: id}
+                data: {productId, favouriteId}
             })
         })
     },
 
-    async getAll(userId) {
-        return await prisma.$transaction( async (tx) => {
-            const { id } = await getFavouriteId(userId, tx);
-            if(!id) return []
-
-            const items = await tx.favouriteItems.findMany({
-                where: { favouriteId: id },
-                select: {
-                    product: {
-                        include: {
-                            file: true
-                        }
+    async getAll(favouriteId) {
+        const items = await prisma.favouriteItems.findMany({
+            where: { favouriteId },
+            select: {
+                product: {
+                    include: {
+                        file: true
                     }
                 }
-            })
-
-            return items.map(item => item.product);
+            }
         })
-    }    
+
+        return items.map(item => item.product);
+    },
+    
+    async getFavouriteId (userId) {
+        return await prisma.favourite.findUnique({
+            where: { userId },
+            select: { id: true }
+        })
+    }
 }
