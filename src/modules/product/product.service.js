@@ -47,14 +47,13 @@ export const productService = {
         return productList;
     },
 
-    async getById({ id }) {
+    async findById(id) {
         const product = await productRepository.getById(id);
-        return product;
+        if(!product) throw new ApiError(404, "Product not found");
     },
 
     async delete({ id }) {
-        const existingProduct = await productRepository.getById(id);
-        if(!existingProduct) throw new ApiError(404, "Product not found");
+        const existingProduct = await this.findById(id)
 
         try {
             if(existingProduct.file?.publicId) {
@@ -77,8 +76,7 @@ export const productService = {
             await categoryService.getById({ id: data.categoryId });
         }
         
-        const existingProduct = await productRepository.getById(data.id);
-        if(!existingProduct) throw new ApiError(404, "Product not found");
+        const existingProduct = await productRepository.findById(data.id);
 
         const isTitleExists = await productRepository.getByTitle(data.title);
         if(isTitleExists && isTitleExists.id !== existingProduct.id) throw new ApiError(409, "Product with same title already exists");

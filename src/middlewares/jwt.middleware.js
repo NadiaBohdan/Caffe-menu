@@ -13,10 +13,10 @@ export const jwtValidate = async (req, res, next) => {
 
         const decoded = await verifyToken(token);
 
-        req.body.userId = decoded.id;
+        req.user = { id: decoded.id };
 
         next();
     } catch(err) {
-        next(new ApiError(401, "Invalid or exprired token"))
+        next(new ApiError(401, "Invalid or expired token"))
     }
 }

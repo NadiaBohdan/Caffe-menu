@@ -1,4 +1,5 @@
 import { cartRepository } from "./cart.repository.js";
+import { productService } from "#product/product.service.js";
 import { ApiError } from "#utils/error.util.js";
 
 const checkCart = async (userId) => {
@@ -11,6 +12,8 @@ const checkCart = async (userId) => {
 export const cartService = {
     async upsert({ productId, userId, quantity }) {
         const cartId = await checkCart(userId);
+
+        await productService.findById(productId);
 
         const cartItem = await cartRepository.upsert({ cartId, productId, quantity });
         return cartItem;
