@@ -14,6 +14,7 @@
       "#category/*": ["./src/modules/category/*"],
       "#SSR/*": ["./src/modules/SSR/*"],
       "#product/*": ["./src/modules/product/*"],
+      "#favourite/*": ["./src/modules/favourite/*"]
     }
   },
   "exclude": ["node_modules"]
