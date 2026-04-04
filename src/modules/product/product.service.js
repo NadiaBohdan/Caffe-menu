@@ -7,7 +7,7 @@ const FOLDER = "products"
 
 export const productService = {
     async add(data) {
-        await categoryService.getById(data.categoryId);
+        await categoryService.getById({ id: data.categoryId });
 
         const isExists = await productRepository.getByTitle(data.title);
         if(isExists) throw new ApiError(409, "Product with same title already exists");
@@ -74,7 +74,7 @@ export const productService = {
 
     async updateOne(data) {
         if(data.categoryId) {
-            await categoryService.getById(data.categoryId)
+            await categoryService.getById({ id: data.categoryId });
         }
         
         const existingProduct = await productRepository.getById(data.id);

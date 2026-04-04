@@ -17,13 +17,19 @@ export const productRepository = {
      */
 
     async create(data) {
-        const { fileURL, publicId, ...productData } = data;
+        const { fileURL = null, publicId = null, ...productData } = data;
 
         return await prisma.$transaction( async (tx) => {
-            const { id } = await tx.file.create({
-                data: { fileURL, publicId }
-            })
+            let fileId = null;
 
+            if(fileURL && publicId) {
+                const { id } = await tx.file.create({
+                    data: { fileURL, publicId }
+                })
+
+                fileId = id;
+            }
+            
             const lastProduct = await tx.product.findFirst({
                 orderBy: { sortOrder: "desc" },
                 select: { sortOrder: true }
@@ -31,8 +37,11 @@ export const productRepository = {
 
             const sortOrder = lastProduct ? lastProduct.sortOrder + 1 : 0;
 
+            const payload = { ...productData, sortOrder };
+            if(fileId) payload.fileId = fileId;
+
             return await tx.product.create({
-                data: { ...productData, sortOrder, fileId: id}
+                data: payload
             })
         })
     },
