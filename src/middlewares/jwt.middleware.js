@@ -1,19 +1,19 @@
 import { verifyToken } from "#utils/jwt.util.js";
 import { ApiError } from "#utils/error.util.js";
 
-export const jwtValidate = (req, res, next) => {
+export const jwtValidate = async (req, res, next) => {
     try {
-        const authHeder = req.heders.authorization;
+        const authHeader = req.headers.authorization;
 
-        if(!authHeder || !authHeder.startsWith("Bearer ")) {
+        if(!authHeader || !authHeader.startsWith("Bearer ")) {
             throw new ApiError(401, "Please authorize first");
         }
+        
+        const token = authHeader.split(" ")[1];
 
-        const token = authHeder.split(" ")[1];
+        const decoded = await verifyToken(token);
 
-        const decoded = await await verifyToken(token);
-
-        req.userId = decoded.id;
+        req.body.userId = decoded.id;
 
         next();
     } catch(err) {

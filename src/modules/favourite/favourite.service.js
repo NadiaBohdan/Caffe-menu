@@ -10,6 +10,7 @@ const checkFavourite = async (userId) => {
 
 export const favouriteService = {
     async toggle({ userId, productId }) {
+        console.log("!!!!!!!Data: ", { userId, productId })
         const favouriteId = await checkFavourite(userId);
 
         const favouriteItem = await favouriteRepository.toggle({ favouriteId, productId });

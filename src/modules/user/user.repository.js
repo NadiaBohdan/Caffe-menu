@@ -54,7 +54,15 @@ export const userRepository = {
 
     async create(userData) {
         return await prisma.user.create({
-            data: userData
+            data: {
+                ...userData,
+                favourites: {
+                    create: {}
+                },
+                carts: {
+                    create: {}
+                }
+            }
         })
     },
 

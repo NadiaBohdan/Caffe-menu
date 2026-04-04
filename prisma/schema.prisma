@@ -46,23 +46,23 @@ enum ContactType {
   facebook
 }
 
-model User {
-  id          Int      @id @default(autoincrement())
-  firstName   String   @map("first_name")
-  lastName    String   @map("last_name")
-  password    String   @db.VarChar(60)
-  email       String   @unique
-  phoneNumber String   @unique @map("phone_number") @db.VarChar(20)
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  model User {
+    id          Int      @id @default(autoincrement())
+    firstName   String   @map("first_name")
+    lastName    String   @map("last_name")
+    password    String   @db.VarChar(60)
+    email       String   @unique
+    phoneNumber String   @unique @map("phone_number") @db.VarChar(20)
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
 
-  favourites   Favourite[]
-  carts        Cart[]
-  orders       Order[]
-  transactions Transaction[]
+    favourites   Favourite?
+    carts        Cart?
+    orders       Order[]
+    transactions Transaction[]
 
-  @@map("user")
-}
+    @@map("user")
+  }
 
 model Staff {
   id        Int      @id @default(autoincrement())
@@ -127,13 +127,12 @@ model Product {
 
 model Favourite {
   id     Int @id @default(autoincrement())
-  userId Int
+  userId Int @unique
 
   user User @relation(fields: [userId], references: [id], map: "fk_favorite_user")
 
   favouriteItems FavouriteItems[]
 
-  @@unique([userId])
   @@map("favourite")
 }
 

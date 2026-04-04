@@ -1,6 +1,6 @@
 import prisma from "#configs/prisma.js";
 
-const favouriteRepository = {
+export const favouriteRepository = {
     async toggle({favouriteId, productId}) {
         return await prisma.$transaction( async (tx) => {
             const existingItems = await tx.favouriteItems.findUnique({
