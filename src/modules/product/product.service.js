@@ -1,4 +1,5 @@
 import { productRepository } from "./product.repository.js";
+import { categoryService } from "#category/categoty.service.js";
 import { ApiError } from "#utils/error.util.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "#utils/cloudinary.util.js";
 
@@ -6,6 +7,8 @@ const FOLDER = "products"
 
 export const productService = {
     async add(data) {
+        await categoryService.getById(data.categoryId);
+
         const isExists = await productRepository.getByTitle(data.title);
         if(isExists) throw new ApiError(409, "Product with same title already exists");
 
@@ -70,6 +73,10 @@ export const productService = {
     },
 
     async updateOne(data) {
+        if(data.categoryId) {
+            await categoryService.getById(data.categoryId)
+        }
+        
         const existingProduct = await productRepository.getById(data.id);
         if(!existingProduct) throw new ApiError(404, "Product not found");
 
