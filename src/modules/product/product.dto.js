@@ -9,7 +9,7 @@ const productCore = z.object({
     percentDiscount: z.coerce.number().nonnegative("Discount can't be less than 0").max(100, "Discount can't be more than 100").default(0),
     categoryId: z.coerce.number().int("Id must be integer"),
     isAvailable: z.preprocess(value => value === "true", z.boolean()).default(true),
-    imgPath: z.string().url("Invalid image URL").nullable().optional()
+    fileToDelete: z.preprocess(value => value === "true", z.boolean()).default(false)
 })
 
 export const productIdDto = z.object({
