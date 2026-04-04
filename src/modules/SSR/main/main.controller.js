@@ -1,5 +1,5 @@
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        res.render("test")
+        res.render("home");
     }
 }

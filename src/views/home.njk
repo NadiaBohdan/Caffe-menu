@@ -1,59 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="header.css">
-    <link rel="stylesheet" href="footer.css">
-</head>
+{% include "head.njk" %}
 <body>
-    <header>
-        <div id="logo">
-            <a href="home.html">
-            <img src="img/logo.png" ></a>    
-        </div>
-        <nav class="nav-menu">
-            <ul id="nav-ul">
-                <li>
-                    <a href="home.html">
-                        <img src="img/icons/Home.svg" class="header-icons">
-                        <span>home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="menu.html">
-                        <img src="img/icons/menu.svg"  class="header-icons">
-                        <span>menu</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="favorites.html">
-                        <img src="img/icons/Heart.svg"  class="header-icons">
-                        <span>favorites</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="cart.html">
-                        <img src="img/icons/cart.svg"  class="header-icons">
-                        <span>cart</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="contact.html">
-                        <img src="img/icons/Phone.svg"  class="header-icons">
-                        <span>contact</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    {% include "header.njk" %}
     <main>
         <div id="restaurant-photo"></div>
         <section id="section-main-information">
-            <img src="img/amethystVisual.png" class="reveal" id="photo-wine-left-up">
+            <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-left-up">
             <div id="main-information">
                 <p class="main-text reveal" id="introduction">Our restaurant is not only about delicious food, 
                     but also about beauty and aesthetic pleasure. And the beauty of 
@@ -72,7 +23,7 @@
                     </p>
                 </div>
             </div>
-            <img src="img/amethystVisual.png" class="reveal" id="photo-wine-right-down">
+            <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-right-down">
         </section>
 
         <section id="wine-section">   
@@ -81,11 +32,11 @@
                 <h4 class="title wine-section-text" id="varieties-of-wines">Our bar has about 100 varieties of imported wines.</h4>
                 <p class="main-text wine-section-text" id="wine-text">Do you want to immerse yourself in ancient Greece and taste the drink of the gods? We are waiting for you at "Amethyst"</p>
             </div>
-            <img src="img/photoWine.png" class="reveal" id="photoWine">
+            <img src="/img/photoWine.png" class="reveal" id="photoWine">
         </section>
         
     </main>
-    <footer></footer>
-    <script src="home.js"></script>
+    {% include "footer.njk" %}
+    <script src="/js/home.js"></script>
 </body>
 </html>

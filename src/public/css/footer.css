@@ -1,0 +1,55 @@
+footer{
+    box-shadow: 0px -1px 32px -8px rgba(0, 0, 0, 0.14);
+    background-color: #C194D9;
+    width: 100%;
+    height: 396px;
+    padding: 64px;
+}
+
+nav{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 100%;
+}
+
+#map {
+    width: 458px;    
+    height: 100%;  
+    border-radius: 15px; 
+    overflow: hidden;       /* Щоб мапа не вилазила за межі закруглень */
+    border: 2px solid #eee; 
+}
+
+.site-menu-footer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+h5{
+    margin-bottom: 16px;
+    margin-top: 0px;
+    font-family: "Rubik Maps", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+    font-size: 32px;
+    text-decoration: none;
+}
+
+#nav-ul-f{
+
+}
+
+#nav-ul-f-contact{
+
+}
+
+.footer-icons{
+    
+}
+
+#nav-ul-f li a

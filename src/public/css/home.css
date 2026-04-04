@@ -59,6 +59,9 @@
 
 .about-us{
     gap: 24px;
+    background-color: rgba(255, 255, 255, 0.24);
+    border-radius: 32px;
+    padding: 16px;
 }
 
 #button-menu{
@@ -80,7 +83,7 @@
 }
 
 #restaurant-photo{
-    background-image: url("img/restaurantphoto.png");
+    background-image: url("/img/restaurantphoto.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
