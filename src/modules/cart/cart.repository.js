@@ -1,7 +1,7 @@
 import prisma from "#configs/prisma.js";
 
 export const cartRepository = {
-    async create({cartId, productId, quantity}) {
+    async upsert({cartId, productId, quantity}) {
         return await prisma.cartItems.upsert({
             where: { cartId_productId: { cartId, productId } },
             update: { quantity: { increment: quantity } },
@@ -9,19 +9,15 @@ export const cartRepository = {
         })
     },
 
-    async update({cartId, productId, quantity}) {
-        return await prisma.cartItems.update({
-            data: { quantity },
+    async delete({ id, userId}) {
+        const result = await prisma.cartItems.deleteMany({
             where: {
-                cartId_productId: { cartId, productId }
+                id,
+                cart: {  userId }
             }
         })
-    },
 
-    async delete(id) {
-        return await prisma.cartItems.delete({
-            where: { id }
-        })
+        return result;
     },
 
     async getAll(userId) {
