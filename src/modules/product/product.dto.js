@@ -16,7 +16,7 @@ export const productIdDto = z.object({
     id: z.coerce.number().int().positive()
 });
 
-export const createProductDto = productCore.omit({ isAvailable: true, sortOrder: true });
+export const createProductDto = productCore.omit({ isAvailable: true, sortOrder: true, fileToDelete: true });
 
 export const updateProductSortDto = z.array(
     z.object({

@@ -50,6 +50,8 @@ export const productService = {
     async findById(id) {
         const product = await productRepository.getById(id);
         if(!product) throw new ApiError(404, "Product not found");
+
+        return product;
     },
 
     async delete({ id }) {
@@ -75,8 +77,8 @@ export const productService = {
         if(data.categoryId) {
             await categoryService.getById({ id: data.categoryId });
         }
-        
-        const existingProduct = await productRepository.findById(data.id);
+
+        const existingProduct = await productService.findById(data.id);
 
         const isTitleExists = await productRepository.getByTitle(data.title);
         if(isTitleExists && isTitleExists.id !== existingProduct.id) throw new ApiError(409, "Product with same title already exists");
@@ -92,7 +94,7 @@ export const productService = {
                 await deleteFromCloudinary(existingProduct.publicId, FOLDER);
             }
             
-            const { buffer, ...updateData } = data;
+            const { buffer, fileToDelete, ...updateData } = data;
 
             const payload = {
                 ...updateData,
