@@ -100,35 +100,43 @@ export const productRepository = {
         })
     },
 
+    async deleteFile(id, tx = prisma) {
+        return await tx.file.delete({
+            where: { id }
+        })
+    },
+
     /**
-     * @param {Array<Partial<Product> & { fileURL?: string, publicId?: string, fileId?: number }>} productArray
+     * @param {Array<Partial<Product> & { fileURL?: string, publicId?: string, fileId?: number, fileToDelete: boolean }>} productArray
      */
 
     async update(productArray) {
-    return await prisma.$transaction(async (tx) => {
-        return await Promise.all(
-            productArray.map(async ({ id, ...product }) => {
-                const { fileURL, publicId, fileId, ...productData } = product;
+        return await prisma.$transaction(async (tx) => {
+            return await Promise.all(
+                productArray.map(async ({ id, ...product }) => {
+                    const { fileURL, publicId, fileId, fileToDelete, ...productData } = product;
 
-                if (fileURL && publicId && fileId) {
-                    await tx.file.update({
-                        where: { id: fileId },
-                        data: { fileURL, publicId }
+                    if(fileToDelete && fileId) {
+                        await this.deleteFile(fileId, tx);
+                        productData.fileId = null;
+                    }
+
+                    if (fileURL && publicId && fileId && !fileToDelete) {
+                        await tx.file.update({
+                            where: { id: fileId },
+                            data: { fileURL, publicId }
+                        });
+                    }
+                    
+                    return tx.product.update({
+                        where: { id },
+                        data: { ...productData },
+                        include: { file: true }
                     });
-                }
-                
-                return tx.product.update({
-                    where: { id },
-                    data: {
-                        ...productData,
-                        ...(fileURL && { fileId })
-                    },
-                    include: { file: true }
-                });
-            })
-        );
-    });
-},
+                })
+            );
+        });
+    },
 
     /**
      * @param {number} id

@@ -89,6 +89,10 @@ export const productService = {
             if(data.buffer) {
                 uploadData = await uploadToCloudinary(data.buffer, FOLDER);
             }
+
+            if(data.fileToDelete) {
+                await deleteFromCloudinary(existingProduct.publicId, FOLDER);
+            }
             
             const { buffer, ...updateData } = data;
 
