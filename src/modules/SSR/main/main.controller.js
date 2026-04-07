@@ -57,6 +57,5 @@ export const mainSSRController = {
         res.render(linkName, {
             link: linkName
         })
->>>>>>> 323433bda59faaaac90850fee9ae7010909307f4
     }
 }
