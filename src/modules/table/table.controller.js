@@ -2,9 +2,7 @@ import { tableService } from "./table.service.js";
 
 export const tableController = {
     async addTable(req, res) {
-        const { tableNumber } = req.body.data;
-
-        const tablesArray = await tableService.addTable({ tableNumber });
+        const tablesArray = await tableService.addTable(req.body);
 
         res.status(201).json({
             message: "Table was successfully added",
@@ -14,10 +12,7 @@ export const tableController = {
     },
 
     async updateTable(req, res) {
-        const { id } = req.params;
-        const { tableNumber, isAvailable } = req.body.data;
-
-        const tablesArray = await tableService.updateTable({ id, tableNumber, isAvailable });
+        const tablesArray = await tableService.updateTable({ ...req.params, ...req.body });
 
         res.status(200).json({ 
             message: "Table was successfully updated", 
@@ -27,9 +22,7 @@ export const tableController = {
     },
 
     async deleteTable(req, res) {
-        const { id } = req.params;
-
-        const tablesArray = await tableService.deleteTable(id);
+        const tablesArray = await tableService.deleteTable(req.params);
 
         res.status(200).json({
             message: "Table was successfully deleted",

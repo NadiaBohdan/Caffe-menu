@@ -1,5 +1,4 @@
 import { categoryRepository } from "./category.repository.js";
-import { categoryIdDto, createCategoryDto, updateCategoryDto } from "./categoty.dto.js";
 import { ApiError } from "#utils/error.util.js";
 
 export const categoryService = {
@@ -10,8 +9,6 @@ export const categoryService = {
      */
 
     async addCategory(data) {
-        createCategoryDto.parse(data);
-
         const isExists = await categoryRepository.getByTitle(data.title);
         if(isExists) throw new ApiError(409, "Category with same title already exists");
 
@@ -26,12 +23,11 @@ export const categoryService = {
     },
 
     /**
-     * @param {string} rawId 
+     * @param {object} data
+     * @param {number} data.id 
      */
 
-    async getById(rawId) {
-        const { id } = categoryIdDto.parse({ id: rawId });
-
+    async getById({ id }) {
         const category = await categoryRepository.getById(id);
         if(!category) throw new ApiError(404, `Category with id: ${id} do not exists`)
 
@@ -42,21 +38,18 @@ export const categoryService = {
      * @param {Array} categoryList
      */
 
-    async updateCategories(categoryList) {
-        const parsedData = categoryList.map(category => updateCategoryDto.parse(category));
-        
-        const categoriesList = await categoryRepository.update(parsedData);
+    async updateCategories(categoryList) {      
+        const categoriesList = await categoryRepository.update(categoryList);
 
         return categoriesList;
     },
 
     /**
-     * @param {string} rawId 
+     * @param {object} data
+     * @param {number} data.id 
      */
 
-    async deleteCategoty(rawId) {
-        const { id } = categoryIdDto.parse({ id: rawId });
-
+    async deleteCategory({ id }) {
         const category = await categoryRepository.delete(id);
 
         return category

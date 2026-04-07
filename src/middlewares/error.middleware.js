@@ -6,7 +6,7 @@ export const errorHandler = (err, req, res, next) => {
     if(err instanceof Prisma.PrismaClientKnownRequestError) {
         const PrismaError = {
             P2002: { message: "Element already exists", status: 409 },
-            P2003: { message: "Delete error",  status: 400 },
+            P2003: { message: "Related record not found",  status: 400 },
             P2025: { message: "Element with this id do not exists", status: 404 },
             P2000: { message: "Value too long", status: 400 },
             P2005: { message: "Invalid data type", status: 400 },

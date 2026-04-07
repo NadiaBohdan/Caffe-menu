@@ -46,23 +46,23 @@ enum ContactType {
   facebook
 }
 
-model User {
-  id          Int      @id @default(autoincrement())
-  firstName   String   @map("first_name")
-  lastName    String   @map("last_name")
-  password    String   @db.VarChar(60)
-  email       String   @unique
-  phoneNumber String   @unique @map("phone_number") @db.VarChar(20)
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  model User {
+    id          Int      @id @default(autoincrement())
+    firstName   String   @map("first_name")
+    lastName    String   @map("last_name")
+    password    String   @db.VarChar(60)
+    email       String   @unique
+    phoneNumber String   @unique @map("phone_number") @db.VarChar(20)
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
 
-  favourites   Favourite[]
-  carts        Cart[]
-  orders       Order[]
-  transactions Transaction[]
+    favourites   Favourite?
+    carts        Cart?
+    orders       Order[]
+    transactions Transaction[]
 
-  @@map("user")
-}
+    @@map("user")
+  }
 
 model Staff {
   id        Int      @id @default(autoincrement())
@@ -102,34 +102,37 @@ model Category {
 
 model Product {
   id              Int      @id @default(autoincrement())
-  title           String
+  title           String   @unique
   description     String   @db.Text
+  sortOrder       Int      @map("sort_order")
   price           Decimal  @db.Decimal(10, 2)
-  imgPath         String?  @map("img_path")
+  amount          Int
   percentDiscount Int      @default(0) @map("percent_discount")
   isAvailable     Boolean  @default(true) @map("is_available")
   updatedAt       DateTime @updatedAt @map("updated_at")
 
   categoryId Int      @map("category_id")
+  fileId     Int?     @unique @map("file_id")
   category   Category @relation(fields: [categoryId], references: [id], map: "fk_product_category")
+  file       File?    @relation(fields: [fileId], references: [id], map: "fk_product_file", onDelete: Cascade)
 
   orderItems     OrderItems[]
   favouriteItems FavouriteItems[]
   cartItems      CartItems[]
 
+  @@unique([sortOrder, id])
   @@index([categoryId])
   @@map("product")
 }
 
 model Favourite {
   id     Int @id @default(autoincrement())
-  userId Int
+  userId Int @unique
 
-  user User @relation(fields: [userId], references: [id], map: "fk_favorite_user")
+  user User @relation(fields: [userId], references: [id], map: "fk_favorite_user", onDelete: Cascade)
 
   favouriteItems FavouriteItems[]
 
-  @@unique([userId])
   @@map("favourite")
 }
 
@@ -150,7 +153,7 @@ model Cart {
   id     Int @id @default(autoincrement())
   userId Int
 
-  user User @relation(fields: [userId], references: [id], map: "fk_cart_user")
+  user User @relation(fields: [userId], references: [id], map: "fk_cart_user", onDelete: Cascade)
 
   cartItems CartItems[]
 
@@ -234,9 +237,19 @@ model Transaction {
 }
 
 model Contact {
-  id  Int @id @default(autoincrement())
+  id   Int         @id @default(autoincrement())
   name ContactType
   link String
 
   @@map("contact")
+}
+
+model File {
+  id       Int    @id @default(autoincrement())
+  fileURL  String @map("file_url")
+  publicId String @map("public_id")
+
+  product Product?
+
+  @@map("file")
 }

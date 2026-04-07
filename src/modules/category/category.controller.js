@@ -2,9 +2,7 @@ import { categoryService } from "./categoty.service.js";
 
 export const categoryController = {
     async addCategory(req, res) {
-        const { title } = req.body;
-
-        const category = await categoryService.addCategory({ title });
+        const category = await categoryService.addCategory(req.body);
 
         res.status(201).json({
             message: "Category was created",
@@ -14,9 +12,7 @@ export const categoryController = {
     },
 
     async updateCategories(req, res) {
-        const { categoriesArray } = req.body;
-
-        const categories = await categoryService.updateCategories(categoriesArray);
+        const categories = await categoryService.updateCategories(req.body);
 
         res.status(200).json({
             message: "Categoryes was updated",
@@ -26,9 +22,7 @@ export const categoryController = {
     },
 
     async deleteCategory(req, res) {
-        const { id } = req.params;
-
-        await categoryService.deleteCategoty(id);
+        await categoryService.deleteCategory(req.params);
 
         res.status(200).json({
             message: "Category was deleted",
