@@ -7,7 +7,7 @@ export const contactRepository = {
 
             return await Promise.all(
                 contactsArray.map( contact => {
-                    tx.contact.create({
+                    return tx.contact.create({
                         data: contact
                     })
                 })
