@@ -13,5 +13,9 @@ export const contactRepository = {
                 })
             )
         })
+    },
+
+    async getAll() {
+        return await prisma.contact.findMany();
     }
 }
