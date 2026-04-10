@@ -3,7 +3,6 @@
     "module": "NodeNext",
     "target": "ESNext",
     "checkJs": false,
-    "baseUrl": ".",
     "paths": {
       "#utils/*": ["./src/utils/*"],
       "#configs/*": ["./src/configs/*"],
