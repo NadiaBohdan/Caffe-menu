@@ -238,7 +238,8 @@ model Transaction {
 
 model Contact {
   id   Int         @id @default(autoincrement())
-  name ContactType
+  linkType ContactType
+  name String 
   link String
 
   @@map("contact")

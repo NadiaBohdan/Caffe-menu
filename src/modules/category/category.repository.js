@@ -80,7 +80,6 @@ export const categoryRepository = {
      */
 
     async update(categoryArray) {
-        console.log("Repository: ",categoryArray);
         return await prisma.$transaction( async (tx) => {
             for(const { id, ...data } of categoryArray) {
                 await tx.category.update({
