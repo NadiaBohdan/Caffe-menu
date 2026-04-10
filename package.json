@@ -40,6 +40,7 @@
     "#SSR/*": "./src/modules/SSR/*",
     "#product/*": "./src/modules/product/*",
     "#favourite/*": "./src/modules/favourite/*",
-    "#cart/*": "./src/modules/cart/*"
+    "#cart/*": "./src/modules/cart/*",
+    "#contact/*": "./src/modules/contact/*"
   }
 }
