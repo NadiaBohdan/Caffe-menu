@@ -5,6 +5,12 @@ export const staffRepository = {
         return prisma.staff.create({ data })
     },
 
+    async getByLogin(login) {
+        return prisma.staff.findUnique({
+            where: { login }
+        })
+    },
+
     async getAll() {
         return prisma.staff.findMany()
     },
