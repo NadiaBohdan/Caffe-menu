@@ -1,10 +1,13 @@
 import { staffRepository } from "./staff.repository.js";
 import { ApiError } from "#utils/error.util.js";
+import { hashPassword } from "#utils/hash.util.js";
 
 export const staffService = {
     async add(data) {
         const isExist = await staffRepository.getByLogin(data.login);
         if(isExist) throw new ApiError(409, "Employee with same login already exists");
+
+        data.password = await hashPassword(data.password);
 
         const staff = await staffRepository.create(data);
         return staff;
@@ -15,11 +18,15 @@ export const staffService = {
         return staffArray;
     },
 
-    async update(data) {
+    async update({ password, ...data }) {
         const isExist = await staffRepository.getByLogin(data.login);
         if(isExist && isExist.id !== data.id) throw new ApiError(409, "Employee with same login already exists");
 
-        const staff = await staffRepository.update(data);
+        if(password) {
+            password = await hashPassword(password)
+        }
+
+        const staff = await staffRepository.update({ ...data, password });
         return staff;
     },
 
