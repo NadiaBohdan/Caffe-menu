@@ -13,10 +13,7 @@
   transform: translateY(0);
 }
 
-::selection {
-    background-color: #8E4EA0; 
-    color: #ffffff;           
-}
+
 
 #section-main-information{
     position: relative;

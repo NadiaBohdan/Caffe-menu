@@ -2,10 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 
 body{
-    background: linear-gradient(#fff ,#fbf8fd, #F9F4FF, #C194D9, #c08ddb);
-    height: auto;
+    background: linear-gradient(#fff ,#fbf8fd, #C194D9, #c08ddb);
+    height: 100%;
+    display: flex;
+    min-height: 100vh;
     flex-direction: column;
     margin: 0px;
+}
+
+::selection {
+    background-color: #8E4EA0; 
+    color: #ffffff;           
 }
 
 .main-text{

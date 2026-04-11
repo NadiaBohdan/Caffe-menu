@@ -47,7 +47,7 @@ export const mainSSRController = {
         const linkName = 'account';
         
         res.render(linkName, {
-            link: linkName
+            link: `${linkName}.njk`
         })
     },
 

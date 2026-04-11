@@ -2,34 +2,43 @@
 <body>
     {% include "header.njk" %}
     <main>
-        <h2>Contact details</h2>
-        <section id="contact">
-            <div id="phone-all">
-                <img src="/img/icons/Phone-footer.svg"  class="contact-icons">
-                <div id="phones">
-                    <a href="tel:+380XXXXXXXXX">+38 (0XX) XXX-XX-XX</a>
-                    <a href="tel:+380XXXXXXXXX">+38 (0XX) XXX-XX-XX</a>
+        <h2 class="title">Contact</h2>
+        <nav id="contact">
+            <section id="contact-text">
+                <div id="phone-all">
+                    <img src="/img/icons/Phone.svg"  class="contact-icons">
+                    <div id="phones">
+                        <a href="tel:+380XXXXXXXXX">+38 (0XX) XXX-XX-XX</a>
+                        <a href="tel:+380XXXXXXXXX">+38 (0XX) XXX-XX-XX</a>
+                    </div>
                 </div>
-            </div>
-            <a id="mail" href="mailto:info@example.com">
-                <img src="/img/icons/mail.svg"  class="contact-icons">
-                info@example.com
-            </a>
-            <ul id="nav-ul-f">
-                <li>
-                    <a href="#">
-                        <img src="/img/icons/Facebook.svg"  class="contact-icons">
-                        <span>cart</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="contact.html">
-                        <img src="/img/icons/Instagram.svg"  class="contact-icons">
-                        <span>contact</span>
-                    </a>
-               </li>
-            </ul>
-        </section>
+                <a id="mail" href="mailto:info@example.com">
+                    <img src="/img/icons/mail.svg"  class="contact-icons">
+                    info@example.com
+                </a>
+                <ul id="contact-ul">
+                    <li>
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            <img src="/img/icons/Facebook.svg"  class="contact-icons">
+                            <span>Facebook</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            <img src="/img/icons/Instagram.svg"  class="contact-icons">
+                            <span>Instagram</span>
+                        </a>
+                   </li>
+                   <li>
+                        <a href="https://maps.app.goo.gl/X7fEqq6wSkk4ZHii8" target="_blank" rel="noopener noreferrer">
+                            <img src="/img/icons/location.svg"  class="contact-icons">
+                            <span>10 Soborna Street, Kropyvnytskyi</span>
+                        </a>
+                   </li>
+                </ul>
+            </section>
+            <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2727.6699929485226!2d32.20899082247587!3d48.49929166964516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d042f0ab13c023%3A0xffc3a107455308d8!2z0JDQotCRLdCc0LDRgNC60LXRgg!5e0!3m2!1sru!2sua!4v1775338843868!5m2!1sru!2sua" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </nav>
         <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
          
     </main>
