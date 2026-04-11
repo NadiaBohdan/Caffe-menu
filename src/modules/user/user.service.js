@@ -1,5 +1,6 @@
 import { userRepository } from "./user.repository.js"
 import { ApiError } from "#utils/error.util.js"; 
+import { hashPassword } from "#utils/hash.util.js";
 
 const sanitize = (userData) => {
     const { password, ...userWithoutPassword } = userData;
@@ -15,7 +16,9 @@ export const userService = {
         const isExistPhoneNumber = await userRepository.findByField(data.phoneNumber);
         if(isExistPhoneNumber) throw new ApiError(409, "user with same phone number already exists");
 
-        const newUser = await userRepository.create(userData);
+        data.password = await hashPassword(data.password);
+
+        const newUser = await userRepository.create(data);
 
         return sanitize(newUser);
     },
@@ -32,16 +35,20 @@ export const userService = {
         return sanitize(user);
     },
 
-    async update({ ...data, userId}) {
-        if(data.phoneNumber || data.email) {
+    async update({ id, password, ...data}) {
+        if(data.email) {
             const isExistingUserByEmail = await userRepository.findByIdentifier(data.email);
             if(isExistingUserByEmail && isExistingUserByEmail.id !== userId) throw new ApiError(409, "This email is already taken");
+        }
 
+        if(data.phoneNumber) {
             const isExistingUserByPhoneNumber = await userRepository.findByIdentifier(data.phoneNumber);
             if(isExistingUserByPhoneNumber && isExistingUserByPhoneNumber.id !== userId) throw new ApiError(409, "This phone number is already taken");
         }
+
+        if(password) password = await hashPassword(password);
         
-        const updatedUser = await userRepository.update({ ...data, id });
+        const updatedUser = await userRepository.update({ id, password, ...data });
         if(!updatedUser) throw new ApiError(404, "User not found");
 
         return sanitize(updatedUser);
