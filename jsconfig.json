@@ -3,7 +3,6 @@
     "module": "NodeNext",
     "target": "ESNext",
     "checkJs": false,
-    "baseUrl": ".",
     "paths": {
       "#utils/*": ["./src/utils/*"],
       "#configs/*": ["./src/configs/*"],
@@ -15,7 +14,8 @@
       "#SSR/*": ["./src/modules/SSR/*"],
       "#product/*": ["./src/modules/product/*"],
       "#favourite/*": ["./src/modules/favourite/*"],
-      "#cart/*": ["./src/modules/cart/*"]
+      "#cart/*": ["./src/modules/cart/*"],
+      "#contact/*": ["./src/modules/contact/*"]
     }
   },
   "exclude": ["node_modules"]

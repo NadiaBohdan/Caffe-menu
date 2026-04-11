@@ -6,7 +6,8 @@ import categoryRoutes from "#category/category.routes.js";
 import tableRoutes from "#table/table.routes.js";
 import productRoutes from "#product/product.routes.js";
 import favouriteRoutes from "#favourite/favourite.routes.js";
-import cartRoutes from "#cart/cart.routes.js"
+import cartRoutes from "#cart/cart.routes.js";
+import contactRoutes from "#contact/contact.routes.js";
 
 router.use('/auth', authRoutes);
 router.use('/table', tableRoutes);
@@ -14,5 +15,6 @@ router.use('/category', categoryRoutes);
 router.use('/product', productRoutes);
 router.use('/favourite', favouriteRoutes);
 router.use('/cart', cartRoutes);
+router.use('/contact', contactRoutes);
 
 export default router;
