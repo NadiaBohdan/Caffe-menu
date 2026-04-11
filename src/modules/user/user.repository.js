@@ -23,6 +23,7 @@ export const userRepository = {
         return await prisma.user.create({
             data: {
                 ...userData,
+                
                 favourites: {
                     create: {}
                 },

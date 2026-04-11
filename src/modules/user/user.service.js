@@ -1,97 +1,54 @@
-import { createUser, userIdDto, updateUserDto, identifierDto} from "./user.dto.js"
 import { userRepository } from "./user.repository.js"
 import { ApiError } from "#utils/error.util.js"; 
 
-const sanitizeUser = (userData) => {
-    const {password, ...userWithoutPassword} = userData;
+const sanitize = (userData) => {
+    const { password, ...userWithoutPassword } = userData;
     return userWithoutPassword;
 }
 
 export const userService = {
-    
-    /**
-     * @param {Object} rawUserData 
-     */
 
-    async createUser(rawUserData) {
-        const userData = createUser.parse(rawUserData);
-
-        const isExistEmail = await userRepository.findByField('email', userData.email);
+    async create(data) {
+        const isExistEmail = await userRepository.findByIdentifier(data.email)
         if(isExistEmail) throw new ApiError(409, "User with same email already exists");
 
-        const isExistPhoneNumber = await userRepository.findByField('phoneNumber', userData.phoneNumber);
+        const isExistPhoneNumber = await userRepository.findByField(data.phoneNumber);
         if(isExistPhoneNumber) throw new ApiError(409, "user with same phone number already exists");
 
         const newUser = await userRepository.create(userData);
-        if(!newUser) throw new ApiError(500, "Create error");
 
-        return sanitizeUser(newUser);
+        return sanitize(newUser);
     },
 
-    /**
-     * Get user data by email or phone number
-     * @param {string} identifier 
-     */
-
-    async getUserByIdentifier(identifier) {
-        identifierDto.parse(identifier);
-
+    async getByIdentifier({ identifier }) {
         const user = await userRepository.findByIdentifier(identifier);
-        if(!user) throw new ApiError(404, "User not found");
-
         return user;
     },
 
-    /**
-     * Find user data by email or phone number
-     * @param {string} identifier 
-     */
-
-    async findUserByIdentifier(identifier) {
-        identifierDto.parse(identifier);
-
-        const user = await userRepository.findByIdentifier(identifier);
-
-        return user;
-    },
-
-    /**
-     * @param {string} userId
-     */
-
-    async getUserById(userId) {
-        const { id } = userIdDto.parse({ id: userId });
-
+    async getById(id) {
         const user = await userRepository.findById(id);
         if(!user) return null;
 
-        return sanitizeUser(user);
+        return sanitize(user);
     },
 
-    async updateUser(rawUserData, userId) {
-        const { id } = userIdDto.parse({ id: userId })
-        const userData = updateUserDto.parse(rawUserData);
-
-        if(userData.phoneNumber || userData.email) {
-            const isExistingUserByEmail = await userRepository.findByIdentifier(userData.email);
+    async update({ ...data, userId}) {
+        if(data.phoneNumber || data.email) {
+            const isExistingUserByEmail = await userRepository.findByIdentifier(data.email);
             if(isExistingUserByEmail && isExistingUserByEmail.id !== userId) throw new ApiError(409, "This email is already taken");
 
-            const isExistingUserByPhoneNumber = await userRepository.findByIdentifier(userData.phoneNumber);
+            const isExistingUserByPhoneNumber = await userRepository.findByIdentifier(data.phoneNumber);
             if(isExistingUserByPhoneNumber && isExistingUserByPhoneNumber.id !== userId) throw new ApiError(409, "This phone number is already taken");
         }
         
-        const updatedUser = await userRepository.update(userData, id);
+        const updatedUser = await userRepository.update({ ...data, id });
         if(!updatedUser) throw new ApiError(404, "User not found");
 
-        return sanitizeUser(updatedUser);
+        return sanitize(updatedUser);
     },
 
-    async deleteUser(userId) {
-        const { id } = userIdDto.parse({ id: userId });
-
+    async delete({ id }) {
         const deletedUser = await userRepository.delete(id);
-        if(!deletedUser) throw new ApiError(404, "User not found");
-
-        return sanitizeUser(deletedUser);
+        return sanitize(deletedUser);
     }
 }
