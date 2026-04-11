@@ -68,17 +68,6 @@ export const userService = {
         return sanitizeUser(user);
     },
 
-    /**
-     * @param {Partial<{
-     *  firstName: string,
-     *  lastName: string,
-     *  email: string,
-     *  phoneNumber: string,
-     *  password: string
-     * }>} rawUserData
-     * @param {number} userId
-     */
-
     async updateUser(rawUserData, userId) {
         const { id } = userIdDto.parse({ id: userId })
         const userData = updateUserDto.parse(rawUserData);
@@ -96,11 +85,6 @@ export const userService = {
 
         return sanitizeUser(updatedUser);
     },
-
-    /**
-     * @param {string} userId 
-     * @returns 
-     */
 
     async deleteUser(userId) {
         const { id } = userIdDto.parse({ id: userId });
