@@ -13,7 +13,7 @@ export const jwtValidate = async (req, res, next) => {
 
         const decoded = await verifyToken(token);
 
-        req.user = { id: decoded.id };
+        req.user = { id: decoded.id, role: decoded?.role };
 
         next();
     } catch(err) {
