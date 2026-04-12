@@ -41,13 +41,16 @@ export const productService = {
         }
     },
 
+    async getByCategory() {
+
+    },
 
     async getPaginated(cursorData) {
         const productList = await productRepository.getByPagination(cursorData);
         return productList;
     },
 
-    async getById(id) {
+    async getById({ id }) {
         const product = await productRepository.getById(id);
         if(!product) throw new ApiError(404, "Product not found");
 

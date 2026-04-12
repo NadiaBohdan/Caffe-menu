@@ -43,6 +43,6 @@
     "#favourite/*": "./src/modules/favourite/*",
     "#cart/*": "./src/modules/cart/*",
     "#contact/*": "./src/modules/contact/*",
-    "#staff/*": "./src/modules/staff/*",
+    "#staff/*": "./src/modules/staff/*"
   }
 }
