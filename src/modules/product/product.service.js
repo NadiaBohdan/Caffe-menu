@@ -47,7 +47,7 @@ export const productService = {
         return productList;
     },
 
-    async findById(id) {
+    async getById(id) {
         const product = await productRepository.getById(id);
         if(!product) throw new ApiError(404, "Product not found");
 

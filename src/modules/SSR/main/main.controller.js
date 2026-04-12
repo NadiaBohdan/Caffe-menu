@@ -1,29 +1,38 @@
+import { contactService } from "#contact/contact.service.js";
+import { productService } from "#product/product.service.js";
+import { userService } from "#user/user.service.js";
+
 export const mainSSRController = {
     async renderMainpage(req, res) {
         const linkName = 'home';
 
+        const contacts = await contactService.getAll();
+
         res.render(linkName, {
-            link: linkName
+            link: linkName,
+            contacts
         })
     },
 
     async renderMenu(req, res) {
         const linkName = 'menu';
 
+        const products = await productService.getAll();
+
         res.render(linkName, {
-            link: linkName
+            link: linkName,
+            products
         })
     },
 
     async renderViewProduct(req, res) {
         const linkName = 'view-menu';
 
+        const product = await productService.getById(req.params)
+
         res.render(linkName, {
-            title: "Cesar",
-            description: "Класичний салат Цезар з куркою гриль, свіжим листям салату та фірмовим соусом.",
-            price: 190,
-            mass: 200,
-            link: linkName
+            link: linkName,
+            product
         })
     },
 
@@ -45,17 +54,23 @@ export const mainSSRController = {
 
     async renderAccount(req, res) {
         const linkName = 'account';
+
+        const user = await userService.getById({ id: req.user.id });
         
         res.render(linkName, {
-            link: linkName
+            link: linkName,
+            user
         })
     },
 
     async renderContact(req, res) {
         const linkName = 'contact';
 
+        const contacts = await contactService.getAll();
+
         res.render(linkName, {
-            link: linkName
+            link: linkName,
+            contacts
         })
     }
 }
