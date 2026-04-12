@@ -41,6 +41,7 @@
     "#product/*": "./src/modules/product/*",
     "#favourite/*": "./src/modules/favourite/*",
     "#cart/*": "./src/modules/cart/*",
-    "#contact/*": "./src/modules/contact/*"
+    "#contact/*": "./src/modules/contact/*",
+    "#staff/*": "./src/modules/staff/*"
   }
 }

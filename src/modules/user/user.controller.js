@@ -9,9 +9,4 @@ export const userController = {
             user
         });
     },
-
-    async delete(req, res) {
-        await userService.delete({ ...req.params });
-        return res.sendStatus(204);
-    }
 }

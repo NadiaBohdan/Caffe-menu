@@ -13,9 +13,9 @@ export const createUser = userCore;
 export const updateUserDto = userCore.partial()
 
 export const identifierDto = z.union([
-    userCore.email,
-    userCore.phoneNumber
-])
+    userCore.shape.email,
+    userCore.shape.phoneNumber
+]);
  
 export const userIdDto = z.object({
     id: z.coerce.number().int().positive()

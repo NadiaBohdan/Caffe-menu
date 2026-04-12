@@ -9,18 +9,32 @@ const COOKIE_OPTIONS = {
 
 export const authController = {
     async register(req, res) {
-        const token = await authService.registerUser(req.body);
+        const token = await authService.register(req.body);
 
         res.cookie('accessToken', token, COOKIE_OPTIONS)
 
-        res.status(201).json({ success: true });
+        res.status(201).json({ success: true, redirect: '/' })
     },
 
     async login(req, res) {
-        const token = await authService.loginUser(req.body);
+        const token = await authService.login(req.body);
 
         res.cookie('accessToken', token, COOKIE_OPTIONS)
 
-        res.status(200).json({ success: true });
+        res.status(200).json({ success: true, redirect: '/' });
+    },
+
+    async logout(req, res) {
+        res.clearCookie('accessToken');
+
+        res.status(200).json({ success: true, redirect: '/' });
+    },
+
+    async delete(req, res) {
+        await authService.delete(req.user);
+
+        res.clearCookie('accessToken');
+
+        res.status(200).json({ success: true, redirect: '/' });
     }
 }

@@ -34,10 +34,10 @@ export const userRepository = {
         })
     },
 
-    async update({ ...userData, id }) {
+    async update({ id, ...data }) {
         return await prisma.user.update({
             where: { id },
-            data: userData
+            data
         })
     },
 
