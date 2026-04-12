@@ -1,6 +1,7 @@
 import { contactService } from "#contact/contact.service.js";
 import { productService } from "#product/product.service.js";
 import { userService } from "#user/user.service.js";
+import { favouriteService } from "#favourite/favourite.service.js";
 
 export const mainSSRController = {
     async renderMainpage(req, res) {
@@ -72,5 +73,9 @@ export const mainSSRController = {
             link: linkName,
             contacts
         })
+    },
+
+    async renderFavourites(req, res) {
+        const linkName = 'favourites';
     }
 }

@@ -6,6 +6,7 @@
     "paths": {
       "#utils/*": ["./src/utils/*"],
       "#configs/*": ["./src/configs/*"],
+      "#dto/*": ["./src/dto/*"],
       "#middlewares/*": ["./src/middlewares/*"],
       "#user/*": ["./src/modules/user/*"],
       "#auth/*": ["./src/modules/auth/*"],

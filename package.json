@@ -32,6 +32,7 @@
   "imports": {
     "#utils/*": "./src/utils/*",
     "#configs/*": "./src/configs/*",
+    "#dto/*": "./src/dto/*",
     "#middlewares/*": "./src/middlewares/*",
     "#user/*": "./src/modules/user/*",
     "#auth/*": "./src/modules/auth/*",
@@ -42,6 +43,6 @@
     "#favourite/*": "./src/modules/favourite/*",
     "#cart/*": "./src/modules/cart/*",
     "#contact/*": "./src/modules/contact/*",
-    "#staff/*": "./src/modules/staff/*"
+    "#staff/*": "./src/modules/staff/*",
   }
 }
