@@ -11,8 +11,6 @@ router.post('/register', validateBody(registerDto), asyncCatch(authController.re
 
 router.post("/login", validateBody(loginDto), asyncCatch(authController.login));
 
-router.post("/staff/register", validateBody(), asyncCatch(authController.register));
-
 router.post("/staff/login", validateBody(), asyncCatch(authController.login));
 
 router.post("/logout", jwtValidate, asyncCatch(authController.logout));
