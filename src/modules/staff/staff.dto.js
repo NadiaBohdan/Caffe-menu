@@ -11,4 +11,4 @@ export const staffCore = z.object({
 
 export const createStaffDto = staffCore;
 
-export const updateUserDto = staffCore.pick({ login: true, password: true }).partial();
+export const updateStaffDto = staffCore.pick({ login: true, password: true }).partial();

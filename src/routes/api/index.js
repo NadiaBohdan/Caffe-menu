@@ -8,6 +8,7 @@ import productRoutes from "#product/product.routes.js";
 import favouriteRoutes from "#favourite/favourite.routes.js";
 import cartRoutes from "#cart/cart.routes.js";
 import contactRoutes from "#contact/contact.routes.js";
+import staffRoutes from "#staff/staff.routes.js";
 
 router.use('/auth', authRoutes);
 router.use('/table', tableRoutes);
@@ -16,5 +17,6 @@ router.use('/product', productRoutes);
 router.use('/favourite', favouriteRoutes);
 router.use('/cart', cartRoutes);
 router.use('/contact', contactRoutes);
+router.use('/staff', staffRoutes)
 
 export default router;
