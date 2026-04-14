@@ -11,10 +11,8 @@ router.get('/', asyncCatch(tableController.getAllTables));
 
 router.post('/', validateBody(createTableDto), asyncCatch(tableController.addTable));
 
-router.put('/:id', validateBody(idDto), validateParams(tableIdDto), asyncCatch(tableController.updateTable));
+router.put('/:id', validateBody(updateTableDto), validateParams(idDto), asyncCatch(tableController.updateTable));
 
 router.delete('/:id', validateParams(idDto), asyncCatch(tableController.deleteTable));
 
 export default router
-
-//TO-DO: admin check middleware
