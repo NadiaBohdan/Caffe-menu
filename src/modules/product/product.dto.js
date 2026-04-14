@@ -12,10 +12,6 @@ const productCore = z.object({
     fileToDelete: z.preprocess(value => value === "true", z.boolean()).default(false)
 })
 
-export const productIdDto = z.object({
-    id: z.coerce.number().int().positive()
-});
-
 export const createProductDto = productCore.omit({ isAvailable: true, sortOrder: true, fileToDelete: true });
 
 export const updateProductSortDto = z.array(

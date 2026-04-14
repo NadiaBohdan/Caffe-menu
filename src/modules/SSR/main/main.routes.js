@@ -12,7 +12,7 @@ router.get('/menu', asyncCatch(mainSSRController.renderMenu));
 
 router.get('/menu/:id', validateParams(idDto), asyncCatch(mainSSRController.renderViewProduct));
 
-router.get('favourite', asyncCatch());
+router.get('favourites', asyncCatch());
 
 router.get('/cart', asyncCatch());
 

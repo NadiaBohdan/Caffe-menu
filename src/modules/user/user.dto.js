@@ -16,7 +16,3 @@ export const identifierDto = z.union([
     userCore.shape.email,
     userCore.shape.phoneNumber
 ]);
- 
-export const userIdDto = z.object({
-    id: z.coerce.number().int().positive()
-});

@@ -6,8 +6,3 @@ const cartCore = z.object({
 })
 
 export const upsertCartDto = cartCore;
-
-export const cartIdDto = z.object({
-    id: z.coerce.number().int().positive("Id must be bigger than 0")
-})
-
