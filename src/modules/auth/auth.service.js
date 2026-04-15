@@ -6,7 +6,7 @@ import { comparePassword } from "#utils/hash.util.js";
 
 export const authService = {
     async register(data) {
-        const user = await userService.createUser(data);
+        const user = await userService.create(data);
 
         const token = await generateToken({ id: user.id });
 
@@ -14,7 +14,7 @@ export const authService = {
     },
 
     async login(data) {
-        const user = await userService.getUserByIdentifier(data.identifier);
+        const user = await userService.getByIdentifier({ identifier: data.identifier });
         if(!user) throw new ApiError(400, "Wrong login or password");
 
         const isSamePassword = await comparePassword(data.password, user.password);

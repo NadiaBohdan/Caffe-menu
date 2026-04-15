@@ -13,7 +13,7 @@ export const userService = {
         const isExistEmail = await userRepository.findByIdentifier(data.email)
         if(isExistEmail) throw new ApiError(409, "User with same email already exists");
 
-        const isExistPhoneNumber = await userRepository.findByField(data.phoneNumber);
+        const isExistPhoneNumber = await userRepository.findByIdentifier(data.phoneNumber);
         if(isExistPhoneNumber) throw new ApiError(409, "user with same phone number already exists");
 
         data.password = await hashPassword(data.password);
@@ -38,12 +38,12 @@ export const userService = {
     async update({ id, password, ...data}) {
         if(data.email) {
             const isExistingUserByEmail = await userRepository.findByIdentifier(data.email);
-            if(isExistingUserByEmail && isExistingUserByEmail.id !== userId) throw new ApiError(409, "This email is already taken");
+            if(isExistingUserByEmail && isExistingUserByEmail.id !== id) throw new ApiError(409, "This email is already taken");
         }
 
         if(data.phoneNumber) {
             const isExistingUserByPhoneNumber = await userRepository.findByIdentifier(data.phoneNumber);
-            if(isExistingUserByPhoneNumber && isExistingUserByPhoneNumber.id !== userId) throw new ApiError(409, "This phone number is already taken");
+            if(isExistingUserByPhoneNumber && isExistingUserByPhoneNumber.id !== id) throw new ApiError(409, "This phone number is already taken");
         }
 
         if(password) password = await hashPassword(password);
