@@ -24,7 +24,6 @@ export const authService = {
 
     async loginStaff(data) {
         const staff = await staffService.getByIdentifier({ login: data.login });
-        console.log("DATA::::::: ", data);
         await verifyLoginData(staff, data.password);
 
         const token = await generateToken({ id: staff.id, role: staff.role });
