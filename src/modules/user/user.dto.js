@@ -5,7 +5,8 @@ export const userCore = z.object({
     lastName: z.string().trim().min(1, 'Enter your real lastname').max(100),
     email: z.email("Invalid email"),
     phoneNumber: z.string().regex(/^\+380\d{9}$/, "Invalid UA number"),
-    password: z.string()
+    password: z.string(),
+    role: z.enum(['user'])
 });
 
 export const createUser = userCore;

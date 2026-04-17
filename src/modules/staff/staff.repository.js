@@ -1,4 +1,4 @@
-import prisma from "prisma"
+import prisma from "#configs/prisma.js"
 
 export const staffRepository = {
     async create(data) {

@@ -2,7 +2,7 @@ import { userService } from "#user/user.service.js";
 import { staffService } from "#staff/staff.service.js";
 import { generateToken } from "#utils/jwt.util.js";
 import { ApiError } from "#utils/error.util.js";
-import { verifyLoginData } from "#utils/auth.helper.js";
+import { verifyLoginData } from "#utils/auth.util.js";
 
 export const authService = {
     async register(data) {
@@ -23,8 +23,8 @@ export const authService = {
     },
 
     async loginStaff(data) {
-        const staff = await staffService.getByIdentifier({ identifier: data.identifier });
-
+        const staff = await staffService.getByIdentifier({ login: data.login });
+        console.log("DATA::::::: ", data);
         await verifyLoginData(staff, data.password);
 
         const token = await generateToken({ id: staff.id, role: staff.role });

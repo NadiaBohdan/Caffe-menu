@@ -9,9 +9,9 @@ const router = express.Router();
 
 router.post('/register', validateBody(registerDto), asyncCatch(authController.register));
 
-router.post("/login", validateBody(loginUserDto), asyncCatch(authController.login));
+router.post("/login", validateBody(loginUserDto), asyncCatch(authController.loginUser));
 
-router.post("/staff/login", validateBody(loginStaffDto), asyncCatch(authController.login));
+router.post("/staff/login", validateBody(loginStaffDto), asyncCatch(authController.loginStaff));
 
 router.post("/logout", jwtValidate, asyncCatch(authController.logout));
 

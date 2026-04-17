@@ -71,8 +71,6 @@ model User {
 
 model Staff {
   id        Int       @id @default(autoincrement())
-  firstName String    @map("first_name")
-  lastName  String    @map("last_name")
   login     String    @unique
   password  String    @db.VarChar(60)
   role      StaffRole
