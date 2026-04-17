@@ -35,6 +35,6 @@ export const authService = {
 
         if(!service) throw new Error(`Service for role ${role} not found`);
 
-        return await service.delete(id);
+        return await service.delete({ id });
     }
 }
