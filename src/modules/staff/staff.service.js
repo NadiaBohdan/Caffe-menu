@@ -18,6 +18,11 @@ export const staffService = {
         return staffArray;
     },
 
+    async getByIdentifier({ identifire }) {
+        const staff = await staffRepository.getByLogin(identifire);
+        return staff;
+    },
+
     async update({ password, ...data }) {
         const isExist = await staffRepository.getByLogin(data.login);
         if(isExist && isExist.id !== data.id) throw new ApiError(409, "Employee with same login already exists");

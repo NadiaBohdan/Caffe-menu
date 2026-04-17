@@ -7,25 +7,35 @@ const COOKIE_OPTIONS = {
     maxAge: 1000 * 60 * 60 * 24
 }
 
+const TOKEN_NAME = 'accessToken';
+
 export const authController = {
     async register(req, res) {
         const token = await authService.register(req.body);
 
-        res.cookie('accessToken', token, COOKIE_OPTIONS)
+        res.cookie(TOKEN_NAME, token, COOKIE_OPTIONS)
 
         res.status(201).json({ success: true, redirect: '/' })
     },
 
-    async login(req, res) {
-        const token = await authService.login(req.body);
+    async loginUser(req, res) {
+        const token = await authService.loginUser(req.body);
 
-        res.cookie('accessToken', token, COOKIE_OPTIONS)
+        res.cookie(TOKEN_NAME, token, COOKIE_OPTIONS)
 
         res.status(200).json({ success: true, redirect: '/' });
     },
 
+    async loginStaff(req, res) {
+        const token = await authService.loginStaff(req.body);
+
+        res.cookie(TOKEN_NAME, token, COOKIE_OPTIONS);
+
+        res.status(200).json({ success: true, redirect: '/admin/' })
+    },
+
     async logout(req, res) {
-        res.clearCookie('accessToken');
+        res.clearCookie(TOKEN_NAME);
 
         res.status(200).json({ success: true, redirect: '/' });
     },
@@ -33,7 +43,7 @@ export const authController = {
     async delete(req, res) {
         await authService.delete(req.user);
 
-        res.clearCookie('accessToken');
+        res.clearCookie(TOKEN_NAME);
 
         res.status(200).json({ success: true, redirect: '/' });
     }
