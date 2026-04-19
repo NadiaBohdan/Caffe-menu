@@ -1,5 +1,5 @@
 import { productRepository } from "./product.repository.js";
-import { categoryService } from "#category/categoty.service.js";
+import { categoryService } from "#category/category.service.js";
 import { ApiError } from "#utils/error.util.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "#utils/cloudinary.util.js";
 
