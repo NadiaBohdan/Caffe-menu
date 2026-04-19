@@ -5,15 +5,17 @@ import { idDto } from '#dto/global.dto.js';
 import { validateBody, validateParams, validateFile } from '#middlewares/validate.middleware.js';
 import { productController } from './product.controller.js';
 import { upload } from '#middlewares/multer.middleware.js';
+import { jwtValidate } from '#middlewares/jwt.middleware.js';
+import { checkRole } from '#middlewares/role.middleware.js';
 
 const router = express.Router();
 
-router.post('/', upload.single("image"), validateBody(createProductDto), validateFile(fileDto), asyncCatch(productController.add));
+router.post('/', jwtValidate, checkRole(["admin"]), upload.single("image"), validateBody(createProductDto), validateFile(fileDto), asyncCatch(productController.add));
 
-router.put('/:id', upload.single("image"), validateBody(updateProductDto), validateParams(idDto), validateFile(fileDto), asyncCatch(productController.updateOne));
+router.put('/:id', jwtValidate, checkRole(["admin"]), upload.single("image"), validateBody(updateProductDto), validateParams(idDto), validateFile(fileDto), asyncCatch(productController.updateOne));
 
-router.patch('/sort', validateBody(updateProductSortDto), asyncCatch(productController.updateMany));
+router.patch('/sort', jwtValidate, checkRole(["admin"]), validateBody(updateProductSortDto), asyncCatch(productController.updateMany));
 
-router.delete('/:id', validateParams(idDto), asyncCatch(productController.delete));
+router.delete('/:id', jwtValidate, checkRole(["admin"]), validateParams(idDto), asyncCatch(productController.delete));
 
 export default router;

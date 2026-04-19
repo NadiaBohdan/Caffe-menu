@@ -9,7 +9,7 @@ export const userCore = z.object({
     role: z.enum(['user'])
 });
 
-export const createUser = userCore;
+export const createUserDto = userCore;
 
 export const updateUserDto = userCore.partial()
 
