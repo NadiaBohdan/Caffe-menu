@@ -12,3 +12,14 @@ export const checkRole = (allowedRoles) => {
         next();
     } 
 }
+
+export const isOwner = (req, res, next) => {
+    if(Number(req.user?.id) !== Number(req.params.id)) {
+        return res.status(403).json({
+            success: false,
+            message: "Access denied"
+        })
+    }
+
+    next();
+}
