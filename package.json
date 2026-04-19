@@ -8,6 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -L -e js,json,njk src/app.js"
   },
+  "prisma": {
+    "seed": "node src/scripts/createSuperAdmin.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

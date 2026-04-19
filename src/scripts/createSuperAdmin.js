@@ -23,7 +23,7 @@ const createSuperAdmin = async () => {
     } catch(err) {
         console.error("[ ERROR ]: Error craeting super admin: ", err);
     } finally {
-        await prisma.
+        await prisma.$disconnect()
     }
 }
 
