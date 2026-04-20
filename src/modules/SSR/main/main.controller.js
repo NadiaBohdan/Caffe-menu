@@ -3,62 +3,64 @@ import { productService } from "#product/product.service.js";
 import { userService } from "#user/user.service.js";
 import { favouriteService } from "#favourite/favourite.service.js";
 
+const DIR = "main";
+
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        const linkName = 'main/home';
+        const linkName = 'home';
 
         const contacts = await contactService.getAll();
 
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName,
             contacts
         })
     },
 
     async renderMenu(req, res) {
-        const linkName = 'main/menu';
+        const linkName = 'menu';
 
         const products = await productService.getByCategory();
 
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName,
             products
         })
     },
 
     async renderViewProduct(req, res) {
-        const linkName = 'main/view-menu';
+        const linkName = 'view-menu';
 
         const product = await productService.getById(req.params)
 
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName,
             product
         })
     },
 
     async renderLogin(req, res) {
-        const linkName = 'main/login';
+        const linkName = 'login';
         
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName
         })
     },
 
     async renderRegister(req, res) {
-        const linkName = 'main/sign-up';
+        const linkName = 'sign-up';
 
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName
         })
     },
 
     async renderAccount(req, res) {
-        const linkName = 'main/account';
+        const linkName = 'account';
 
         const user = await userService.getById({ id: req.user.id });
         
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName,
             user
         })
@@ -69,7 +71,7 @@ export const mainSSRController = {
 
         const contacts = await contactService.getAll();
 
-        res.render(linkName, {
+        res.render(DIR + linkName, {
             link: linkName,
             contacts
         })
