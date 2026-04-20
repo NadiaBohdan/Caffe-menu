@@ -5,7 +5,7 @@ import { favouriteService } from "#favourite/favourite.service.js";
 
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        const linkName = 'home';
+        const linkName = 'main/home';
 
         const contacts = await contactService.getAll();
 
@@ -16,7 +16,7 @@ export const mainSSRController = {
     },
 
     async renderMenu(req, res) {
-        const linkName = 'menu';
+        const linkName = 'main/menu';
 
         const products = await productService.getByCategory();
 
@@ -27,7 +27,7 @@ export const mainSSRController = {
     },
 
     async renderViewProduct(req, res) {
-        const linkName = 'view-menu';
+        const linkName = 'main/view-menu';
 
         const product = await productService.getById(req.params)
 
@@ -38,7 +38,7 @@ export const mainSSRController = {
     },
 
     async renderLogin(req, res) {
-        const linkName = 'login';
+        const linkName = 'main/login';
         
         res.render(linkName, {
             link: linkName
@@ -46,7 +46,7 @@ export const mainSSRController = {
     },
 
     async renderRegister(req, res) {
-        const linkName = 'sign-up';
+        const linkName = 'main/sign-up';
 
         res.render(linkName, {
             link: linkName
@@ -54,10 +54,9 @@ export const mainSSRController = {
     },
 
     async renderAccount(req, res) {
-        const linkName = 'account';
+        const linkName = 'main/account';
 
         const user = await userService.getById({ id: req.user.id });
-        console.log("DATA:::::::: ", user)
         
         res.render(linkName, {
             link: linkName,
@@ -66,7 +65,7 @@ export const mainSSRController = {
     },
 
     async renderContact(req, res) {
-        const linkName = 'contact';
+        const linkName = 'main/contact';
 
         const contacts = await contactService.getAll();
 
@@ -77,6 +76,6 @@ export const mainSSRController = {
     },
 
     async renderFavourites(req, res) {
-        const linkName = 'favourites';
+        const linkName = 'main/favourites';
     }
 }
