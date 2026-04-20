@@ -61,5 +61,11 @@ export const mainSSRService = {
         const user = await userService.getById({ id: userData.id });
 
         return { user };
+    },
+
+    async auth(userData) {
+        const user = await getOptionalUserData(userData);
+
+        return { user };
     }
 }

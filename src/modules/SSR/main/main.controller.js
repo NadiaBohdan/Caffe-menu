@@ -1,83 +1,115 @@
-import { contactService } from "#contact/contact.service.js";
-import { productService } from "#product/product.service.js";
-import { userService } from "#user/user.service.js";
-import { favouriteService } from "#favourite/favourite.service.js";
+import { mainSSRService } from "./main.service.js";
+import { productService } from "./product.service.js";
 
 const DIR = "main";
 
+const VIEWS = {
+    HOME: "home",
+    MENU: "menu",
+    VIEW_PRODUCT: "view-menu",
+    LOGIN: "login",
+    REGISTER: "sign-up",
+    ACCOUNT: "account",
+    CONTACT: "contact",
+    FAVOURITES: "favourites",
+    CART: "cart"
+};
+
+const renderMain = (res, view, data = {}) => {
+    return res.render(`${DIR}/${view}`, data);
+};
+
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        const linkName = 'home';
+        const { user, contacts } = await mainSSRService.main(req.user);
 
-        const contacts = await contactService.getAll();
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            contacts
-        })
+        renderMain(res, VIEWS.HOME, {
+            link: VIEWS.HOME,
+            contacts,
+            user
+        });
     },
 
     async renderMenu(req, res) {
-        const linkName = 'menu';
+        const { user, products } = await mainSSRService.menu({
+            userData: req.user,
+            category: req.query.category
+        });
 
-        const products = await productService.getByCategory();
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            products
-        })
+        renderMain(res, VIEWS.MENU, {
+            link: VIEWS.MENU,
+            products,
+            user
+        });
     },
 
     async renderViewProduct(req, res) {
-        const linkName = 'view-menu';
+        const { user, product } = await mainSSRService.productView({
+            userData: req.user,
+            productId: req.params.id
+        });
 
-        const product = await productService.getById(req.params)
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            product
-        })
+        renderMain(res, VIEWS.VIEW_PRODUCT, {
+            link: VIEWS.VIEW_PRODUCT,
+            product,
+            user
+        });
     },
 
     async renderLogin(req, res) {
-        const linkName = 'login';
-        
-        res.render(DIR + linkName, {
-            link: linkName
-        })
+        const { user } = await mainSSRService.auth(req.user);
+
+        renderMain(res, VIEWS.LOGIN, {
+            link: VIEWS.LOGIN,
+            user
+        });
     },
 
     async renderRegister(req, res) {
-        const linkName = 'sign-up';
+        const { user } = await mainSSRService.auth(req.user);
 
-        res.render(DIR + linkName, {
-            link: linkName
-        })
+        renderMain(res, VIEWS.REGISTER, {
+            link: VIEWS.REGISTER,
+            user
+        });
     },
 
     async renderAccount(req, res) {
-        const linkName = 'account';
+        const { user } = await mainSSRService.account(req.user);
 
-        const user = await userService.getById({ id: req.user.id });
-        
-        res.render(DIR + linkName, {
-            link: linkName,
+        renderMain(res, VIEWS.ACCOUNT, {
+            link: VIEWS.ACCOUNT,
             user
-        })
+        });
     },
 
     async renderContact(req, res) {
-        const linkName = 'main/contact';
+        const { user, contacts } = await mainSSRService.contacts(req.user);
 
-        const contacts = await contactService.getAll();
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            contacts
-        })
+        renderMain(res, VIEWS.CONTACT, {
+            link: VIEWS.CONTACT,
+            contacts,
+            user
+        });
     },
 
     async renderFavourites(req, res) {
-        const linkName = 'main/favourites';
+        const { user, products } = await mainSSRService.favourites(req.user);
+
+        renderMain(res, VIEWS.FAVOURITES, {
+            link: VIEWS.FAVOURITES,
+            user,
+            products
+        });
+    },
+
+    async renderCart(req, res) {
+        const { user, products } = await mainSSRService.cart(req.user);
+
+        renderMain(res, VIEWS.CART, {
+            link: VIEWS.CART,
+            user,
+            products
+        });
     }
-}
+};
