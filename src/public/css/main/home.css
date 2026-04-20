@@ -83,10 +83,14 @@
     background-image: url("/img/restaurantphoto.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed;
     width: 100%;
-    height: 748px;
+    margin: 0 auto;
+    max-width:1600px;
+    min-height: 320px;
+    height: clamp(320px, 50vw, 748px);
+    background-position: center;
 }
+
 
 
 
@@ -133,6 +137,12 @@
     position: relative;
     width: 100%;
     min-height: 758px;
+
+}
+
+#photo-wine-right-down{
+    margin-bottom: -64px;
+    z-index: -1;
 
 }
 

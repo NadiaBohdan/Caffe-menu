@@ -14,8 +14,7 @@ header{
     flex-direction: row;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 80px;
+    justify-content: space-around;
     padding: 8px;
 }
 
@@ -26,11 +25,10 @@ header{
 
 #nav-ul{
     display: flex;
-    gap: 80px;
     flex-direction: row;
     list-style: none;
     flex-grow: 1; 
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 #nav-ul li a{
@@ -51,4 +49,33 @@ header{
 
 #nav-ul li a:hover {
   font-weight: 500;
+}
+
+#dropdown-menu{
+
+}
+
+#dropdown-static{
+
+}
+
+.dropdown-img{
+  height: 20px;
+}
+
+.dropdown-img-acc{
+ height: 32px;
+}
+
+.dropdown{
+
+}
+
+.dropdown li{
+  text-decoration: none;
+  list-style: none;
+}
+
+.dropdown-text{
+
 }

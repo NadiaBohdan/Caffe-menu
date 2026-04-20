@@ -4,10 +4,12 @@
 body{
     background: linear-gradient(#fff ,#fbf8fd, #C194D9, #c08ddb);
     height: 100%;
+    max-width: 1600px;
+    width: 100%;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    margin: 0px;
+    margin: 0 auto;
 }
 
 ::selection {
