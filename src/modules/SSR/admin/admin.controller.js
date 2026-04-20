@@ -30,7 +30,7 @@ export const adminSSRController = {
         });
     },
 
-    async renderProducts(req, res) {
+    async renderMenu(req, res) {
         const data = await adminSSRservice.getProducts(req.user.id);
 
         renderAdmin(res, VIEWS.PRODUCTS, {

@@ -8,7 +8,6 @@ export const mainSSRController = {
         const linkName = 'home';
 
         const contacts = await contactService.getAll();
-        console.log("DATA:::::::: ", contacts)
 
         res.render(linkName, {
             link: linkName,
@@ -20,7 +19,6 @@ export const mainSSRController = {
         const linkName = 'menu';
 
         const products = await productService.getByCategory();
-        console.log("DATA:::::::: ", products)
 
         res.render(linkName, {
             link: linkName,
@@ -32,7 +30,6 @@ export const mainSSRController = {
         const linkName = 'view-menu';
 
         const product = await productService.getById(req.params)
-        console.log("DATA:::::::: ", product)
 
         res.render(linkName, {
             link: linkName,
@@ -72,7 +69,6 @@ export const mainSSRController = {
         const linkName = 'contact';
 
         const contacts = await contactService.getAll();
-        console.log("DATA:::::::: ", contacts)
 
         res.render(linkName, {
             link: linkName,
