@@ -11,6 +11,12 @@ export const staffRepository = {
         })
     },
 
+    async getById(id) {
+        return prisma.staff.findUnique({
+            where: { id }
+        })
+    },
+
     async getAll() {
         return prisma.staff.findMany()
     },

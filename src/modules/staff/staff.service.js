@@ -18,6 +18,11 @@ export const staffService = {
         return staffArray;
     },
 
+    async getById({ id }) {
+        const staff = await staffRepository.getById(id);
+        return staff;
+    },
+
     async getByIdentifier({ login }) {
         const staff = await staffRepository.getByLogin(login);
         return staff;
