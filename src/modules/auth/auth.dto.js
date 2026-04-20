@@ -1,14 +1,9 @@
 import { z } from "zod"
 import { userCore, identifierDto } from "#user/user.dto.js"
+import { staffCore } from "#staff/staff.dto.js";
+import { strongPassword } from "#dto/global.dto.js";
 
-const strongPassword = z.string()
-    .min(8, "Password too small")
-    .max(32, "Password too long")
-    .regex(/[a-z]/)
-    .regex(/[1-9]/)
-
-export const registerDto = z.object({
-    ...userCore,
+export const registerDto = userCore.extend({
     password: strongPassword,
     confirmPassword: z.string()
 })
@@ -21,7 +16,12 @@ export const registerDto = z.object({
     return rest;
 })
 
-export const loginDto = z.object({
+export const loginUserDto = z.object({
     identifier: identifierDto,
     password: z.string()
 })
+
+export const loginStaffDto = staffCore.pick({ login: true }).extend({
+    password: strongPassword
+})
+

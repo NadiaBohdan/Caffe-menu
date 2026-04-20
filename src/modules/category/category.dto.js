@@ -6,8 +6,6 @@ const categoryCore = z.object({
     sortOrder: z.number().int().nonnegative()
 })
 
-export const categoryIdDto = categoryCore.pick({ id: true });
-
 export const createCategoryDto = categoryCore.pick({ title: true });
 
 export const updateCategoriesList = z.array(categoryCore)

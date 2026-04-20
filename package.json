@@ -8,6 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -L -e js,json src/app.js"
   },
+  "prisma": {
+    "seed": "node src/scripts/createSuperAdmin.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -32,6 +35,7 @@
   "imports": {
     "#utils/*": "./src/utils/*",
     "#configs/*": "./src/configs/*",
+    "#dto/*": "./src/dto/*",
     "#middlewares/*": "./src/middlewares/*",
     "#user/*": "./src/modules/user/*",
     "#auth/*": "./src/modules/auth/*",
@@ -41,6 +45,7 @@
     "#product/*": "./src/modules/product/*",
     "#favourite/*": "./src/modules/favourite/*",
     "#cart/*": "./src/modules/cart/*",
-    "#contact/*": "./src/modules/contact/*"
+    "#contact/*": "./src/modules/contact/*",
+    "#staff/*": "./src/modules/staff/*"
   }
 }

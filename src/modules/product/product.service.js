@@ -1,5 +1,5 @@
 import { productRepository } from "./product.repository.js";
-import { categoryService } from "#category/categoty.service.js";
+import { categoryService } from "#category/category.service.js";
 import { ApiError } from "#utils/error.util.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "#utils/cloudinary.util.js";
 
@@ -41,13 +41,16 @@ export const productService = {
         }
     },
 
+    async getByCategory() {
+
+    },
 
     async getPaginated(cursorData) {
         const productList = await productRepository.getByPagination(cursorData);
         return productList;
     },
 
-    async findById(id) {
+    async getById({ id }) {
         const product = await productRepository.getById(id);
         if(!product) throw new ApiError(404, "Product not found");
 
