@@ -9,7 +9,7 @@ const getOptionalUserData = async (userData) => {
     let user = null;
 
     if(userData?.id && userData?.role === "user") {
-        user = await userService.getById({ id: user.id })
+        user = await userService.getById({ id: userData.id })
     }
 
     return user;
@@ -24,20 +24,20 @@ export const mainSSRService = {
     },
 
     async getFirstCategory() {
-        const category = await categoryService.getFirst();
-        return category;
+        return categoryService.getFirst();
     },
 
-    async menu({ userData, category }) {
+    async menu({ id, ...userData }) {
         const user = await getOptionalUserData(userData);
-        const products = await productService.getByCategory(category);
+        const categories = await categoryService.getAll();
+        const products = await productService.getByCategory(id);
 
-        return { user, products };
+        return { user, products, categories };
     },
 
-    async productView({ userData, productId }) {
+    async productView({ id, ...userData }) {
         const user = await getOptionalUserData(userData);
-        const product = await productService.getById({ id: productId });
+        const product = await productService.getById({ id });
 
         return { user, product };
     },
