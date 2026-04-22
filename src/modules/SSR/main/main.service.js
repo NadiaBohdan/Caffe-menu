@@ -5,19 +5,17 @@ import { cartService } from "#cart/cart.service.js";
 import { contactService } from "#contact/contact.service.js";
 import { categoryService } from "#category/category.service.js";
 
-const getOptionalUserData = async (userData) => {
+const getOptionalUserData = async (id) => {
     let user = null;
 
-    if(userData?.id && userData?.role === "user") {
-        user = await userService.getById({ id: userData.id })
-    }
+    if(id) user = await userService.getNameById({ id });
 
     return user;
 }
 
 export const mainSSRService = {
-    async main(userData) {
-        const user = await getOptionalUserData(userData);
+    async main({ id }) {
+        const user = await getOptionalUserData(id);
         const contacts = await contactService.getAll();
 
         return { user, contacts };
@@ -27,8 +25,8 @@ export const mainSSRService = {
         return categoryService.getFirst();
     },
 
-    async menu({ id, ...userData }) {
-        const user = await getOptionalUserData(userData);
+    async menu({ userId, id }) {
+        const user = await getOptionalUserData(userId);
         const categories = await categoryService.getAll();
         const products = await productService.getByCategory(id);
         const activeCategory = id;
@@ -36,42 +34,42 @@ export const mainSSRService = {
         return { user, products, categories, activeCategory };
     },
 
-    async productView({ id, ...userData }) {
-        const user = await getOptionalUserData(userData);
-        const product = await productService.getById({ id });
+    async productView({ userId, id }) {
+        const user = await getOptionalUserData(userId);
+        const product = await productService.findById({ id });
 
         return { user, product };
     },
 
-    async favourites(userData) {
-        const user = await userService.getById({ id: userData.id });
-        const products = await favouriteService.getAll({ userId: userData.id });
+    async favourites({ id }) {
+        const user = await userService.getNameById({ id });
+        const products = await favouriteService.getAll({ userId: id });
 
         return { user, products };
     },
 
-    async cart(userData) {
-        const user = await userService.getById({ id: userData.id });
-        const products = await cartService.getAll({ userId: userData.id });
+    async cart({ id }) {
+        const user = await userService.getNameById({ id });
+        const products = await cartService.getAll({ userId: id });
 
         return { user, products };
     },
 
-    async contacts(userData) {
-        const user = await getOptionalUserData(userData);
+    async contacts({ id }) {
+        const user = await getOptionalUserData(id);
         const contacts = await contactService.getAll();
 
         return { user, contacts };
     },
 
-    async account(userData) {
-        const user = await userService.getById({ id: userData.id });
+    async account({ id }) {
+        const user = await userService.getById({ id });
 
         return { user };
     },
 
-    async auth(userData) {
-        const user = await getOptionalUserData(userData);
+    async user({ id }) {
+        const user = await getOptionalUserData(id);
 
         return { user };
     }
