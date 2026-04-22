@@ -41,8 +41,9 @@ export const productService = {
         }
     },
 
-    async getByCategory() {
-
+    async getByCategory({ id }) {
+        const productList = await productRepository.getByCategory(id);
+        return productList;
     },
 
     async getPaginated(cursorData) {
