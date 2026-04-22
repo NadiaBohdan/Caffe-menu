@@ -6,12 +6,14 @@ import { checkRole } from "#middlewares/role.middleware.js";
 
 const router = express.Router();
 
-router.get('/', jwtValidate, checkRole(["admin"]), asyncCatch(adminSSRController.renderLogin));
+router.use(jwtValidate, checkRole(["admin"]));
 
-router.get('/categories', jwtValidate, checkRole(["admin"]), asyncCatch(adminSSRController.renderCategories));
+router.get('/', asyncCatch(adminSSRController.renderLogin));
 
-router.get('/menu', jwtValidate, checkRole(["admin"]), asyncCatch(adminSSRController.renderMenu));
+router.get('/categories', asyncCatch(adminSSRController.renderCategories));
 
-router.get('/footer', jwtValidate, checkRole(["admin"]), asyncCatch(adminSSRController.renderFooter));
+router.get('/menu', asyncCatch(adminSSRController.renderMenu));
+
+router.get('/footer', asyncCatch(adminSSRController.renderFooter));
 
 export default router;
