@@ -3,6 +3,7 @@ import { productService } from "#product/product.service.js";
 import { favouriteService } from "#favourite/favourite.service.js";
 import { cartService } from "#cart/cart.service.js";
 import { contactService } from "#contact/contact.service.js";
+import { categoryService } from "#category/category.service.js";
 
 const getOptionalUserData = async (userData) => {
     let user = null;
@@ -20,6 +21,11 @@ export const mainSSRService = {
         const contacts = await contactService.getAll();
 
         return { user, contacts };
+    },
+
+    async getFirstCategory() {
+        const category = await categoryService.getFirst();
+        return category;
     },
 
     async menu({ userData, category }) {

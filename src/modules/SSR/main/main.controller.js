@@ -30,24 +30,29 @@ export const mainSSRController = {
         });
     },
 
+    async renderMenuRedirect(req, res) {
+        const category = await mainSSRService.getFirstCategory();
+
+        if(!category) {
+            return res.redirect(`/${VIEWS.MENU}/empty`);
+        }
+
+        res.redirect(`/${VIEWS.MENU}/${category.id}`);
+    },
+
     async renderMenu(req, res) {
-        const { user, products } = await mainSSRService.menu({
-            userData: req.user,
-            category: req.query.category
-        });
+        const { user, products, categories } = await mainSSRService.menu({ ...req.user, ...req.params });
 
         renderMain(res, VIEWS.MENU, {
             link: VIEWS.MENU,
+            categories,
             products,
             user
         });
     },
 
     async renderViewProduct(req, res) {
-        const { user, product } = await mainSSRService.productView({
-            userData: req.user,
-            productId: req.params.id
-        });
+        const { user, product } = await mainSSRService.productView({ ...req.user, ...req.params });
 
         renderMain(res, VIEWS.VIEW_PRODUCT, {
             link: VIEWS.VIEW_PRODUCT,
