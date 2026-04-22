@@ -14,7 +14,7 @@ router.get('/menu', asyncCatch(mainSSRController.renderMenuRedirect));
 
 router.get('/menu/empty', jwtOptional, asyncCatch(mainSSRController.renderMenuEmpty));
 
-router.get('/menu/:id', jwtOptional, asyncCatch(mainSSRController.renderMenu));
+router.get('/menu/:id', jwtOptional, validateParams(idDto), asyncCatch(mainSSRController.renderMenu));
 
 router.get('/view-menu/:id', jwtOptional, validateParams(idDto), asyncCatch(mainSSRController.renderViewProduct));
 

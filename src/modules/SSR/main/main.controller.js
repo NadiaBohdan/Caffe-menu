@@ -1,5 +1,4 @@
 import { mainSSRService } from "./main.service.js";
-import { productService } from "./product.service.js";
 
 const DIR = "main";
 
