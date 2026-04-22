@@ -28,11 +28,18 @@ export const userService = {
         return user;
     },
 
-    async getById(id) {
+    async getById({ id }) {
         const user = await userRepository.findById(id);
         if(!user) return null;
 
         return sanitize(user);
+    },
+
+    async getNameById({ id }) {
+        const user = await userRepository.getNameById(id);
+        if(!user) return null;
+
+        return user;
     },
 
     async update({ id, password, ...data}) {
