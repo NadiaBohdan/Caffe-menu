@@ -13,7 +13,7 @@ export const cartService = {
     async upsert({ productId, userId, quantity }) {
         const cartId = await checkCart(userId);
 
-        await productService.findById(productId);
+        await productService.findById({ id: productId });
 
         const cartItem = await cartRepository.upsert({ cartId, productId, quantity });
         return cartItem;
