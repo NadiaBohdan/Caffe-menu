@@ -58,6 +58,10 @@ export const productService = {
         return product;
     },
 
+    async findById({ id }) {
+        return productRepository.getById(id)
+    },
+
     async delete({ id }) {
         const existingProduct = await this.findById(id)
 
