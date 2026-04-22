@@ -10,11 +10,15 @@ const router = express.Router();
 
 router.get('/', jwtOptional, asyncCatch(mainSSRController.renderMainpage));
 
-router.get('/menu', jwtOptional, asyncCatch(mainSSRController.renderMenu));
+router.get('/menu', asyncCatch(mainSSRController.renderMenuRedirect));
 
-router.get('/menu/:id', jwtOptional, validateParams(idDto), asyncCatch(mainSSRController.renderViewProduct));
+router.get('/menu/empty', jwtOptional, asyncCatch(mainSSRController.renderMenuEmpty));
 
-router.get('favourites', jwtValidate, checkRole(["user"]), asyncCatch(mainSSRController.renderFavourites));
+router.get('/menu/:id', jwtOptional, asyncCatch(mainSSRController.renderMenu));
+
+router.get('/view-menu/:id', jwtOptional, validateParams(idDto), asyncCatch(mainSSRController.renderViewProduct));
+
+router.get('/favourites', jwtValidate, checkRole(["user"]), asyncCatch(mainSSRController.renderFavourites));
 
 router.get('/cart', jwtValidate, checkRole(["user"]), asyncCatch(mainSSRController.renderCart));
 

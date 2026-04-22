@@ -6,6 +6,7 @@ const DIR = "main";
 const VIEWS = {
     HOME: "home",
     MENU: "menu",
+    MENU_EMPTY: "menu/empty",
     VIEW_PRODUCT: "view-menu",
     LOGIN: "login",
     REGISTER: "sign-up",
@@ -34,10 +35,14 @@ export const mainSSRController = {
         const category = await mainSSRService.getFirstCategory();
 
         if(!category) {
-            return res.redirect(`/${VIEWS.MENU}/empty`);
+            return res.redirect(`/${VIEWS.MENU_EMPTY}`);
         }
 
         res.redirect(`/${VIEWS.MENU}/${category.id}`);
+    },
+
+    async renderMenuEmpty(req, res) {
+        renderMain(res, VIEWS.MENU_EMPTY);
     },
 
     async renderMenu(req, res) {
@@ -45,6 +50,7 @@ export const mainSSRController = {
 
         renderMain(res, VIEWS.MENU, {
             link: VIEWS.MENU,
+            activeCategory,
             categories,
             products,
             user

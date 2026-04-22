@@ -31,8 +31,9 @@ export const mainSSRService = {
         const user = await getOptionalUserData(userData);
         const categories = await categoryService.getAll();
         const products = await productService.getByCategory(id);
+        const activeCategory = id;
 
-        return { user, products, categories };
+        return { user, products, categories, activeCategory };
     },
 
     async productView({ id, ...userData }) {
