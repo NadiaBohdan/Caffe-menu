@@ -87,7 +87,7 @@ main{
     background-size: cover;
     width: 100%;
     margin: 0 auto;
-    max-width:1600px;
+    /*max-width:1600px;*/
     min-height: 320px;
     height: clamp(320px, 50vw, 748px);
     background-position: center;
