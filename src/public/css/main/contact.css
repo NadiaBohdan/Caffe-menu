@@ -56,7 +56,7 @@ main{
     gap: 16px;
 }
 
-#phone-all{
+.contact-all{
     margin: 0;
     padding: 0;
     display: flex;
@@ -67,4 +67,12 @@ main{
 
 .contact-icons{
     height: 32px;
+}
+
+.link-c{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
 }

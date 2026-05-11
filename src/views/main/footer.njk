@@ -39,29 +39,46 @@
         <section class="site-menu-footer">
             <h5>Contact details</h5>
             <div id="site-menu-footer-nav"> 
-                <div id="phone-all-f">
+                <div class="all-f">
                     <img src="/img/icons/Phone-footer.svg"  class="footer-icons">
-                    <div id="phones-f">
-                        <a href="tel:+380XXXXXXXXX">+38 (0XX) XXX-XX-XX</a>
-                        <a href="tel:+380XXXXXXXXX">+38 (0XX) XXX-XX-XX</a>
+                    <div class="link-f">
+                        {% for link in contacts %}
+                            {% if(link.linkType === "phoneNumber") %}
+                                <a href="tel:{{ link.link }}">{{ link.name }}</a>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-                <a id="mail-f" href="mailto:info@example.com">
+                <div class="all-f">
                     <img src="/img/icons/mail-footer.svg"  class="footer-icons">
-                    info@example.com
-                </a>
+                    <div class="link-f">
+                        {% for link in contacts %}
+                            {% if(link.linkType === "email") %}
+                                <a href="mailto:{{ link.link }}">{{ link.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
                 <ul id="nav-ul-f">
                     <li>
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                            <img src="/img/icons/Facebook-footer.svg"  class="footer-icons">
-                            <span>Facebook</span>
-                        </a>
+                        {% for link in contacts%}
+                            {% if(link.linkType === "facebook") %}
+                                <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+                                    <img src="/img/icons/Facebook-footer.svg"  class="footer-icons">
+                                    <span>{{ link.name }}</span>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                     </li>
                     <li>
-                        <a href="№" target="_blank" rel="noopener noreferrer">
-                            <img src="/img/icons/Instagram-footer.svg"  class="footer-icons">
-                            <span>Instagram</span>
-                        </a>
+                        {% for link in contacts%}
+                            {% if(link.linkType === "instagram") %}
+                                <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+                                    <img src="/img/icons/Instagram-footer.svg"  class="footer-icons">
+                                    <span>{{ link.name }}</span>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                    </li>
                 </ul>
             </div>

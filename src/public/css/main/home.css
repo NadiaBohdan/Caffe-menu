@@ -13,7 +13,9 @@
   transform: translateY(0);
 }
 
-
+main{
+    margin-bottom: 64px;
+}
 
 #section-main-information{
     position: relative;

@@ -3,7 +3,7 @@ import { productService } from "#product/product.service.js";
 import { userService } from "#user/user.service.js";
 import { favouriteService } from "#favourite/favourite.service.js";
 
-const DIR = "main";
+const DIR = "main/";
 
 export const mainSSRController = {
     async renderMainpage(req, res) {
@@ -67,7 +67,7 @@ export const mainSSRController = {
     },
 
     async renderContact(req, res) {
-        const linkName = 'main/contact';
+        const linkName = 'contact';
 
         const contacts = await contactService.getAll();
 

@@ -1,0 +1,71 @@
+
+.title{
+    font-size: 64px;
+}
+
+.categories{
+    display: flex;
+    justify-content: center;
+
+}
+
+.dishes{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    gap: 0px;
+    margin: 36px;
+}
+
+.dish-img{
+   margin-bottom: -80px;
+}
+
+.dish-information{
+    background-color: #FFF;
+    z-index: -1;
+    padding: 16px;
+    padding-top: 80px;
+    border-radius: 24px;
+    max-width: 392px;  
+    height: 406px ;         /* Або будь-яка інша ширина */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;  /* Кількість рядків, які потрібно залишити */
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.dish-name{
+    font-size: 32px;
+    color: #000;
+    margin-top: 36px;
+}
+
+.dish-description{
+    margin: 16px;
+}
+
+.dish-el-line{
+
+}
+
+.dish-p-w{
+
+}
+
+.dish-prise{
+
+}
+
+.dish-weight{
+
+}
+
+.dish-function{
+
+}
+
+.dish-icon{
+    
+}
