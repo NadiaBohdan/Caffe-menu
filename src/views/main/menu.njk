@@ -4,9 +4,9 @@
     <main>
         <h2 class="title">Menu</h2>
 
-        <!--{% for link in Category%}
-            <bottom class="categories main-text">{{ link.title }}</bottom>
-        {% endfor %}-->
+        {% for category in categories %}
+            <bottom class="categories main-text">{{ category.title }}</bottom>
+        {% endfor %}
         <section id="category">
             <bottom class="categories main-text">Name</bottom>
             <bottom class="categories main-text">Name</bottom>
