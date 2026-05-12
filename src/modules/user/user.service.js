@@ -28,11 +28,18 @@ export const userService = {
         return user;
     },
 
-    async getById(id) {
+    async getById({ id }) {
         const user = await userRepository.findById(id);
         if(!user) return null;
 
         return sanitize(user);
+    },
+
+    async getNameById({ id }) {
+        const user = await userRepository.getNameById(id);
+        if(!user) return null;
+
+        return user;
     },
 
     async update({ id, password, ...data}) {
@@ -46,10 +53,13 @@ export const userService = {
             if(isExistingUserByPhoneNumber && isExistingUserByPhoneNumber.id !== id) throw new ApiError(409, "This phone number is already taken");
         }
 
+        if(!isExistingUserByEmail && !isExistingUserByPhoneNumber) {
+            throw new ApiError(404, "User not found");
+        }
+
         if(password) password = await hashPassword(password);
         
         const updatedUser = await userRepository.update({ id, password, ...data });
-        if(!updatedUser) throw new ApiError(404, "User not found");
 
         return sanitize(updatedUser);
     },

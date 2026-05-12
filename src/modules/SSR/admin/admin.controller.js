@@ -5,8 +5,9 @@ const DIR = 'admin';
 const VIEWS = {
     LOGIN: 'login',
     CATEGORIES: 'categories',
-    PRODUCTS: 'products',
-    FOOTER: 'footer'
+    MENU: 'menu',
+    FOOTER: 'footer',
+    EMPTY: 'empty'
 };
 
 const renderAdmin = (res, view, data = {}) => {
@@ -21,32 +22,47 @@ export const adminSSRController = {
     },
 
     async renderCategories(req, res) {
-        const data = await adminSSRservice.getCategories(req.user.id);
+        const { categories, staff } = await adminSSRservice.categories(req.user.id);
 
         renderAdmin(res, VIEWS.CATEGORIES, {
             link: VIEWS.CATEGORIES,
-            categories: data.categories,
-            staff: data.staff
+            categories,
+            staff
         });
     },
 
-    async renderMenu(req, res) {
-        const data = await adminSSRservice.getProducts(req.user.id);
+    async redirectMenu(req, res) {
+        const category = await adminSSRservice.getFirstCategory();
 
-        renderAdmin(res, VIEWS.PRODUCTS, {
-            link: VIEWS.PRODUCTS,
-            products: data.products,
-            staff: data.staff
+        if(!category) return res.redirect(`${VIEWS.EMPTY}`);
+
+        res.redirect(`${category.id}`);
+    },
+
+    async renderMenuEmpty(req, res) {
+        renderAdmin(res, `${VIEWS.MENU}/${VIEWS.EMPTY}`, {
+            link: `${VIEWS.MENU}/${VIEWS.EMPTY}`
+        })
+    },
+
+    async renderMenu(req, res) {
+        const { products, categories, staff } = await adminSSRservice.menu({ id: req.user.id, categoryId: req.params.id });
+
+        renderAdmin(res, VIEWS.MENU, {
+            link: VIEWS.MENU,
+            categories,
+            products,
+            staff
         });
     },
 
     async renderFooter(req, res) {
-        const data = await adminSSRservice.getContacts(req.user.id)
+        const { staff, contacts } = await adminSSRservice.contacts(req.user.id)
 
         renderAdmin(res, VIEWS.FOOTER, {
             link: VIEWS.FOOTER,
-            contacts: data.contacts,
-            staff: data.staff
+            contacts,
+            staff
         });
     }
 };

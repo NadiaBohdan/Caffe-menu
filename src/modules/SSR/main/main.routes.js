@@ -3,20 +3,28 @@ import { asyncCatch } from "#utils/asyncCatch.util.js"
 import { mainSSRController } from "./main.controller.js";
 import { validateParams } from "#middlewares/validate.middleware.js";
 import { idDto } from "#dto/global.dto.js";
+import { jwtOptional, jwtValidateSSR } from "#middlewares/jwt.middleware.js";
+import { checkRole } from "#middlewares/role.middleware.js";
 
 const router = express.Router();
 
-router.get('/', asyncCatch(mainSSRController.renderMainpage));
+router.get('/', jwtOptional, asyncCatch(mainSSRController.renderMainpage));
 
-router.get('/menu', asyncCatch(mainSSRController.renderMenu));
+router.get('/menu', asyncCatch(mainSSRController.renderMenuRedirect));
 
-router.get('/menu/:id', validateParams(idDto), asyncCatch(mainSSRController.renderViewProduct));
+router.get('/menu/empty', jwtOptional, asyncCatch(mainSSRController.renderMenuEmpty));
 
-router.get('favourites', asyncCatch());
+router.get('/menu/:id', jwtOptional, validateParams(idDto), asyncCatch(mainSSRController.renderMenu));
 
-router.get('/cart', asyncCatch());
+router.get('/view-menu/empty', jwtOptional, asyncCatch(mainSSRController.renderViewProductEmpty));
 
-router.get('/contact', asyncCatch(mainSSRController.renderContact));
+router.get('/view-menu/:id', jwtOptional, validateParams(idDto), asyncCatch(mainSSRController.renderViewProduct));
+
+router.get('/favourites', jwtValidateSSR, checkRole(["user"]), asyncCatch(mainSSRController.renderFavourites));
+
+router.get('/cart', jwtValidateSSR, checkRole(["user"]), asyncCatch(mainSSRController.renderCart));
+
+router.get('/contact', jwtOptional, asyncCatch(mainSSRController.renderContact));
 
 router.get('/orders', asyncCatch());
 
@@ -24,10 +32,10 @@ router.get('/orders/:id', validateParams(idDto), asyncCatch());
 
 router.get('/checkout-order', asyncCatch());
 
-router.get('/login', asyncCatch(mainSSRController.renderLogin));
+router.get('/login', jwtOptional, asyncCatch(mainSSRController.renderLogin));
 
-router.get('/sign-up', asyncCatch(mainSSRController.renderRegister));
+router.get('/sign-up', jwtOptional, asyncCatch(mainSSRController.renderRegister));
 
-router.get('/account', asyncCatch(mainSSRController.renderAccount));
+router.get('/account', jwtValidateSSR, checkRole(["user"]), asyncCatch(mainSSRController.renderAccount));
 
 export default router;

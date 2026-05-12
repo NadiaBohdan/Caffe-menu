@@ -27,6 +27,11 @@ export const categoryService = {
      * @param {number} data.id 
      */
 
+    async getFirst() {
+        const category = await categoryRepository.getFirst();
+        return category;
+    },
+
     async getById({ id }) {
         const category = await categoryRepository.getById(id);
         if(!category) throw new ApiError(404, `Category with id: ${id} do not exists`)

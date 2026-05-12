@@ -1,83 +1,92 @@
-import { contactService } from "#contact/contact.service.js";
-import { productService } from "#product/product.service.js";
-import { userService } from "#user/user.service.js";
-import { favouriteService } from "#favourite/favourite.service.js";
+import { mainSSRService } from "./main.service.js";
 
 const DIR = "main/";
 
+const VIEWS = {
+    HOME: "home",
+    MENU: "menu",
+    VIEW_PRODUCT: "view-menu",
+    LOGIN: "login",
+    REGISTER: "sign-up",
+    ACCOUNT: "account",
+    CONTACT: "contact",
+    FAVOURITES: "favourites",
+    CART: "cart",
+    EMPTY: "empty"
+};
+
+const renderMain = (res, view, data = {}) => {
+    res.render(`${DIR}/${view}`, data);
+};
+
+const uid = (req) => ({ id: req.user?.id ?? null });
+
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        const linkName = 'home';
+        const { user, contacts } = await mainSSRService.main(uid(req));
+        renderMain(res, VIEWS.HOME, { link: VIEWS.HOME, contacts, user });
+    },
 
-        const contacts = await contactService.getAll();
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            contacts
-        })
+    async renderMenuEmpty(req, res) {
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, `${VIEWS.MENU}/${VIEWS.EMPTY}`, { link: `${VIEWS.MENU}-${VIEWS.EMPTY}`, user });
     },
 
     async renderMenu(req, res) {
-        const linkName = 'menu';
+        const { user, products, categories, activeCategory } = await mainSSRService.menu({
+            userId: req.user?.id ?? null,
+            id: req.params.id
+        });
+        renderMain(res, VIEWS.MENU, { link: VIEWS.MENU, activeCategory, categories, products, user });
+    },
 
-        const products = await productService.getByCategory();
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            products
-        })
+    async renderViewProductEmpty(req, res) {
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, `${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`, { link: `${VIEWS.VIEW_PRODUCT}-${VIEWS.EMPTY}`, user });
     },
 
     async renderViewProduct(req, res) {
-        const linkName = 'view-menu';
-
-        const product = await productService.getById(req.params)
-
-        res.render(DIR + linkName, {
-            link: linkName,
-            product
-        })
-    },
-
-    async renderLogin(req, res) {
-        const linkName = 'login';
-        
-        res.render(DIR + linkName, {
-            link: linkName
-        })
-    },
-
-    async renderRegister(req, res) {
-        const linkName = 'sign-up';
-
-        res.render(DIR + linkName, {
-            link: linkName
-        })
-    },
-
-    async renderAccount(req, res) {
-        const linkName = 'account';
-
-        const user = await userService.getById({ id: req.user.id });
-        
-        res.render(DIR + linkName, {
-            link: linkName,
-            user
-        })
+        const { user, product } = await mainSSRService.productView({
+            userId: req.user?.id ?? null,
+            id: req.params.id
+        });
+        if(!product) return res.redirect(`/${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`);
+        renderMain(res, VIEWS.VIEW_PRODUCT, { link: VIEWS.VIEW_PRODUCT, product, user });
     },
 
     async renderContact(req, res) {
-        const linkName = 'contact';
+        const { user, contacts } = await mainSSRService.contacts(uid(req));
+        renderMain(res, VIEWS.CONTACT, { link: VIEWS.CONTACT, contacts, user });
+    },
 
-        const contacts = await contactService.getAll();
+    async renderLogin(req, res) {
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, VIEWS.LOGIN, { link: VIEWS.LOGIN, user });
+    },
 
-        res.render(DIR + linkName, {
-            link: linkName,
-            contacts
-        })
+    async renderRegister(req, res) {
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, VIEWS.REGISTER, { link: VIEWS.REGISTER, user });
     },
 
     async renderFavourites(req, res) {
-        const linkName = 'main/favourites';
-    }
-}
+        const { user, products } = await mainSSRService.favourites(req.user);
+        renderMain(res, VIEWS.FAVOURITES, { link: VIEWS.FAVOURITES, user, products });
+    },
+
+    async renderCart(req, res) {
+        const { user, products } = await mainSSRService.cart(req.user);
+        renderMain(res, VIEWS.CART, { link: VIEWS.CART, user, products });
+    },
+
+    async renderAccount(req, res) {
+        const { user } = await mainSSRService.account(req.user);
+        renderMain(res, VIEWS.ACCOUNT, { link: VIEWS.ACCOUNT, user });
+    },
+
+    async renderMenuRedirect(req, res) {
+        const category = await mainSSRService.getFirstCategory();
+        if(!category) return res.redirect(`/${VIEWS.MENU}/${VIEWS.EMPTY}`);
+        res.redirect(`/${VIEWS.MENU}/${category.id}`);
+    },
+};

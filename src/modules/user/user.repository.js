@@ -8,6 +8,13 @@ export const userRepository = {
         })
     },
 
+    async getNameById(id) {
+        return prisma.user.findFirst({
+            where: { id },
+            select: { firstName: true }
+        })
+    },
+
     async findByIdentifier(identifier) {
         return await prisma.user.findFirst({
             where: {

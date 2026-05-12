@@ -41,8 +41,9 @@ export const productService = {
         }
     },
 
-    async getByCategory() {
-
+    async getByCategory({ id }) {
+        const productList = await productRepository.getByCategory(id);
+        return productList;
     },
 
     async getPaginated(cursorData) {
@@ -55,6 +56,10 @@ export const productService = {
         if(!product) throw new ApiError(404, "Product not found");
 
         return product;
+    },
+
+    async findById({ id }) {
+        return productRepository.getById(id)
     },
 
     async delete({ id }) {

@@ -41,6 +41,12 @@ export const categoryRepository = {
         return await findAll()
     },
 
+    async getFirst() {
+        return prisma.category.findFirst({
+            orderBy: { sortOrder: 'asc' }
+        })
+    },
+
     /**
      * @param {string} title 
      */

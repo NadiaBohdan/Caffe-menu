@@ -13,10 +13,50 @@ export const jwtValidate = async (req, res, next) => {
 
         const decoded = await verifyToken(token);
 
-        req.user = { id: decoded.id, role: decoded?.role };
+        req.user = { id: decoded.id, role: decoded.role };
 
         next();
     } catch(err) {
         next(new ApiError(401, "Invalid or expired token"))
     }
+}
+
+export const jwtValidateSSR = async (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+
+        if(!authHeader || !authHeader.startsWith("Bearer ")) {
+            res.redirect('/login');
+        }
+        
+        const token = authHeader.split(" ")[1];
+
+        const decoded = await verifyToken(token);
+
+        req.user = { id: decoded.id, role: decoded.role };
+
+        next();
+    } catch(err) {
+        res.redirect('/login');
+    }
+}
+
+export const jwtOptional = async (req, res, next) => {
+    const token = req.cookies.accessToken || req.headers.authorization?.split(" ")[1];
+
+    if(!token) {
+        req.user = null;
+        return next();
+    }
+
+    try {
+        const decoded = await verifyToken(token);
+
+        req.user = decoded;
+    } catch(err) {
+        res.clearCookie("accessToken");
+        req.user = null;
+    }
+
+    next();
 }

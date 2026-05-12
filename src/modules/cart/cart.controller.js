@@ -1,4 +1,4 @@
-import { cartService } from "./cart.servise.js";
+import { cartService } from "./cart.service.js";
 
 export const cartController = {
     async upsert(req, res) {
