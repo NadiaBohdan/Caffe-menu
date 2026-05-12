@@ -19,124 +19,74 @@ const renderMain = (res, view, data = {}) => {
     res.render(`${DIR}/${view}`, data);
 };
 
+const uid = (req) => ({ id: req.user?.id ?? null });
+
 export const mainSSRController = {
     async renderMainpage(req, res) {
-        const { user, contacts } = await mainSSRService.main(req.user);
-
-        renderMain(res, VIEWS.HOME, {
-            link: VIEWS.HOME,
-            contacts,
-            user
-        });
-    },
-
-    async renderMenuRedirect(req, res) {
-        const category = await mainSSRService.getFirstCategory();
-
-        if(!category) {
-            return res.redirect(`/${VIEWS.MENU}/${VIEWS.EMPTY}`);
-        }
-
-        res.redirect(`/${VIEWS.MENU}/${category.id}`);
+        const { user, contacts } = await mainSSRService.main(uid(req));
+        renderMain(res, VIEWS.HOME, { link: VIEWS.HOME, contacts, user });
     },
 
     async renderMenuEmpty(req, res) {
-        const { user } = await mainSSRService.user(req.user);
-
-        renderMain(res, `${VIEWS.MENU}/${VIEWS.EMPTY}`, {
-            link: `${VIEWS.MENU}-${VIEWS.EMPTY}`
-        });
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, `${VIEWS.MENU}/${VIEWS.EMPTY}`, { link: `${VIEWS.MENU}-${VIEWS.EMPTY}`, user });
     },
 
     async renderMenu(req, res) {
-        const { user, products, categories, activeCategory } = await mainSSRService.menu({ userId: req.user.id, id: req.params.id });
-
-        renderMain(res, VIEWS.MENU, {
-            link: VIEWS.MENU,
-            activeCategory,
-            categories,
-            products,
-            user
+        const { user, products, categories, activeCategory } = await mainSSRService.menu({
+            userId: req.user?.id ?? null,
+            id: req.params.id
         });
-    },
-
-    async renderViewProduct(req, res) {
-        const { user, product } = await mainSSRService.productView({ userId: req.user.id, id: req.params.id });
-
-        if(!product) {
-            return res.redirect(`/${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`);
-        }
-
-        renderMain(res, VIEWS.VIEW_PRODUCT, {
-            link: VIEWS.VIEW_PRODUCT,
-            product,
-            user
-        });
+        renderMain(res, VIEWS.MENU, { link: VIEWS.MENU, activeCategory, categories, products, user });
     },
 
     async renderViewProductEmpty(req, res) {
-        const { user } = await mainSSRService.user(req.user);
-
-        renderMain(res, `${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`, {
-            link: `${VIEWS.VIEW_PRODUCT}-${VIEWS.EMPTY}`,
-            user
-        })
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, `${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`, { link: `${VIEWS.VIEW_PRODUCT}-${VIEWS.EMPTY}`, user });
     },
 
-    async renderLogin(req, res) {
-        const { user } = await mainSSRService.user(req.user);
-
-        renderMain(res, VIEWS.LOGIN, {
-            link: VIEWS.LOGIN,
-            user
+    async renderViewProduct(req, res) {
+        const { user, product } = await mainSSRService.productView({
+            userId: req.user?.id ?? null,
+            id: req.params.id
         });
-    },
-
-    async renderRegister(req, res) {
-        const { user } = await mainSSRService.user(req.user);
-
-        renderMain(res, VIEWS.REGISTER, {
-            link: VIEWS.REGISTER,
-            user
-        });
-    },
-
-    async renderAccount(req, res) {
-        const { user } = await mainSSRService.account(req.user);
-
-        renderMain(res, VIEWS.ACCOUNT, {
-            link: VIEWS.ACCOUNT,
-            user
-        });
+        if(!product) return res.redirect(`/${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`);
+        renderMain(res, VIEWS.VIEW_PRODUCT, { link: VIEWS.VIEW_PRODUCT, product, user });
     },
 
     async renderContact(req, res) {
-        const { user, contacts } = await mainSSRService.contacts(req.user);
+        const { user, contacts } = await mainSSRService.contacts(uid(req));
+        renderMain(res, VIEWS.CONTACT, { link: VIEWS.CONTACT, contacts, user });
+    },
 
-        renderMain(res, VIEWS.CONTACT, {
-            link: VIEWS.CONTACT,
-            contacts,
-            user
-        });
+    async renderLogin(req, res) {
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, VIEWS.LOGIN, { link: VIEWS.LOGIN, user });
+    },
+
+    async renderRegister(req, res) {
+        const { user } = await mainSSRService.user(uid(req));
+        renderMain(res, VIEWS.REGISTER, { link: VIEWS.REGISTER, user });
     },
 
     async renderFavourites(req, res) {
         const { user, products } = await mainSSRService.favourites(req.user);
-
-        renderMain(res, VIEWS.FAVOURITES, {
-            link: VIEWS.FAVOURITES,
-            user,
-            products
-        });
+        renderMain(res, VIEWS.FAVOURITES, { link: VIEWS.FAVOURITES, user, products });
     },
 
     async renderCart(req, res) {
         const { user, products } = await mainSSRService.cart(req.user);
+        renderMain(res, VIEWS.CART, { link: VIEWS.CART, user, products });
+    },
 
-        renderMain(res, VIEWS.CART, {
-            link: VIEWS.CART,
-            user,
-            products
-        });
-    }
+    async renderAccount(req, res) {
+        const { user } = await mainSSRService.account(req.user);
+        renderMain(res, VIEWS.ACCOUNT, { link: VIEWS.ACCOUNT, user });
+    },
+
+    async renderMenuRedirect(req, res) {
+        const category = await mainSSRService.getFirstCategory();
+        if(!category) return res.redirect(`/${VIEWS.MENU}/${VIEWS.EMPTY}`);
+        res.redirect(`/${VIEWS.MENU}/${category.id}`);
+    },
 };
