@@ -28,30 +28,30 @@ export const mainSSRController = {
     },
 
     async renderMenuEmpty(req, res) {
-        const { user } = await mainSSRService.user(uid(req));
-        renderMain(res, `${VIEWS.MENU}/${VIEWS.EMPTY}`, { link: `${VIEWS.MENU}-${VIEWS.EMPTY}`, user });
+        const { user, contacts } = await mainSSRService.user(uid(req));
+        renderMain(res, `${VIEWS.MENU}/${VIEWS.EMPTY}`, { link: `${VIEWS.MENU}-${VIEWS.EMPTY}`, user, contacts });
     },
 
     async renderMenu(req, res) {
-        const { user, products, categories, activeCategory } = await mainSSRService.menu({
+        const { user, products, categories, activeCategory, contacts } = await mainSSRService.menu({
             userId: req.user?.id ?? null,
             id: req.params.id
         });
-        renderMain(res, VIEWS.MENU, { link: VIEWS.MENU, activeCategory, categories, products, user });
+        renderMain(res, VIEWS.MENU, { link: VIEWS.MENU, activeCategory, categories, products, user, contacts });
     },
 
     async renderViewProductEmpty(req, res) {
-        const { user } = await mainSSRService.user(uid(req));
-        renderMain(res, `${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`, { link: `${VIEWS.VIEW_PRODUCT}-${VIEWS.EMPTY}`, user });
+        const { user, contacts } = await mainSSRService.user(uid(req));
+        renderMain(res, `${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`, { link: `${VIEWS.VIEW_PRODUCT}-${VIEWS.EMPTY}`, user, contacts });
     },
 
     async renderViewProduct(req, res) {
-        const { user, product } = await mainSSRService.productView({
+        const { user, product, contacts } = await mainSSRService.productView({
             userId: req.user?.id ?? null,
             id: req.params.id
         });
         if(!product) return res.redirect(`/${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`);
-        renderMain(res, VIEWS.VIEW_PRODUCT, { link: VIEWS.VIEW_PRODUCT, product, user });
+        renderMain(res, VIEWS.VIEW_PRODUCT, { link: VIEWS.VIEW_PRODUCT, product, user, contacts });
     },
 
     async renderContact(req, res) {
@@ -60,28 +60,28 @@ export const mainSSRController = {
     },
 
     async renderLogin(req, res) {
-        const { user } = await mainSSRService.user(uid(req));
-        renderMain(res, VIEWS.LOGIN, { link: VIEWS.LOGIN, user });
+        const { user, contacts } = await mainSSRService.user(uid(req));
+        renderMain(res, VIEWS.LOGIN, { link: VIEWS.LOGIN, user, contacts });
     },
 
     async renderRegister(req, res) {
-        const { user } = await mainSSRService.user(uid(req));
-        renderMain(res, VIEWS.REGISTER, { link: VIEWS.REGISTER, user });
+        const { user, contacts } = await mainSSRService.user(uid(req));
+        renderMain(res, VIEWS.REGISTER, { link: VIEWS.REGISTER, user, contacts });
     },
 
     async renderFavourites(req, res) {
-        const { user, products } = await mainSSRService.favourites(req.user);
-        renderMain(res, VIEWS.FAVOURITES, { link: VIEWS.FAVOURITES, user, products });
+        const { user, products, contacts } = await mainSSRService.favourites(req.user);
+        renderMain(res, VIEWS.FAVOURITES, { link: VIEWS.FAVOURITES, user, products, contacts });
     },
 
     async renderCart(req, res) {
-        const { user, products } = await mainSSRService.cart(req.user);
-        renderMain(res, VIEWS.CART, { link: VIEWS.CART, user, products });
+        const { user, products, contacts } = await mainSSRService.cart(req.user);
+        renderMain(res, VIEWS.CART, { link: VIEWS.CART, user, products, contacts });
     },
 
     async renderAccount(req, res) {
-        const { user } = await mainSSRService.account(req.user);
-        renderMain(res, VIEWS.ACCOUNT, { link: VIEWS.ACCOUNT, user });
+        const { user, contacts } = await mainSSRService.account(req.user);
+        renderMain(res, VIEWS.ACCOUNT, { link: VIEWS.ACCOUNT, user, contacts });
     },
 
     async renderMenuRedirect(req, res) {

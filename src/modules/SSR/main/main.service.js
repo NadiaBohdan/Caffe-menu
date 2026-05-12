@@ -29,30 +29,34 @@ export const mainSSRService = {
         const user = await getOptionalUserData(userId);
         const categories = await categoryService.getAll();
         const products = await productService.getByCategory(id);
+        const contacts = await contactService.getAll();
         const activeCategory = id;
 
-        return { user, products, categories, activeCategory };
+        return { user, products, categories, activeCategory, contacts };
     },
 
     async productView({ userId, id }) {
         const user = await getOptionalUserData(userId);
         const product = await productService.findById({ id });
+        const contacts = await contactService.getAll();
 
-        return { user, product };
+        return { user, product, contacts };
     },
 
     async favourites({ id }) {
         const user = await userService.getNameById({ id });
         const products = await favouriteService.getAll({ userId: id });
+        const contacts = await contactService.getAll();
 
-        return { user, products };
+        return { user, products, contacts };
     },
 
     async cart({ id }) {
         const user = await userService.getNameById({ id });
         const products = await cartService.getAll({ userId: id });
+        const contacts = await contactService.getAll();
 
-        return { user, products };
+        return { user, products, contacts };
     },
 
     async contacts({ id }) {
@@ -64,13 +68,15 @@ export const mainSSRService = {
 
     async account({ id }) {
         const user = await userService.getById({ id });
+        const contacts = await contactService.getAll();
 
-        return { user };
+        return { user, contacts };
     },
 
     async user({ id }) {
         const user = await getOptionalUserData(id);
+        const contacts = await contactService.getAll();
 
-        return { user };
+        return { user, contacts };
     }
 }
