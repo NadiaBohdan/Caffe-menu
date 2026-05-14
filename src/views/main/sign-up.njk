@@ -3,28 +3,26 @@
     {% include "main/header.njk" %}
     <main>
         <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-right-up">
-        <h2 class="title">Sing up</h2>
-        <section>
-            <label for="user-name">First and last name:</label>
-            <input type="text" id="user-name" class="input-log" placeholder="Anna Smit">
-            
-            <label for="user-email">Email:</label>
-            <input type="email" id="user-email" class="input-log" placeholder="example@gmail.com">
-
-            <label for="user-phone">Phone number:</label>
-            <input type="tel" id="user-phone" class="input-log" placeholder="0998529750">
-            
-            <fieldset>
-                <legend>Password</legend>
+        <section id="section-sign">
+            <h2 class="title">Sing up</h2>
+            <form id="section-sign-inputs">
+                <label for="user-name">First and last name:</label>
+                <input type="text" id="user-name" class="input-log" placeholder="Anna Smit">
                 
+                <label for="user-email">Email:</label>
+                <input type="email" id="user-email" class="input-log" placeholder="example@gmail.com">
+
+                <label for="user-phone">Phone number:</label>
+                <input type="tel" id="user-phone" class="input-log" placeholder="0998529750">
+                    
                 <label for="user-pass">Enter your password:</label>
                 <input type="password" id="user-pass" class="input-log">
                 
                 <label for="user-pass-r">Repeat your password:</label>
-                <input type="password" id="user-pass-r" class="input-log">
-            </fieldset>    
+                <input type="password" id="user-pass-r" class="input-log">    
+            </form>
         </section>
-        <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-left-down">
+        <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
     </main>
     {% include "main/footer.njk" %}
     {% include "main/bottom.njk"%}

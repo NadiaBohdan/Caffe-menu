@@ -3,13 +3,10 @@
     {% include "main/header.njk" %}
     <main>
         <h2 class="title">Menu</h2>
-
-        {% for category in categories %}
+        <section id="category">
+            {% for category in categories %}
             <bottom class="categories main-text">{{ category.title }}</bottom>
         {% endfor %}
-        <section id="category">
-            <bottom class="categories main-text">Name</bottom>
-            <bottom class="categories main-text">Name</bottom>
         </section>
         <div class="dishes">
             <img class="dish-img" src="/img/dish.png" alt="">
@@ -29,7 +26,6 @@
             </div>
         </div>
 
-         
     </main>
     {% include "main/footer.njk" %}
     <script src="/js/home.js"></script>

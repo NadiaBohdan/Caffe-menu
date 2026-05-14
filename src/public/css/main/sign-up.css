@@ -1,0 +1,12 @@
+main {
+    position: relative;
+}
+
+#section-sign-inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+#photo-wine-right-up{
+    transform: rotate(90deg);
+}
