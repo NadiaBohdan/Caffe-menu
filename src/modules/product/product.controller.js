@@ -23,5 +23,10 @@ export const productController = {
     async updateMany(req, res) {
         await productService.updateMany(req.body);
         res.redirect('/admin/menu');
+    },
+
+    async generateDescription(req, res) {
+        const description = await productService.generateDescription(req.body);
+        res.status(200).json({ success: true, description })
     }
 }

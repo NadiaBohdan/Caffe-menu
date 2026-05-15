@@ -37,3 +37,7 @@ export const fileDto = z.object({
     size: z.number().max(5 * 1024 * 1024, "File too large"),
     buffer: z.any().refine((buf) => buf instanceof Buffer, "Invalid buffer")
 })
+
+export const generateDescriptionDto = z.object({
+    name: z.string()
+})
