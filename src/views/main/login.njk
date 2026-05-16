@@ -1,0 +1,28 @@
+{% include "main/head.njk" %}
+<body>
+    {% include "main/header.njk" %}
+    <main>
+        <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-right-up">
+        <section id="section-sign">
+            <h2 class="title">Login</h2>
+            <form id="section-sign-inputs">
+                <input 
+                    type="text" 
+                    id="phone-email" 
+                    class="input-log" 
+                    placeholder="email address or phone number" 
+                    autocomplete="username"
+                    inputmode="email"
+                    pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(\+?[0-9]{10,14})$"
+                >
+                <input type="password" id="user-pass" class="input-log" placeholder="Enter your password:"> 
+                <p id="change-text">Already have an account? <a id="change-log" href="/sign-up">SignUp</a></p>
+            </form>
+            <bottom id="save-login" class="title save-bottom">SAVE</bottom>
+        </section>
+        <div id="rel">
+        <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
+        <div>
+    </main>
+    {% include "main/footer.njk" %}
+    {% include "main/bottom.njk"%}
