@@ -17,8 +17,9 @@
 }
 
 #photo-wine-right-up{
-    transform: scaleX(-1);
+    transform: rotate(180deg);
 }
+
 
 #section-sign-inputs{
     gap: 24px;

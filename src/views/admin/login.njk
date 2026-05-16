@@ -1,0 +1,21 @@
+{% include "admin/head.njk" %}
+<body>
+    {% include "admin/header.njk" %}
+    <main>
+        <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-right-up">
+        <section id="section-sign">
+            <h2 id="title-log">Authorization</h2>
+            <form id="section-sign-inputs">
+                <label for="admin-username">Username</label>
+                <input type="text" id="admin-username" class="input-log-admin" placeholder="username"> 
+                <label for="admin-pass">Username</label>
+                <input type="password" id="admin-pass" class="input-log-admin" placeholder="password"> 
+            </form>
+            <bottom id="save-login" class="title save-bottom">SAVE</bottom>
+        </section>
+        <div id="rel">
+        <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
+        <div>
+    </main>
+    {% include "admin/footer.njk" %}
+    {% include "admin/bottom.njk"%}

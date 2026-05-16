@@ -6,23 +6,23 @@
         <section id="section-sign">
             <h2 class="title">Sing up</h2>
             <form id="section-sign-inputs">
-                <label for="user-name">First and last name:</label>
                 <input type="text" id="user-name" class="input-log" placeholder="Anna Smit">
-                
-                <label for="user-email">Email:</label>
+
                 <input type="email" id="user-email" class="input-log" placeholder="example@gmail.com">
 
-                <label for="user-phone">Phone number:</label>
                 <input type="tel" id="user-phone" class="input-log" placeholder="0998529750">
-                    
-                <label for="user-pass">Enter your password:</label>
-                <input type="password" id="user-pass" class="input-log">
+
+                <input type="password" id="user-pass" class="input-log" placeholder="Enter your password:">
                 
-                <label for="user-pass-r">Repeat your password:</label>
-                <input type="password" id="user-pass-r" class="input-log">    
+                <input type="password" id="user-pass-r" class="input-log" placeholder="Repeat your password:">   
+
+                <p id="change-text">Don’t have an account? <a id="change-log" href="/login">Login</a></p>
             </form>
+            <bottom id="save-signup" class="title save-bottom">SAVE</bottom>
         </section>
+        <div id="rel">
         <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
+        <div>
     </main>
     {% include "main/footer.njk" %}
     {% include "main/bottom.njk"%}

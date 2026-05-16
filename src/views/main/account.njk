@@ -1,0 +1,20 @@
+{% include "main/head.njk" %}
+<body>
+    {% include "main/header.njk" %}
+    <main>
+        <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-right-up">
+        <section id="section-sign">
+            <h2 class="title">Personal account</h2>
+            <form id="section-sign-inputs">
+                <input type="text" id="user-name" class="input-log" placeholder="Anna Smit" value="{{  }}">
+                <input type="email" id="user-email" class="input-log" placeholder="example@gmail.com" value="{{  }}">
+                <input type="tel" id="user-phone" class="input-log" placeholder="0998529750" value="{{  }}">
+            </form>
+            <bottom id="edit-acc" class="title save-bottom">EDIT</bottom>
+        </section>
+        <div id="rel">
+        <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
+        <div>
+    </main>
+    {% include "main/footer.njk" %}
+    {% include "main/bottom.njk"%}
