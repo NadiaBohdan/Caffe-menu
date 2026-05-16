@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Maps&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 88px;
+    background-color: #E5D0FF;
+    z-index: 1000;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 48px 0 48px;
+    gap: 80px;
+}
+
+#logo {
+  height: 88px;
+  width: auto;
+}
+.nav-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#nav-ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    flex-grow: 1; 
+    justify-content: space-around;
+}
+
+#nav-ul li a{
+    color: #8E4EA0;
+    font-family: "Source Serif 4", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+    text-decoration: none;
+}
+
+#header-icons{
+  height: 32px;
+}
+
+#nav-ul li a:hover {
+  font-weight: 500;
+}
+
+#dropdown-menu{
+
+}
+
+#dropdown-static{
+
+}
+
+.dropdown-img{
+  height: 20px;
+}
+
+.dropdown-img-acc{
+ height: 32px;
+}
+
+.dropdown{
+
+}
+
+.dropdown li{
+  text-decoration: none;
+  list-style: none;
+}
+
+.dropdown-text{
+
+}

@@ -1,0 +1,87 @@
+<footer>
+    <nav id="nav-f">
+        <iframe id="map-f" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2727.6699929485226!2d32.20899082247587!3d48.49929166964516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d042f0ab13c023%3A0xffc3a107455308d8!2z0JDQotCRLdCc0LDRgNC60LXRgg!5e0!3m2!1sru!2sua!4v1775338843868!5m2!1sru!2sua" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <section class="site-menu-footer">
+            <h5>Site menu</h5>
+            <ul id="nav-ul-f">
+                 <li>
+                     <a href="/">
+                         <img src="/img/icons/Home-footer.svg" class="footericons">
+                         <span>home</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/menu">
+                         <img src="/img/icons/menu-footer.svg"  class="footer-icons">
+                         <span>menu</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/favorites">
+                         <img src="/img/icons/Heart-footer.svg"  class="footer-icons">
+                         <span>favorites</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/cart">
+                         <img src="/img/icons/cart-footer.svg"  class="footer-icons">
+                         <span>cart</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/contact">
+                         <img src="/img/icons/Phone-footer.svg"  class="footer-icons">
+                         <span>contact</span>
+                     </a>
+                </li>
+            </ul>
+        </section>
+        <section class="site-menu-footer">
+            <h5>Contact details</h5>
+            <div id="site-menu-footer-nav"> 
+                <div class="all-f">
+                    <img src="/img/icons/Phone-footer.svg"  class="footer-icons">
+                    <div class="link-f">
+                        {% for link in contacts %}
+                            {% if(link.linkType === "phoneNumber") %}
+                                <a href="tel:{{ link.link }}">{{ link.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="all-f">
+                    <img src="/img/icons/mail-footer.svg"  class="footer-icons">
+                    <div class="link-f">
+                        {% for link in contacts %}
+                            {% if(link.linkType === "email") %}
+                                <a href="mailto:{{ link.link }}">{{ link.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <ul id="nav-ul-f">
+                    <li>
+                        {% for link in contacts%}
+                            {% if(link.linkType === "facebook") %}
+                                <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+                                    <img src="/img/icons/Facebook-footer.svg"  class="footer-icons">
+                                    <span>{{ link.name }}</span>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>
+                        {% for link in contacts%}
+                            {% if(link.linkType === "instagram") %}
+                                <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+                                    <img src="/img/icons/Instagram-footer.svg"  class="footer-icons">
+                                    <span>{{ link.name }}</span>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                   </li>
+                </ul>
+            </div>
+        </section>
+    </nav>
+</footer>

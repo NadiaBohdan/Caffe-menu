@@ -1,0 +1,108 @@
+
+.title{
+    font-size: 64px;
+}
+
+
+.categories{
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    background-color: #FFF;
+    border: solid #8E4EA0 2px;
+    border-radius: 16px;
+    font-size: 24px;
+
+}
+
+.dishes{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    gap: 0px;
+    margin: 36px;
+}
+
+#category{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.dish-img{
+   margin-bottom: -108px;
+   max-height: 216px;
+}
+
+.dish-information{
+    background-color: #FFF;
+    z-index: -1;
+    padding: 16px;
+    padding-top: 80px;
+    border-radius: 24px;
+    max-width: 392px;  
+    max-height: 406px ;         /* Або будь-яка інша ширина */
+
+}
+
+.dish-name{
+    font-size: 32px;
+    color: #000;
+    margin-top: 32px;
+}
+
+.dish-description{
+    margin: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Спробуйте 2, щоб точно влізло без "nemo est" */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+
+}
+
+.dish-el-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 24px;
+}
+
+.dish-p-w{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+    gap: 4px;
+
+}
+
+.dish-prise{
+    font-size: 40px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.dish-weight{
+    font-size: 24px;
+    color: #717171;
+    margin: 0;
+}
+
+.dish-function{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+}
+
+.dish-icon{
+    max-height: 34px;
+    max-width: 34px;
+    
+}

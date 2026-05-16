@@ -1,0 +1,104 @@
+footer{
+    box-shadow: 0px -1px 32px -8px rgba(0, 0, 0, 0.14);
+    background-color: #C194D9;
+    width: 100%;
+    height: 396px;
+    padding: 64px;
+}
+
+#nav-f{
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    flex-direction: row;
+    height: 100%;
+}
+
+#map-f {
+    width: 458px;    
+    height: 100%;  
+    border-radius: 15px; 
+    overflow: hidden;       /* Щоб мапа не вилазила за межі закруглень */
+    border: 2px solid #eee; 
+}
+
+.site-menu-footer{
+    display: flex;
+    flex-direction: column;
+}
+
+h5{
+    margin-bottom: 16px;
+    margin-top: 0px;
+    font-family: "Rubik Maps", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+    font-size: 32px;
+    text-decoration: none;
+}
+
+#nav-ul-f{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    flex-grow: 1; 
+    justify-content: space-evenly;
+
+}
+
+
+.footer-icons{
+    height: 20px;
+    
+}
+
+#nav-ul-f li a{
+    color: #ffffff;
+    font-family: "Source Serif 4", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.site-menu-footer{
+    color: #ffffff;
+    font-family: "Source Serif 4", serif;
+    font-weight: 400;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+#site-menu-footer-nav{
+    gap: 12px;
+}
+
+.site-menu-footer a{
+    color: #ffffff;
+    text-decoration: none;
+    gap: 8px;
+}
+.all-f{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.link-f{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+}

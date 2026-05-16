@@ -1,6 +1,6 @@
 import { mainSSRService } from "./main.service.js";
 
-const DIR = "main";
+const DIR = "main/";
 
 const VIEWS = {
     HOME: "home",
