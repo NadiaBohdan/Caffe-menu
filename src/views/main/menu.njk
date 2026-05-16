@@ -5,26 +5,30 @@
         <h2 class="title">Menu</h2>
         <section id="category">
             {% for category in categories %}
-            <bottom class="categories main-text">{{ category.title }}</bottom>
-        {% endfor %}
+                <a class="categories main-text {% if category.id === activeCategory %}active{% endif %}" href="/menu/{{category.id}}">{{ category.title }}</a>
+            {% endfor %}
         </section>
-        <div class="dishes">
-            <img class="dish-img" src="/img/dish.png" alt="">
-            <div class="dish-information">
-                <h4 class="dish-name title" >Name</h4>
-                <p class="dish-description main-text" >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat quos nihil nulla nemo est. sit amet consectetur, adipisicing elit. Placeat quos nihil nulla nemo est.</p>
-                <div class="dish-el-line" >
-                    <div class="dish-p-w">
-                        <p class="dish-prise main-text" >0$</p>
-                        <p class="dish-weight main-text" >0g</p>
+        <ul class="dishes-list">
+            {% for product in products %}
+                <li class="dishes">
+                    <img class="dish-img" src="/img/dish.png" alt="">
+                    <div class="dish-information">
+                        <h4 class="dish-name title">{{ product.title }}</h4>
+                        <p class="dish-description main-text" >{{ product.description }}</p>
+                        <div class="dish-el-line" >
+                            <div class="dish-p-w">
+                                <p class="dish-prise main-text" >{{ product.price }}$</p>
+                                <p class="dish-weight main-text" >{{ product.amount }}g</p>
+                            </div>
+                            <div class="dish-function">
+                                <img class="dish-icon" src="/img/icons/Heart1.svg" alt="">
+                                <img class="dish-icon" src="/img/icons/Shopping-cart.svg" alt="">
+                            </div>
+                        </div>
                     </div>
-                    <div class="dish-function">
-                        <img class="dish-icon" src="/img/icons/Heart1.svg" alt="">
-                        <img class="dish-icon" src="/img/icons/Shopping-cart.svg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
+                </li>
+            {% endfor %}
+        </ul>
 
     </main>
     {% include "main/footer.njk" %}
