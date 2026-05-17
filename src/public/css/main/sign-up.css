@@ -38,7 +38,7 @@
 }
 
 
-.save-bottom{
+.save-button{
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -50,9 +50,10 @@
     border-radius: 90px;
     box-shadow: 0px 12px 4px 0px rgba(142, 78, 160, 0.5);
     font-size: 36px;
+    transition-duration: 200ms
 }
 
-#save-bottom:active{
+.save-button:active{
     transform: translateY(6px);
     box-shadow: 0px 6px 4px 0px rgba(142, 78, 160, 0.5);
 }
