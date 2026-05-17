@@ -3,14 +3,12 @@ import { ApiError } from "#utils/error.util.js";
 
 export const jwtValidate = async (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization;
+        const token = req.cookies?.accessToken;
 
-        if(!authHeader || !authHeader.startsWith("Bearer ")) {
+        if(!token) {
             throw new ApiError(401, "Please authorize first");
         }
         
-        const token = authHeader.split(" ")[1];
-
         const decoded = await verifyToken(token);
 
         req.user = { id: decoded.id, role: decoded.role };
@@ -23,13 +21,12 @@ export const jwtValidate = async (req, res, next) => {
 
 export const jwtValidateSSR = async (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization;
+        const token = req.cookies?.accessToken;
 
-        if(!authHeader || !authHeader.startsWith("Bearer ")) {
+        if(!token) {
             res.redirect('/login');
+            return;
         }
-        
-        const token = authHeader.split(" ")[1];
 
         const decoded = await verifyToken(token);
 
@@ -42,7 +39,7 @@ export const jwtValidateSSR = async (req, res, next) => {
 }
 
 export const jwtOptional = async (req, res, next) => {
-    const token = req.cookies.accessToken || req.headers.authorization?.split(" ")[1];
+    const token = req.cookies?.accessToken;
 
     if(!token) {
         req.user = null;
@@ -52,7 +49,7 @@ export const jwtOptional = async (req, res, next) => {
     try {
         const decoded = await verifyToken(token);
 
-        req.user = decoded;
+        req.user = { id: decoded.id, role: decoded.role };
     } catch(err) {
         res.clearCookie("accessToken");
         req.user = null;
