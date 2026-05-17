@@ -1,0 +1,46 @@
+{% include "main/head.njk" %}
+<body>
+    {% include "main/header.njk" %}
+
+    <main>
+        <img src="/img/amethystVisual.png" class="reveal" id="photo-wine-right-up">
+
+        <h2 class="title">Cart</h2>
+        <ul class="product-list">
+            {% for product in products %}
+                <li class="product-list-item">
+                    <div class="product-content-wrapper">
+                        <img src="/img/dish.png" alt="" class="product-img">
+                        <h3 class="product-title">{{ product.title }}</h3>
+                    </div>
+                    <div class="product-content-wrapper">
+                        <h4 class="price">{{ product.price }}$</h4>
+                        <div class="counter">
+                            <button class="counter-btn btn-minus" data-id="{{ product.id }}">-</button>
+                            <p class="count">{{ product.quantity }}</p>
+                            <button class="counter-btn btn-minus" data-id="{{ product.id }}">+</button>
+                        </div>
+                        <button class="delete-btn" data-id="{{product.id}}">
+                            <img src="/img/icons/delete.svg" alt="">
+                        </button>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <section class="order-wrapper">
+            <div class="order">
+                <span class="total-price-wrapper">
+                    <p class="total-price-title">Total: </p>
+                    <p class="total-price">420$</p>
+                </span>
+                <button class="order-btn">Checkout</button>
+            </div>
+        </section>
+
+        <img src="/img/amethystVisualLeft.png" class="reveal" id="photo-wine-left-down">
+    </main>
+
+{% include "main/footer.njk" %}
+<script src="/js/home.js"></script>
+{% include "main/bottom.njk"%}

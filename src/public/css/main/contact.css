@@ -22,7 +22,7 @@ main{
 }
 
 #contact-ul{
-   margin: 0;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@ main{
 }
 
 #contact a{
- color: #8E4EA0;
+    color: #8E4EA0;
     font-family: "Source Serif 4", serif;
     font-weight: 400;
     font-style: normal;
