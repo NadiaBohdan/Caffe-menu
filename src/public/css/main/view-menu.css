@@ -1,0 +1,84 @@
+*{
+    box-sizing: border-box;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Потрібно, якщо ви захочете абсолютно позиціонувати фонові картинки */
+}
+
+
+
+.product-page{
+    background-color: rgba(255, 255, 255, 0.56);
+    border-radius: 32px;
+    box-shadow: 0 0 8px #FFEAA1;
+    padding: 32px 44px ;
+    gap: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 1006px;
+    margin: 110px;
+}
+
+.dish-name{
+    text-align:justify;
+    font-size: 40px;
+    color: #000;
+}
+
+.heart {
+    fill: #ffffff00;
+}
+
+.dish-description{
+    font-size: 24px;
+    color: #717171;
+}
+
+.dish-el-line{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dish-p-w{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.dish-function{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+}
+
+.dish-prise{
+    font-size: 48px;
+    font-weight: bold;
+    color: #000;
+}
+
+.dish-weight{
+    font-size: 32px;
+    color: #717171;
+}
+
+#photo-wine-right-up{
+    transform: scaleX(-1);
+}
+
+#arrow-back{
+    position: absolute;
+    float: left;
+    left: 4%;
+    top: 8%;
+}

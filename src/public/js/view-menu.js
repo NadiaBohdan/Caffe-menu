@@ -1,18 +1,6 @@
 const heartsArray = document.querySelectorAll(".heart");
 const cartArray = document.querySelectorAll(".cart");
 
-document.querySelectorAll('.dish-information').forEach(el => {
-    el.addEventListener('click', (e) => {
-        if (e.target.closest('.dish-icon')) return
-
-        const dish = el.closest('.dishes')
-        if (!dish) return  // ← якщо немає .dishes — нічого не робимо
-
-        const productId = dish.dataset.productId
-        window.location.href = `http://localhost:3000/view-menu/${productId}`
-    })
-})
-
 cartArray.forEach(cart => {
     cart.addEventListener('click', async () => {
         const productId = cart.closest('[data-product-id]').dataset.productId;
