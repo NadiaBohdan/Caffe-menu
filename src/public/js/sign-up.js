@@ -19,8 +19,8 @@ saveButton.addEventListener('click', async () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                firstName : "kaban",
-                lastName : "sad",
+                firstName : fullName[0],
+                lastName : fullName[1],
                 email : userEmail.value,
                 phoneNumber : userPhone.value,
                 password : userPass.value,
