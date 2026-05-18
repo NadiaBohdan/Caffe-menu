@@ -1,0 +1,141 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 0 80px;
+}
+
+.title{
+    font-size: 64px;
+}
+
+.dishes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dishes{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    gap: 0px;
+}
+
+.dishes .title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden; 
+    
+}
+
+#category{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.dish-img{
+    margin-bottom: -108px;
+    max-height: 216px;
+    z-index: 1;
+}
+
+.dish-information{
+    background-color: #FFF;
+    padding: 16px 28px;
+    padding-top: 80px;
+    border-radius: 24px;
+    max-width: 392px;  
+    max-height: 406px ;         /* Або будь-яка інша ширина */
+
+}
+
+.dish-name{
+    font-size: 32px;
+    color: #000;
+    margin-top: 32px;
+}
+
+.dish-description{
+    margin: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Спробуйте 2, щоб точно влізло без "nemo est" */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+
+}
+
+.dish-el-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 24px;
+}
+
+.dish-p-w{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+    gap: 4px;
+
+}
+
+.dish-prise{
+    font-size: 40px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.dish-weight{
+    font-size: 24px;
+    color: #717171;
+    margin: 0;
+}
+
+.dish-function{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+}
+
+.dish-icon{
+    max-height: 34px;
+    max-width: 34px;
+    
+    
+}
+
+#heart-b{
+    background-color: #ffffff00;
+    padding: 0;
+    border-color: #00000000;
+}
+
+.heart {
+    fill: #fff;
+}
+
+.heart path {
+    cursor: pointer;
+}
+
+.cart path{
+    cursor: pointer;
+
+}
