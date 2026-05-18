@@ -1,6 +1,6 @@
 import express from 'express';
 import { asyncCatch } from '#utils/asyncCatch.util.js';
-import { createProductDto, updateProductDto, updateProductSortDto, fileDto } from './product.dto.js';
+import { createProductDto, updateProductDto, updateProductSortDto, fileDto, generateDescriptionDto } from './product.dto.js';
 import { idDto } from '#dto/global.dto.js';
 import { validateBody, validateParams, validateFile } from '#middlewares/validate.middleware.js';
 import { productController } from './product.controller.js';
@@ -17,5 +17,7 @@ router.put('/:id', jwtValidate, checkRole(["admin"]), upload.single("image"), va
 router.patch('/sort', jwtValidate, checkRole(["admin"]), validateBody(updateProductSortDto), asyncCatch(productController.updateMany));
 
 router.delete('/:id', jwtValidate, checkRole(["admin"]), validateParams(idDto), asyncCatch(productController.delete));
+
+router.post('/generate/description', jwtValidate, checkRole(["admin"]), validateBody(generateDescriptionDto), asyncCatch(productController.generateDescription));
 
 export default router;

@@ -2,6 +2,7 @@ import { productRepository } from "./product.repository.js";
 import { categoryService } from "#category/category.service.js";
 import { ApiError } from "#utils/error.util.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "#utils/cloudinary.util.js";
+import { generate, PROMPTS } from "#utils/ai.util.js";
 
 const FOLDER = "products"
 
@@ -128,5 +129,10 @@ export const productService = {
             if(err instanceof ApiError) throw err;
             throw new ApiError(500, err.message || "Internal Server Error");
         }
+    },
+
+    async generateDescription({ name }) {
+        const description = await generate(PROMPTS.description(name));
+        return description;
     }
 }
