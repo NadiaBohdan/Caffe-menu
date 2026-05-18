@@ -28,7 +28,7 @@ export const mainSSRService = {
     async menu({ userId, id }) {
         const user = await getOptionalUserData(userId);
         const categories = await categoryService.getAll();
-        const rawProducts = await productService.getByCategory(id);
+        const rawProducts = await productService.getByCategory({ id });
         const favourites = await favouriteService.getAll({ userId })
         const contacts = await contactService.getAll();
         const activeCategory = id;
