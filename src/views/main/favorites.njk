@@ -1,0 +1,46 @@
+{% include "main/head.njk" %}
+<body>
+    {% include "main/header.njk" %}
+    <main>
+        <h2 class="title">Favorites</h2>
+        <ul class="dishes-list">
+            {% for product in products %}
+                <li class="dishes"
+                    data-product-id="{{ product.id }}"
+                    data-product-title="{{ product.title }}"
+                    data-product-description="{{ product.description }}"
+                    data-product-price="{{ product.price }}"
+                    data-product-amount="{{ product.amount }}">
+                    <img class="dish-img" src="/img/dish.png" alt="">
+                    <div class="dish-information">
+                        <h4 class="dish-name title">{{ product.title }}</h4>
+                        <p class="dish-description main-text">{{ product.description }}</p>
+                        <div class="dish-el-line">
+                            <div class="dish-p-w">
+                                <p class="dish-prise main-text">{{ product.price }}$</p>
+                                <p class="dish-weight main-text">{{ product.amount }}g</p>
+                            </div>
+                            <div class="dish-function">
+                                <svg id="" class="dish-icon heart" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M29.5232 6.53086C28.7996 5.80695 27.9405 5.23269 26.9949 4.84089C26.0494 4.4491 25.0359 4.24744 24.0123 4.24744C22.9888 4.24744 21.9753 4.4491 21.0298 4.84089C20.0842 5.23269 19.2251 5.80695 18.5015 6.53086L16.9998 8.03252L15.4982 6.53086C14.0366 5.06929 12.0543 4.24819 9.98734 4.24819C7.92038 4.24819 5.93807 5.06929 4.47651 6.53086C3.01495 7.99242 2.19385 9.97473 2.19385 12.0417C2.19385 14.1087 3.01495 16.091 4.47651 17.5525L16.9998 30.0759L29.5232 17.5525C30.2471 16.829 30.8213 15.9698 31.2131 15.0243C31.6049 14.0787 31.8066 13.0652 31.8066 12.0417C31.8066 11.0182 31.6049 10.0047 31.2131 9.0591C30.8213 8.11354 30.2471 7.25443 29.5232 6.53086Z" stroke="#1E1E1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <svg class="dish-icon cart"  width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_495_907)">
+                                    <path d="M1.4165 1.41663H7.08317L10.8798 20.3858C11.0094 21.038 11.3642 21.6239 11.8822 22.0409C12.4002 22.4579 13.0483 22.6794 13.7132 22.6666H27.4832C28.148 22.6794 28.7962 22.4579 29.3141 22.0409C29.8321 21.6239 30.187 21.038 30.3165 20.3858L32.5832 8.49996H8.49984M14.1665 29.75C14.1665 30.5324 13.5322 31.1666 12.7498 31.1666C11.9674 31.1666 11.3332 30.5324 11.3332 29.75C11.3332 28.9676 11.9674 28.3333 12.7498 28.3333C13.5322 28.3333 14.1665 28.9676 14.1665 29.75ZM29.7498 29.75C29.7498 30.5324 29.1156 31.1666 28.3332 31.1666C27.5508 31.1666 26.9165 30.5324 26.9165 29.75C26.9165 28.9676 27.5508 28.3333 28.3332 28.3333C29.1156 28.3333 29.7498 28.9676 29.7498 29.75Z" stroke="#1E1E1E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0_495_907">
+                                    <rect width="34" height="34" fill="white"/>
+                                    </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+    {% include "main/footer.njk" %}
+    <script src="/js/home.js"></script>
+    {% include "main/bottom.njk"%}

@@ -1,10 +1,9 @@
 const logOut = document.querySelector("#logout");
 const userName = document.querySelector("#user-name");
 const userEmail = document.querySelector("#user-email");
-const userPhone = document.querySelector("#input-log");
+const userPhone = document.querySelector("#user-phone");
 
-const editButton = document.querySelector("#save-signup");
-
+const editButton = document.querySelector("#edit-acc");
 
 editButton.addEventListener('click', async () => {
     try {
@@ -13,7 +12,7 @@ editButton.addEventListener('click', async () => {
         //post- створити; get-отримати; delete - видалити; put - оновити
         const fullName = userName.value.split(" ")
 
-        const respons = await fetch(/*'http://localhost:3000/api/auth/register'*/, {
+        const respons = await fetch('http://localhost:3000/api/user', {
             method: "PUT",
             headers:{
                 "Content-Type": "application/json"
@@ -37,7 +36,6 @@ editButton.addEventListener('click', async () => {
         alert("Backend besprizornic:" + err);
     }
 })
-
 
 logOut.addEventListener('click', async () => {
     try {
