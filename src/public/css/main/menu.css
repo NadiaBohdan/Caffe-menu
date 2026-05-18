@@ -47,11 +47,9 @@ main {
 .dishes .title {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     overflow: hidden; 
     
-    word-break: break-word;
-    min-height: 2.5em;
 }
 
 #category{
@@ -60,16 +58,17 @@ main {
     gap: 24px;
     justify-content: center;
     align-items: center;
+
 }
 
 .dish-img{
     margin-bottom: -108px;
     max-height: 216px;
+    z-index: 1;
 }
 
 .dish-information{
     background-color: #FFF;
-    z-index: -1;
     padding: 16px 28px;
     padding-top: 80px;
     border-radius: 24px;
@@ -135,4 +134,29 @@ main {
     max-height: 34px;
     max-width: 34px;
     
+    
 }
+
+#heart-b{
+    background-color: #ffffff00;
+    padding: 0;
+    border-color: #00000000;
+}
+
+.heart {
+    fill: #fff;
+}
+
+.heart path {
+    cursor: pointer;
+}
+
+.cart path{
+    cursor: pointer;
+
+}
+
+/*
+#heart.is-active {
+    fill: #d64646;
+}*/
