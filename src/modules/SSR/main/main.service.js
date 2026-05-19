@@ -50,7 +50,10 @@ export const mainSSRService = {
         const product = await productService.findById({ id });
         const contacts = await contactService.getAll();
 
-        return { user, product, contacts };
+        let isFavourite = null;
+        if(userId) { isFavourite = await favouriteService.getByProductId({ userId, productId: id }) }
+
+        return { user, product, contacts, isFavourite };
     },
 
     async favourites({ id }) {

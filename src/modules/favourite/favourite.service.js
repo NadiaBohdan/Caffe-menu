@@ -21,5 +21,12 @@ export const favouriteService = {
 
         const favouriteItems = await favouriteRepository.getAll(favouriteId);
         return favouriteItems;
+    },
+
+    async getByProductId({ userId, productId }) {
+        const favouriteId = await checkFavourite(userId);
+
+        const favouriteItem = await favouriteRepository.getByProductId({ favouriteId, productId });
+        return favouriteItem;
     }
 }

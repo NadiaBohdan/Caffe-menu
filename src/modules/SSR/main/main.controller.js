@@ -46,12 +46,12 @@ export const mainSSRController = {
     },
 
     async renderViewProduct(req, res) {
-        const { user, product, contacts } = await mainSSRService.productView({
+        const { user, product, contacts, isFavourite } = await mainSSRService.productView({
             userId: req.user?.id ?? null,
             id: req.params.id
         });
         if(!product) return res.redirect(`/${VIEWS.VIEW_PRODUCT}/${VIEWS.EMPTY}`);
-        renderMain(res, VIEWS.VIEW_PRODUCT, { link: VIEWS.VIEW_PRODUCT, product, user, contacts });
+        renderMain(res, VIEWS.VIEW_PRODUCT, { link: VIEWS.VIEW_PRODUCT, product, user, isFavourite, contacts });
     },
 
     async renderContact(req, res) {
