@@ -7,7 +7,7 @@ export const cartController = {
         res.status(200).json({
             success: true,
             cartItem,
-            message: "Successfuly"
+            message: "Product successfully added to cart"
         })
     },
 
