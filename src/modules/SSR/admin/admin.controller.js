@@ -23,7 +23,7 @@ export const adminSSRController = {
 
     async renderCategories(req, res) {
         const { categories, staff } = await adminSSRservice.categories(req.user.id);
-
+        
         renderAdmin(res, VIEWS.CATEGORIES, {
             link: VIEWS.CATEGORIES,
             categories,
@@ -36,7 +36,7 @@ export const adminSSRController = {
 
         if(!category) return res.redirect(`${VIEWS.EMPTY}`);
 
-        res.redirect(`${category.id}`);
+        res.redirect(`${VIEWS.MENU}/${category.id}`);
     },
 
     async renderMenuEmpty(req, res) {

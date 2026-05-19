@@ -30,7 +30,7 @@ saveButton.addEventListener('click', async () => {
         }
 
         // Якщо все ок, редиректимо на головну
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "http://localhost:3000" + data.redirect;
     } catch(err) {
         alert("Backend besprizornic: " + err);
     }

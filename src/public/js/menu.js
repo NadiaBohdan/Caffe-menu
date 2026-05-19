@@ -36,6 +36,8 @@ cartArray.forEach(cart => {
                 alert(data.message || "Any error");
                 return;
             }
+
+            alert(data.message)
         } catch(err) {
             alert("Backend besprizornic:" + err);
         }

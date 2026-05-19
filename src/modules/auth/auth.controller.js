@@ -31,7 +31,7 @@ export const authController = {
 
         res.cookie(TOKEN_NAME, token, COOKIE_OPTIONS);
 
-        res.status(200).json({ success: true, redirect: '/admin/' })
+        res.status(200).json({ success: true, redirect: '/admin/categories' })
     },
 
     async logout(req, res) {
