@@ -9,6 +9,13 @@ export const cartRepository = {
         })
     },
 
+    async decrement({ cartId, productId }) {
+        return await prisma.cartItems.update({
+            where: { cartId_productId: { cartId, productId } },
+            data: { quantity: { decrement: 1 } }
+        })
+    },
+
     async delete({ id, userId}) {
         const result = await prisma.cartItems.deleteMany({
             where: {
@@ -39,6 +46,12 @@ export const cartRepository = {
             quantity: item.quantity,
             cartItemId: item.id
         }));
+    },
+
+    async getByProductId({ cartId, productId }) {
+        return await prisma.cartItems.findUnique({
+            where: { cartId_productId: { cartId, productId } }
+        })
     },
     
     async getCartId (userId) {
