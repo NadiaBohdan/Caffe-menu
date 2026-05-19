@@ -21,8 +21,19 @@ export const cartService = {
 
     async delete({ id, userId }) {
         const result = await cartRepository.delete({ id, userId });
-        console.log("RESULT AFTER DELETE:::: ", result)
+
         if(result.count === 0) throw new ApiError(404, "Item not found or access denied");
+    },
+
+    async decrement({ userId, productId }) {
+        const cartId = await checkCart(userId);
+
+        const existing = await cartRepository.getByProductId({ cartId, productId });
+
+        if(!existing) throw new ApiError(400, "Product do not exists");
+        if(existing.quantity === 0) throw new ApiError(400, "Can't reduce lowwer than 0");
+
+        await cartRepository.decrement({ cartId, productId });
     },
     
     async getAll({ userId }) {

@@ -10,6 +10,15 @@ export const cartController = {
         })
     },
 
+    async decrement(req, res) {
+        await cartService.decrement({ userId: req.user.id, ...req.body })
+
+        res.status(200).json({
+            success: true,
+            message: "Successfuly"
+        })
+    },
+
     async delete(req, res) {
         await cartService.delete({...req.params, userId: req.user.id });
 
