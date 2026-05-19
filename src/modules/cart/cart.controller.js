@@ -6,6 +6,17 @@ export const cartController = {
 
         res.status(200).json({
             success: true,
+            cartItem,
+            message: "Successfuly"
+        })
+    },
+
+    async decrement(req, res) {
+        const cartItem = await cartService.decrement({ userId: req.user.id, ...req.body })
+
+        res.status(200).json({
+            success: true,
+            cartItem,
             message: "Successfuly"
         })
     },
