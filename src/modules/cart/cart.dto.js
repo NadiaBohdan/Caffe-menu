@@ -6,3 +6,5 @@ const cartCore = z.object({
 })
 
 export const upsertCartDto = cartCore;
+
+export const decrementCartDto = cartCore.omit({ quantity: true });
