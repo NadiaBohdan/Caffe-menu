@@ -13,7 +13,7 @@ export const cartRepository = {
         const result = await prisma.cartItems.deleteMany({
             where: {
                 id,
-                cart: {  userId }
+                cart: { userId }
             }
         })
 

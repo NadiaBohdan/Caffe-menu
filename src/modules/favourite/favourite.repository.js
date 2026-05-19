@@ -3,12 +3,13 @@ import prisma from "#configs/prisma.js";
 export const favouriteRepository = {
     async toggle({favouriteId, productId}) {
         return await prisma.$transaction( async (tx) => {
+            console.log("DATA:::::: ", favouriteId, "::::::", productId)
             const existingItems = await tx.favouriteItems.findUnique({
                 where: {
                     favouriteId_productId: { favouriteId, productId }
                 }
             })
-
+            console.log("Existing crirsi:::::::: ", existingItems)
             if(existingItems) {
                 return await tx.favouriteItems.delete({
                     where: { id: existingItems.id }

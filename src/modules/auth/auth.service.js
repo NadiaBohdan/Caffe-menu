@@ -8,7 +8,7 @@ export const authService = {
     async register(data) {
         const user = await userService.create(data);
 
-        const token = await generateToken({ id: user.id });
+        const token = await generateToken({ id: user.id, role: user.role });
 
         return token;
     },

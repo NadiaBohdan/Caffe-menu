@@ -21,6 +21,7 @@ export const cartService = {
 
     async delete({ id, userId }) {
         const result = await cartRepository.delete({ id, userId });
+        console.log("RESULT AFTER DELETE:::: ", result)
         if(result.count === 0) throw new ApiError(404, "Item not found or access denied");
     },
     
