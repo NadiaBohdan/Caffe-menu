@@ -33,7 +33,8 @@ export const cartService = {
         if(!existing) throw new ApiError(400, "Product do not exists");
         if(existing.quantity === 0) throw new ApiError(400, "Can't reduce lowwer than 0");
 
-        await cartRepository.decrement({ cartId, productId });
+        const cartItem = await cartRepository.decrement({ cartId, productId });
+        return cartItem;
     },
     
     async getAll({ userId }) {
