@@ -72,7 +72,7 @@ header{
 }
 
 .dropdown-img-acc{
- height: 32px;
+  height: 32px;
 }
 
 .dropdown{
@@ -86,4 +86,10 @@ header{
 
 .dropdown-text{
 
+}
+
+#dropdown-static-login{
+  background-color: #FFEAA1;
+  border-radius: 48px;
+  padding: 0 24px;
 }
