@@ -27,8 +27,6 @@ nav{
     width: 100%;
     display: flex;
     flex-direction: column;
-    text-decoration: none;
-    pointer-events: none;
     gap: 8px;
 }
 
@@ -40,18 +38,37 @@ nav{
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    pointer-events: none;
     color: #fff;
     font-size: 24px;
     font-weight: 400;
 }
 
-.sidebar-categor:active{
-    background-color: #ffffff16;
+.sidebar-categor.active {
+    background-color: rgba(255, 255, 255, 0.16);
 }
 
 .sidebar-categor:hover{
-    background-color: #ffffff16;
+    background-color: rgba(255, 255, 255, 0.16);
 }
 
 
+.section-down{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 32px;
+    align-items: center;
+    padding: 0 16px;
+    color: #fff;
+}
+
+.section-down span{
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+#logout{
+    color: rgba(255, 255, 255, 0.64);
+}
