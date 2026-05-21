@@ -9,7 +9,7 @@
         <ul class="product-list">
             {% set cost = 0 %}
             {% for product in products %}
-                <li class="product-list-item">
+                <li class="product-list-item" data-price="{{ product.price }}">
                     <div class="product-content-wrapper">
                         <img src="/img/dish.png" alt="" class="product-img">
                         <h3 class="product-title">{{ product.title }}</h3>
