@@ -6,7 +6,7 @@ nav{
     flex-direction: column;
     justify-content: space-between;
     background-color: #C194D9;
-    color: #ffffff;
+    max-width: 254px;
 }
 
 .section{
@@ -15,4 +15,60 @@ nav{
 
 .section:active{
     background-color: #ffffff16;
+}
+
+#logo{
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+#nav-ul{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+
+.sidebar-categor{
+    padding: 8px 0 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.sidebar-categor.active {
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+.sidebar-categor:hover{
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+
+.section-down{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 32px;
+    align-items: center;
+    padding: 0 16px;
+    color: #fff;
+}
+
+.section-down span{
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+#logout{
+    color: rgba(255, 255, 255, 0.64);
 }

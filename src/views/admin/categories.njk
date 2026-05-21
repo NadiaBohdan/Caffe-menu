@@ -1,8 +1,34 @@
-{% include "main/head.njk" %}
+{% include "admin/head.njk" %}
 <body>
     {% include "admin/sidebar.njk" %}
     <main>
-        
+        <h1 class="title">CATEGORIES</h1>
+        <section>
+            <input type="text">
+            <button>+</button>
+        </section>
+        <div>
+            <p class="categories">{{ categories.title }}</p>
+            <div>
+                <svg id="icon-edit" class="cat-icons" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.666 5.33331H5.33268C4.62544 5.33331 3.94716 5.61426 3.44706 6.11436C2.94697 6.61446 
+                    2.66602 7.29273 2.66602 7.99998V26.6666C2.66602 27.3739 2.94697 28.0522 3.44706 28.5523C3.94716 
+                    29.0524 4.62544 29.3333 5.33268 29.3333H23.9993C24.7066 29.3333 25.3849 29.0524 25.885 28.5523C26.3851 
+                    28.0522 26.666 27.3739 26.666 26.6666V17.3333M24.666 3.33331C25.1964 2.80288 25.9159 2.50488 26.666 
+                    2.50488C27.4162 2.50488 28.1356 2.80288 28.666 3.33331C29.1964 3.86374 29.4944 4.58316 29.4944 
+                    5.33331C29.4944 6.08346 29.1964 6.80288 28.666 7.33331L15.9993 20L10.666 21.3333L11.9993 16L24.666 3.33331Z" 
+                    stroke="#1E1E1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <svg id="icon-delete" class="cat-icons" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.33398 28C8.60065 28 7.97287 27.7389 7.45065 27.2167C6.92843 26.6944 6.66732 26.0667 6.66732 
+                    25.3333V8H5.33398V5.33333H12.0007V4H20.0007V5.33333H26.6673V8H25.334V25.3333C25.334 26.0667 25.0729 26.6944 
+                    24.5507 27.2167C24.0284 27.7389 23.4007 28 22.6673 28H9.33398ZM22.6673 8H9.33398V25.3333H22.6673V8ZM12.0007 
+                    22.6667H14.6673V10.6667H12.0007V22.6667ZM17.334 22.6667H20.0007V10.6667H17.334V22.6667Z" 
+                    fill="#1D1B20"/>
+                </svg>
+
+            </div>
+        </div>
     </main>
 
-{% include "main/bottom.njk"%}
+{% include "admin/bottom.njk"%}
